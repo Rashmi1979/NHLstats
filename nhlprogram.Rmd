@@ -1,0 +1,149 @@
+---
+title: "Project 1"
+output:
+  github_document    
+    
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(httr)
+library(jsonlite)
+```
+
+functionn1
+
+```{r}
+baseURL <- "https://records.nhl.com/site/api"
+
+Get_Franchise <- function(baseURL){
+f_URL <-  paste0(baseURL, "/franchise")
+return (fromJSON(content(GET(f_URL), "text"),flatten = TRUE))
+  
+}
+test <- Get_Franchise(baseURL)
+test
+
+```
+
+function 2 
+
+```{r}
+Get_team_totals <- function(baseURL){
+  t_URL <-  paste0(baseURL, "/franchise-team-totals")
+return (fromJSON(content(GET(t_URL), "text"),flatten = TRUE))
+  
+}
+
+test1 <- Get_team_totals(baseURL )
+test1
+
+```
+
+functio 3
+
+
+```{r}
+Get_season_records <- function(baseURL,ID){
+  s_URL <-  paste0(baseURL, "/franchise-season-records?cayenneExp=franchiseId=",ID)
+
+return (fromJSON(content(GET(s_URL), "text"),flatten = TRUE))
+  
+}
+
+test2 <- Get_season_records(baseURL,3 )
+test2
+
+
+```
+
+function4
+
+```{r}
+Get_goalie_records <- function(baseURL,ID){
+  g_URL <-  paste0(baseURL, "/franchise-goalie-records?cayenneExp=franchiseId=",ID)
+
+return (fromJSON(content(GET(g_URL), "text"),flatten = TRUE))
+  
+}
+
+test3 <- Get_goalie_records(baseURL,3 )
+test3
+```
+
+function5
+
+```{r}
+Get_skater_records <- function(baseURL,ID){
+s_URL<-paste0(baseURL,"/franchise-skater-records?cayenneExp=franchiseId=",ID)
+
+return (fromJSON(content(GET(s_URL), "text"),flatten = TRUE))
+  
+}
+
+test4 <- Get_skater_records(baseURL,3 )
+test4
+```
+
+
+function 6
+
+
+```{r}
+Get_recent_teamID<- function(baseURL,ID){
+g_URL<-paste0(baseURL,"/franchise-detail?cayenneExp=mostRecentTeamId=",ID)
+
+return (fromJSON(content(GET(g_URL), "text"),flatten = TRUE))
+  
+}
+
+test5 <- Get_recent_teamID(baseURL,3 )
+test5
+
+
+```
+
+function7
+
+
+```{r}
+base1_URL <- "https://statsapi.web.nhl.com/api/v1/teams/"
+
+Get_team_stats<- function(base1_URL,franchiseID=0){
+  
+  if(franchiseID > 0){
+    st_URL<-paste0(base1_URL,franchiseID,"?expand=team.stats") 
+  }
+   else{
+       st_URL<-paste0(base1_URL,"?expand=team.stats")    
+   } 
+
+
+return (fromJSON(content(GET(st_URL), "text"),flatten = TRUE))
+  
+}
+# get team stats
+test5 <- Get_team_stats(base1_URL)
+test5
+# get team stats
+test6 <- Get_team_stats(base1_URL,4)
+test6
+
+```
+
+```{r}
+wrapper_URL <- "https://statsapi.web.nhl.com/api/v1/teams/3/?expand=team.stats"
+#wrapper_URL <- "https://records.nhl.com/site/api/franchise"
+
+
+Get_w_data<- function(w_URL){
+  
+return (fromJSON(content(GET(w_URL), "text"),flatten = TRUE))
+  
+}
+
+wdata <- Get_w_data(wrapper_URL)
+
+wdata
+
+```
