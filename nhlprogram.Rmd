@@ -139,4 +139,22 @@ teamstats <- get_nhl_data("TeamTotal")
 teamstats
 ```
 
+```{r}
+
+franchiseData <- get_franchise() %>% rename (franchiseId = id )
+combinedFranchiseData <- left_join(franchiseData, get_team_totals(), by=c("franchiseId","lastSeasonId"))
+combinedFranchiseData
+
+```
+
+```{r}
+
+filteredData <- combinedFranchiseData %>% filter(activeFranchise ==1, !is.null(lastSeasonId)) %>% select(franchiseId,fullName,gamesPlayed,gameTypeId, wins,losses,ties,overtimeLosses, homeWins,homeLosses, homeTies,homeOvertimeLosses) 
+
+
+customData <- filteredData %>% mutate(winLossRatio = wins/losses, homeWinPctg = (homeWins/gamesPlayed)*100)
+customData
+
+```
+
 
