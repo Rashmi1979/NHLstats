@@ -110,6 +110,33 @@ get_team_stats<- function(teamID=0){
   return (fromJSON(content(GET(statsURL), "text"),flatten = TRUE))
 }
 
+
+# Warapper function 
+get_nhl_data<- function(functionName,id=0,name=NULL){
+  if(functionName =="Franchise")
+    return (get_franchise())
+  
+  if(functionName =="TeamTotal")
+    return (get_team_totals())
+  
+  if(functionName =="SeasonRecords")
+    return (get_season_records(id,name))
+  
+  if(functionName =="GoalieRecords")
+    return (get_goalie_records(id,name))
+  
+  if(functionName =="SkaterRecords")
+    return (get_skater_records(id,name))
+  
+  if(functionName =="FranchiseDetails")
+    return (get_franchise_details(id))
+
+  if(functionName=="TeamStats")
+    return(get_team_stats(id))
+}
+
+teamstats <- get_nhl_data("TeamTotal")
+teamstats
 ```
 
 
