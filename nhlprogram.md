@@ -1,2229 +1,292 @@
 Project 1
 ================
 
-functionn1
+# NHL Data statistics
+
+## Functions
+
+This program provides functions to access NHL records and stats data
+
+### get\_franchise()
+
+this function returns id, firstSeasonId and lastSeasonId and name of
+every team in the history of the NHL
 
 ``` r
-baseURL <- "https://records.nhl.com/site/api"
-
-Get_Franchise <- function(baseURL){
-f_URL <-  paste0(baseURL, "/franchise")
-return (fromJSON(content(GET(f_URL), "text"),flatten = TRUE))
-  
-}
-test <- Get_Franchise(baseURL)
+#Usage
+franchiseData <- get_franchise()
 ```
 
-    ## No encoding supplied: defaulting to UTF-8.
+### get\_team\_totals()
+
+This function returns Total stats for every franchise (ex roadTies,
+roadWins, etc)
 
 ``` r
-test
+#Usage
+teamTotals <- get_team_totals()
 ```
 
-    ## $data
-    ##    id firstSeasonId              fullName lastSeasonId mostRecentTeamId
-    ## 1   1      19171918    Montréal Canadiens           NA                8
-    ## 2   2      19171918    Montreal Wanderers     19171918               41
-    ## 3   3      19171918      St. Louis Eagles     19341935               45
-    ## 4   4      19191920       Hamilton Tigers     19241925               37
-    ## 5   5      19171918   Toronto Maple Leafs           NA               10
-    ## 6   6      19241925         Boston Bruins           NA                6
-    ## 7   7      19241925      Montreal Maroons     19371938               43
-    ## 8   8      19251926    Brooklyn Americans     19411942               51
-    ## 9   9      19251926  Philadelphia Quakers     19301931               39
-    ## 10 10      19261927      New York Rangers           NA                3
-    ## 11 11      19261927    Chicago Blackhawks           NA               16
-    ## 12 12      19261927     Detroit Red Wings           NA               17
-    ## 13 13      19671968      Cleveland Barons     19771978               49
-    ## 14 14      19671968     Los Angeles Kings           NA               26
-    ## 15 15      19671968          Dallas Stars           NA               25
-    ## 16 16      19671968   Philadelphia Flyers           NA                4
-    ## 17 17      19671968   Pittsburgh Penguins           NA                5
-    ## 18 18      19671968       St. Louis Blues           NA               19
-    ## 19 19      19701971        Buffalo Sabres           NA                7
-    ## 20 20      19701971     Vancouver Canucks           NA               23
-    ## 21 21      19721973        Calgary Flames           NA               20
-    ## 22 22      19721973    New York Islanders           NA                2
-    ## 23 23      19741975     New Jersey Devils           NA                1
-    ## 24 24      19741975   Washington Capitals           NA               15
-    ## 25 25      19791980       Edmonton Oilers           NA               22
-    ## 26 26      19791980   Carolina Hurricanes           NA               12
-    ## 27 27      19791980    Colorado Avalanche           NA               21
-    ## 28 28      19791980       Arizona Coyotes           NA               53
-    ## 29 29      19911992       San Jose Sharks           NA               28
-    ## 30 30      19921993       Ottawa Senators           NA                9
-    ## 31 31      19921993   Tampa Bay Lightning           NA               14
-    ## 32 32      19931994         Anaheim Ducks           NA               24
-    ## 33 33      19931994      Florida Panthers           NA               13
-    ## 34 34      19981999   Nashville Predators           NA               18
-    ## 35 35      19992000         Winnipeg Jets           NA               52
-    ## 36 36      20002001 Columbus Blue Jackets           NA               29
-    ## 37 37      20002001        Minnesota Wild           NA               30
-    ## 38 38      20172018  Vegas Golden Knights           NA               54
-    ## 39 39      20212022        Seattle Kraken           NA               55
-    ##    teamAbbrev teamCommonName teamPlaceName
-    ## 1         MTL      Canadiens      Montréal
-    ## 2         MWN      Wanderers      Montreal
-    ## 3         SLE         Eagles     St. Louis
-    ## 4         HAM         Tigers      Hamilton
-    ## 5         TOR    Maple Leafs       Toronto
-    ## 6         BOS         Bruins        Boston
-    ## 7         MMR        Maroons      Montreal
-    ## 8         BRK      Americans      Brooklyn
-    ## 9         QUA        Quakers  Philadelphia
-    ## 10        NYR        Rangers      New York
-    ## 11        CHI     Blackhawks       Chicago
-    ## 12        DET      Red Wings       Detroit
-    ## 13        CLE         Barons     Cleveland
-    ## 14        LAK          Kings   Los Angeles
-    ## 15        DAL          Stars        Dallas
-    ## 16        PHI         Flyers  Philadelphia
-    ## 17        PIT       Penguins    Pittsburgh
-    ## 18        STL          Blues     St. Louis
-    ## 19        BUF         Sabres       Buffalo
-    ## 20        VAN        Canucks     Vancouver
-    ## 21        CGY         Flames       Calgary
-    ## 22        NYI      Islanders      New York
-    ## 23        NJD         Devils    New Jersey
-    ## 24        WSH       Capitals    Washington
-    ## 25        EDM         Oilers      Edmonton
-    ## 26        CAR     Hurricanes      Carolina
-    ## 27        COL      Avalanche      Colorado
-    ## 28        ARI        Coyotes       Arizona
-    ## 29        SJS         Sharks      San Jose
-    ## 30        OTT       Senators        Ottawa
-    ## 31        TBL      Lightning     Tampa Bay
-    ## 32        ANA          Ducks       Anaheim
-    ## 33        FLA       Panthers       Florida
-    ## 34        NSH      Predators     Nashville
-    ## 35        WPG           Jets      Winnipeg
-    ## 36        CBJ   Blue Jackets      Columbus
-    ## 37        MIN           Wild     Minnesota
-    ## 38        VGK Golden Knights         Vegas
-    ## 39        SEA         Kraken       Seattle
+### get\_season\_records(ID,name)
+
+This function drill-down into season records for a specific franchise.
+Caller can provide team ID or name.
+
+``` r
+#Usage
+seasonRecords <- get_season_records(ID=1)
+seasonRecords <- get_season_records(name="team name")
+```
+
+### get\_goalie\_records(ID,name)
+
+This function drill-down into goalie records for a specific franchise.
+Caller can provide team ID or name.
+
+``` r
+#Usage
+goalieRecords <- get_goalie_records(ID=1)
+goalieRecords <- get_goalie_records(name="team name")
+```
+
+### get\_skater\_records(ID,name)
+
+This function drill-down into skater records for a specific franchise.
+Caller can provide team ID or name.
+
+``` r
+#Usage
+skaterRecords <- get_skater_records(ID=1)
+skaterRecords <- get_skater_records(name="team name")
+```
+
+### get\_franchise\_details(ID)
+
+This function drill-down into franchise details by records for a
+specific franchise. Caller can provide most recent Team ID
+
+``` r
+#Usage
+franchiseDetails <- get_franchise_details(ID=1)
+```
+
+### get\_team\_stats(teamID)
+
+This function provides team stats. If ID is provided, it will return the
+data for specific team, otherwise it will send for all the teams.
+
+``` r
+#Usage
+teamStats <- get_team_stats(teamID=1)
+```
+
+### get\_nhl\_data(endpoint, id,name)
+
+Caller can use this wrapper function to get corresponding data.This is
+one-stop-shop function for caller to use
+
+``` r
+#Usage
+franchiseData <- get_nhl_data("Franchise")
+skaterRecords <- get_nhl_data("SkaterRecords", id= 2, name="team name")
+```
+
+## Using Functions
+
+We will use above functions to create some data tables and plots
+
+### Combining two tables
+
+Below code uses two functions to get the data and combines them into one
+data table
+
+``` r
+franchiseData <- get_franchise() %>% rename (franchiseId = id )
+combinedFranchiseData <- left_join(franchiseData, get_team_totals(), by=c("franchiseId","lastSeasonId"))
+
+knitr::kable(head(combinedFranchiseData%>% 
+          select(franchiseId,fullName,gamesPlayed,gameTypeId, wins,losses,ties,overtimeLosses)))
+```
+
+| franchiseId | fullName            | gamesPlayed | gameTypeId | wins | losses | ties | overtimeLosses |
+|------------:|:--------------------|------------:|-----------:|-----:|-------:|-----:|---------------:|
+|           1 | Montréal Canadiens  |         773 |          3 |  444 |    321 |    8 |              0 |
+|           1 | Montréal Canadiens  |        6787 |          2 | 3473 |   2302 |  837 |            175 |
+|           2 | Montreal Wanderers  |           6 |          2 |    1 |      5 |    0 |             NA |
+|           3 | St. Louis Eagles    |          48 |          2 |   11 |     31 |    6 |             NA |
+|           4 | Hamilton Tigers     |         126 |          2 |   47 |     78 |    1 |             NA |
+|           5 | Toronto Maple Leafs |        6516 |          2 | 2873 |   2696 |  773 |            174 |
+
+### Adding variables
+
+We will add two new columns to the data that we have combined as
+WinLossRatio and Home Win percentage
+
+``` r
+# select few columns rather than using all 37 columns
+filteredData <- combinedFranchiseData %>% filter(activeFranchise ==1, !is.null(lastSeasonId)) %>% select(franchiseId,fullName,gamesPlayed,gameTypeId, wins,losses,ties,overtimeLosses, homeWins,homeLosses, homeTies,homeOvertimeLosses) 
+
+# add two new columns WinLoss ratio and Home Win Percentage
+customData2 <- filteredData %>% mutate(winLossRatio = wins/losses, homeWinPctg = (homeWins/gamesPlayed)*100)
+
+#Adding one more column to create some groups
+customData3 <- customData2 %>% mutate(homeWinPctgGroup = case_when(
+    homeWinPctg > 50 ~ 50,
+    homeWinPctg > 40 ~ 40,
+    homeWinPctg > 35 ~ 35,
+    homeWinPctg > 30 ~ 30,
+    homeWinPctg > 25 ~ 25,
+    homeWinPctg > 20 ~ 20,
+    homeWinPctg > 15 ~ 15,
+    homeWinPctg > 10 ~ 10,
+    homeWinPctg < 10 ~ 5,
+    ))
+knitr::kable(head(customData3%>% 
+          select(franchiseId,fullName,gamesPlayed,winLossRatio,homeWinPctg,homeWinPctgGroup ),10))
+```
+
+| franchiseId | fullName            | gamesPlayed | winLossRatio | homeWinPctg | homeWinPctgGroup |
+|------------:|:--------------------|------------:|-------------:|------------:|-----------------:|
+|           1 | Montréal Canadiens  |         773 |    1.3831776 |    33.37646 |               30 |
+|           1 | Montréal Canadiens  |        6787 |    1.5086881 |    30.02799 |               30 |
+|           5 | Toronto Maple Leafs |        6516 |    1.0656528 |    26.12032 |               25 |
+|           5 | Toronto Maple Leafs |         545 |    0.9151943 |    27.33945 |               25 |
+|           6 | Boston Bruins       |        6626 |    1.3487308 |    28.44854 |               25 |
+|           6 | Boston Bruins       |         675 |    0.9851632 |    28.74074 |               25 |
+|          10 | New York Rangers    |        6560 |    1.0614875 |    24.60366 |               20 |
+|          10 | New York Rangers    |         518 |    0.9172932 |    26.44788 |               25 |
+|          11 | Chicago Blackhawks  |         548 |    0.9745455 |    30.29197 |               30 |
+|          11 | Chicago Blackhawks  |        6560 |    1.0184716 |    25.22866 |               25 |
+
+### Contigency table
+
+Create contingency table using the data that we have just prepared. \*
+First one prepares the data for team names \* Second table is for Home
+Wins Group with corresponding game types (regular or playoff)
+
+``` r
+table(customData3$fullName)
+```
+
     ## 
-    ## $total
-    ## [1] 39
-
-function 2
-
-``` r
-Get_team_totals <- function(baseURL){
-  t_URL <-  paste0(baseURL, "/franchise-team-totals")
-return (fromJSON(content(GET(t_URL), "text"),flatten = TRUE))
-  
-}
-
-test1 <- Get_team_totals(baseURL )
-```
-
-    ## No encoding supplied: defaulting to UTF-8.
-
-``` r
-test1
-```
-
-    ## $data
-    ##      id activeFranchise firstSeasonId franchiseId gameTypeId gamesPlayed
-    ## 1     1               1      19821983          23          2        2993
-    ## 2     2               1      19821983          23          3         257
-    ## 3     3               1      19721973          22          2        3788
-    ## 4     4               1      19721973          22          3         309
-    ## 5     5               1      19261927          10          2        6560
-    ## 6     6               1      19261927          10          3         518
-    ## 7     7               1      19671968          16          3         449
-    ## 8     8               1      19671968          16          2        4171
-    ## 9     9               1      19671968          17          2        4171
-    ## 10   10               1      19671968          17          3         391
-    ## 11   11               1      19241925           6          2        6626
-    ## 12   12               1      19241925           6          3         675
-    ## 13   13               1      19701971          19          2        3945
-    ## 14   14               1      19701971          19          3         256
-    ## 15   15               1      19171918           1          3         773
-    ## 16   16               1      19171918           1          2        6787
-    ## 17   17               1      19921993          30          2        2195
-    ## 18   18               1      19921993          30          3         151
-    ## 19   19               1      19271928           5          2        6516
-    ## 20   20               1      19271928           5          3         545
-    ## 21   21               1      19992000          35          2         902
-    ## 22   22               1      19992000          35          3           4
-    ## 23   23               1      19971998          26          3         112
-    ## 24   24               1      19971998          26          2        1812
-    ## 25   25               1      19931994          33          2        2109
-    ## 26   26               1      19931994          33          3          54
-    ## 27   27               1      19921993          31          2        2194
-    ## 28   28               1      19921993          31          3         176
-    ## 29   29               1      19741975          24          2        3633
-    ## 30   30               1      19741975          24          3         295
-    ## 31   31               1      19261927          11          3         548
-    ## 32   32               1      19261927          11          2        6560
-    ## 33   33               1      19321933          12          2        6293
-    ## 34   34               1      19321933          12          3         618
-    ## 35   35               1      19981999          34          2        1731
-    ## 36   36               1      19981999          34          3         121
-    ## 37   37               1      19671968          18          2        4173
-    ## 38   38               1      19671968          18          3         404
-    ## 39   39               1      19801981          21          3         221
-    ## 40   40               1      19801981          21          2        3154
-    ## 41   41               1      19951996          27          2        1978
-    ## 42   42               1      19951996          27          3         219
-    ## 43   43               1      19791980          25          2        3235
-    ## 44   44               1      19791980          25          3         272
-    ## 45   45               1      19701971          20          2        3945
-    ## 46   46               1      19701971          20          3         246
-    ## 47   47               1      19931994          32          3         162
-    ## 48   48               1      19931994          32          2        2111
-    ## 49   49               1      19931994          15          2        2109
-    ## 50   50               1      19931994          15          3         200
-    ## 51   51               1      19671968          14          2        4172
-    ## 52   52               1      19671968          14          3         255
-    ## 53   53               1      19961997          28          2        1360
-    ## 54   54               1      19961997          28          3          57
-    ## 55   55               1      19911992          29          3         241
-    ## 56   56               1      19911992          29          2        2274
-    ## 57   57               1      20002001          36          2        1568
-    ## 58   58               1      20002001          36          3          41
-    ## 59   59               1      20002001          37          2        1567
-    ## 60   60               1      20002001          37          3          84
-    ## 61   61               1      19671968          15          2        2062
-    ## 62   62               1      19671968          15          3         166
-    ## 63   63               1      19791980          27          3          80
-    ## 64   64               1      19791980          27          2        1256
-    ## 65   65               1      19791980          28          2        1338
-    ## 66   66               1      19791980          28          3          62
-    ## 67   67               1      19791980          26          2        1420
-    ## 68   68               1      19791980          26          3          49
-    ## 69   69               1      19761977          23          2         480
-    ## 70   70               1      19761977          23          3           2
-    ## 71   71               0      19171918           3          3          41
-    ## 72   72               0      19171918           3          2         542
-    ## 73   73               0      19201921           4          2         126
-    ## 74   74               0      19251926           9          2         212
-    ## 75   75               0      19251926           9          3           4
-    ## 76   76               0      19301931           9          2          44
-    ## 77   77               1      19261927          12          2         176
-    ## 78   78               1      19261927          12          3           2
-    ## 79   79               0      19171918           2          2           6
-    ## 80   80               0      19191920           4          2          24
-    ## 81   81               0      19241925           7          2         622
-    ## 82   82               0      19241925           7          3          50
-    ## 83   83               0      19251926           8          2         736
-    ## 84   84               0      19251926           8          3          18
-    ## 85   85               0      19341935           3          2          48
-    ## 86   86               0      19671968          13          2         226
-    ## 87   87               0      19671968          13          3          11
-    ## 88   88               1      19721973          21          2         636
-    ## 89   89               1      19721973          21          3          17
-    ## 90   90               1      19741975          23          2         160
-    ## 91   91               0      19761977          13          2         160
-    ## 92   92               1      19301931          12          2          92
-    ## 93   93               1      19301931          12          3           2
-    ## 94   94               0      19411942           8          2          48
-    ## 95   95               1      20112012          35          3          39
-    ## 96   96               1      20112012          35          2         749
-    ## 97   97               1      20142015          28          2         536
-    ## 98   98               1      20172018          38          2         291
-    ## 99   99               1      20172018          38          3          63
-    ## 100 100               0      19701971          13          2         472
-    ## 101 101               1      19171918           5          2          40
-    ## 102 102               1      19171918           5          3           7
-    ## 103 103               1      19191920           5          3          11
-    ## 104 104               1      19191920           5          2         230
-    ## 105 105               1      20142015          28          3           9
-    ##     goalsAgainst goalsFor homeLosses homeOvertimeLosses homeTies homeWins
-    ## 1           8902     8792        525                 85       96      790
-    ## 2            634      697         53                  0       NA       74
-    ## 3          11907    12045        678                 84      170      963
-    ## 4            897      983         53                  1       NA       94
-    ## 5          20020    20041       1143                 76      448     1614
-    ## 6           1447     1404        104                  0        1      137
-    ## 7           1332     1335         97                  0       NA      135
-    ## 8          12255    13690        584                 93      193     1216
-    ## 9          14049    13874        683                 60      205     1138
-    ## 10          1131     1190         85                  0       NA      113
-    ## 11         19137    21112        960                 92      376     1885
-    ## 12          1907     1956        151                  2        3      194
-    ## 13         11966    12471        639                 84      197     1053
-    ## 14           765      763         54                  0       NA       73
-    ## 15          1959     2306        133                  0        3      258
-    ## 16         18260    21791        881                 95      381     2038
-    ## 17          6580     6250        413                 93       60      533
-    ## 18           372      357         35                  0       NA       37
-    ## 19         19953    19980       1082                 85      388     1702
-    ## 20          1491     1398        120                  0        2      149
-    ## 21          3014     2465        204                 38       26      183
-    ## 22            17        6          2                  0       NA        0
-    ## 23           282      272         24                  0       NA       32
-    ## 24          5140     4914        323                 77       52      453
-    ## 25          6122     5665        390                115       65      485
-    ## 26           152      132         15                  0       NA       13
-    ## 27          6646     6216        414                 67       56      559
-    ## 28           458      485         43                  0       NA       48
-    ## 29         11553    11516        620                 83      153      959
-    ## 30           837      836         77                  1       NA       75
-    ## 31          1669     1566        104                  0        1      166
-    ## 32         19687    19537       1128                 86      410     1655
-    ## 33         18881    19550        940                 99      368     1741
-    ## 34          1565     1745        126                  0        0      188
-    ## 35          4708     4730        282                 73       34      477
-    ## 36           340      307         27                  0       NA       34
-    ## 37         12688    12827        674                 72      218     1122
-    ## 38          1227     1103         92                  3       NA      108
-    ## 39           730      696         52                  1       NA       60
-    ## 40          9821    10257        508                 69      135      863
-    ## 41          5458     5857        327                 62       55      543
-    ## 42           560      647         44                  1       NA       69
-    ## 43         10633    10776        587                 74      125      830
-    ## 44           825      994         48                  0       NA       91
-    ## 45         12999    12138        736                 84      210      943
-    ## 46           780      682         68                  0       NA       56
-    ## 47           421      433         34                  0       NA       51
-    ## 48          5838     5693        359                 82       58      557
-    ## 49          5609     6022        314                 81       65      594
-    ## 50           504      511         46                  0       NA       54
-    ## 51         13761    13053        776                 71      211     1027
-    ## 52           851      745         60                  0       NA       62
-    ## 53          3824     3632        249                 48       43      340
-    ## 54           169      133         19                  0       NA       10
-    ## 55           691      631         52                  0       NA       67
-    ## 56          6618     6490        407                 84       58      589
-    ## 57          4612     4092        300                 77       18      390
-    ## 58           133      110         13                  0       NA        6
-    ## 59          4135     4166        243                 84       28      429
-    ## 60           231      187         24                  0       NA       15
-    ## 61          7373     6690        391                 NA      163      477
-    ## 62           580      552         33                 NA       NA       45
-    ## 63           286      247         17                 NA       NA       21
-    ## 64          4883     4625        245                 NA       83      300
-    ## 65          5347     4762        274                 NA       88      307
-    ## 66           253      177         16                 NA       NA       12
-    ## 67          5345     4704        297                 NA       95      318
-    ## 68           177      143         10                 NA       NA       12
-    ## 69          1957     1426        115                 NA       47       78
-    ## 70             6        3          1                 NA       NA        0
-    ## 71            84       91          7                 NA        4        6
-    ## 72          1333     1458         81                 NA       30      160
-    ## 73           475      414         30                 NA        0       33
-    ## 74           519      376         55                 NA       10       41
-    ## 75            12        8          1                 NA        0        0
-    ## 76           184       76         17                 NA        2        3
-    ## 77           380      353         42                 NA       11       35
-    ## 78             7        2          1                 NA        0        0
-    ## 79            37       17          2                 NA        0        1
-    ## 80           177       91          8                 NA        0        4
-    ## 81          1405     1474        107                 NA       48      156
-    ## 82            79       74         12                 NA        8        9
-    ## 83          2007     1510        154                 NA       67      147
-    ## 84            42       32          3                 NA        1        4
-    ## 85           144       86         14                 NA        3        7
-    ## 86           713      541         46                 NA       23       44
-    ## 87            36       31          4                 NA       NA        2
-    ## 88          2013     2057        104                 NA       53      161
-    ## 89            62       32          6                 NA       NA        2
-    ## 90           679      374         44                 NA       16       20
-    ## 91           617      470         34                 NA       18       28
-    ## 92           213      197         10                 NA       11       25
-    ## 93             3        1          0                 NA        1        0
-    ## 94           175      133         12                 NA        2       10
-    ## 95           112      104         13                  0       NA        7
-    ## 96          2151     2209        136                 33       NA      207
-    ## 97          1619     1345        120                 30       NA      116
-    ## 98           793      939         38                 13       NA       96
-    ## 99           152      187         11                  1       NA       22
-    ## 100         1867     1285        100                 NA       52       84
-    ## 101          201      173          5                 NA        0       15
-    ## 102           28       28          2                 NA        0        4
-    ## 103           25       23          4                 NA        0        4
-    ## 104          768      724         37                 NA        5       73
-    ## 105           33       22          1                  0       NA        3
-    ##     lastSeasonId losses overtimeLosses penaltyMinutes pointPctg points
-    ## 1             NA   1211            169          44773    0.5306   3176
-    ## 2             NA    120              0           4266    0.0039      2
-    ## 3             NA   1587            166          57792    0.5133   3889
-    ## 4             NA    139              0           5689    0.0129      8
-    ## 5             NA   2716            153          86129    0.5127   6727
-    ## 6             NA    266              0           8181    0.0000      0
-    ## 7             NA    218              0           9104    0.0045      4
-    ## 8             NA   1452            183          76208    0.5752   4798
-    ## 9             NA   1734            151          66221    0.5203   4340
-    ## 10            NA    182              0           6106    0.0153     12
-    ## 11            NA   2403            191          88570    0.5632   7464
-    ## 12            NA    337              0          10607    0.0296     40
-    ## 13            NA   1564            167          60671    0.5305   4186
-    ## 14            NA    132              0           4692    0.0000      0
-    ## 15            NA    321              0          12150    0.0000      0
-    ## 16            NA   2302            175          87484    0.5863   7958
-    ## 17            NA    940            169          29684    0.5071   2226
-    ## 18            NA     79              0           2102    0.0000      0
-    ## 19            NA   2696            174          92331    0.5136   6693
-    ## 20            NA    283              0           8550    0.0110     12
-    ## 21      20102011    437             78          13727    0.4473    807
-    ## 22      20102011      4              0            115    0.0000      0
-    ## 23            NA     54              0           1310    0.0714     16
-    ## 24            NA    725            174          19429    0.5281   1914
-    ## 25            NA    870            208          29171    0.5045   2128
-    ## 26            NA     33              0            775    0.0000      0
-    ## 27            NA    947            150          31086    0.5087   2232
-    ## 28            NA     75              0           2444    0.0625     22
-    ## 29            NA   1467            163          57455    0.5321   3866
-    ## 30            NA    156              1           5152    0.0644     38
-    ## 31            NA    275              0           8855    0.0000      0
-    ## 32            NA   2761            173          92285    0.5039   6611
-    ## 33            NA   2446            183          84403    0.5354   6738
-    ## 34            NA    293              0           8735    0.0000      0
-    ## 35            NA    656            163          19933    0.5566   1927
-    ## 36            NA     67              0           1377    0.0744     18
-    ## 37            NA   1645            167          65608    0.5340   4457
-    ## 38            NA    221              1           7730    0.0396     32
-    ## 39            NA    118              0           5118    0.0045      2
-    ## 40            NA   1236            150          55423    0.5414   3415
-    ## 41            NA    728            142          25410    0.5705   2257
-    ## 42            NA     94              1           2970    0.0411     18
-    ## 43            NA   1337            167          55008    0.5204   3367
-    ## 44            NA    112              0           5756    0.0000      0
-    ## 45            NA   1746            159          66856    0.4877   3848
-    ## 46            NA    135              0           4755    0.0000      0
-    ## 47            NA     73              0           2302    0.0000      0
-    ## 48            NA    834            180          30579    0.5369   2267
-    ## 49            NA    738            162          28050    0.5820   2455
-    ## 50            NA     95              0           2619    0.0350     14
-    ## 51            NA   1829            165          65875    0.4910   4097
-    ## 52            NA    144              0           4399    0.0000      0
-    ## 53      20132014    546            105          19860    0.5254   1429
-    ## 54      20132014     35              0            837    0.0000      0
-    ## 55            NA    122              0           3034    0.0664     32
-    ## 56            NA    920            163          31739    0.5330   2424
-    ## 57            NA    698            159          19835    0.4936   1548
-    ## 58            NA     26              0            387    0.1951     16
-    ## 59            NA    599            154          17134    0.5511   1727
-    ## 60            NA     54              0            882    0.0119      2
-    ## 61      19921993    970             NA          36310    0.4486   1850
-    ## 62      19921993     86             NA           3468    0.0000      0
-    ## 63      19941995     45             NA           2434    0.0000      0
-    ## 64      19941995    599             NA          27013    0.4594   1154
-    ## 65      19951996    660             NA          27371    0.4425   1184
-    ## 66      19951996     43             NA           1546    0.0000      0
-    ## 67      19961997    709             NA          29656    0.4384   1245
-    ## 68      19961997     31             NA           1273    0.0000      0
-    ## 69      19811982    281             NA           6216    0.3250    312
-    ## 70      19811982      2             NA             25    0.0000      0
-    ## 71      19331934     17             NA            497    0.0000      0
-    ## 72      19331934    221             NA           5667    0.5341    579
-    ## 73      19241925     78             NA           1042    0.3770     95
-    ## 74      19291930    122             NA           1620    0.3703    157
-    ## 75      19291930      2             NA             20    0.0000      0
-    ## 76      19301931     36             NA            503    0.1364     12
-    ## 77      19291930     87             NA           1718    0.4347    153
-    ## 78      19291930      2             NA             24    0.0000      0
-    ## 79      19171918      5             NA             27    0.1667      2
-    ## 80      19191920     20             NA            119    0.1667      8
-    ## 81      19371938    260             NA           7330    0.5088    633
-    ## 82      19371938     21             NA            535    0.0000      0
-    ## 83      19401941    373             NA           6348    0.4090    602
-    ## 84      19401941     11             NA            155    0.0000      0
-    ## 85      19341935     31             NA            408    0.2917     28
-    ## 86      19691970    118             NA           2443    0.3850    174
-    ## 87      19691970      8             NA            152    0.0000      0
-    ## 88      19791980    260             NA           7608    0.5063    644
-    ## 89      19791980     15             NA            461    0.0000      0
-    ## 90      19751976    110             NA           1726    0.2406     77
-    ## 91      19771978     87             NA           2021    0.3750    120
-    ## 92      19311932     41             NA            858    0.4620     85
-    ## 93      19311932      1             NA             12    0.0000      0
-    ## 94      19411942     29             NA            425    0.3646     35
-    ## 95            NA     23              0            330    0.2821     22
-    ## 96            NA    292             75           7621    0.5601    839
-    ## 97            NA    262             60           4715    0.4552    488
-    ## 98            NA     94             24           2117    0.6357    370
-    ## 99            NA     26              0            632    0.2540     32
-    ## 100     19751976    283             NA           5594    0.3231    305
-    ## 101     19181919     22             NA            696    0.4500     36
-    ## 102     19181919      3             NA            176    0.0000      0
-    ## 103     19261927      6             NA            123    0.0000      0
-    ## 104     19261927    111             NA           2339    0.4957    228
-    ## 105           NA      5              0             80        NA     NA
-    ##     roadLosses roadOvertimeLosses roadTies roadWins shootoutLosses shootoutWins
-    ## 1          686                 84      123      604             84           78
-    ## 2           67                  0       NA       63              0            0
-    ## 3          909                 82      177      725             70           86
-    ## 4           86                  2       NA       76              0            0
-    ## 5         1573                 77      360     1269             68           79
-    ## 6          162                  0        7      107              0            0
-    ## 7          121                  0       NA       96              0            0
-    ## 8          868                 90      264      863             92           53
-    ## 9         1051                 91      178      765             54           83
-    ## 10          97                  1       NA       96              0            0
-    ## 11        1443                 99      415     1356             82           68
-    ## 12         186                  2        3      138              0            0
-    ## 13         925                 83      212      752             74           81
-    ## 14          78                  0       NA       51              0            0
-    ## 15         188                  0        5      186              0            0
-    ## 16        1421                 80      456     1435             66           69
-    ## 17         527                 76       55      438             79           58
-    ## 18          44                  0       NA       35              0            0
-    ## 19        1614                 89      385     1171             77           59
-    ## 20         163                  1        1      110              0            0
-    ## 21         233                 40       19      159             29           37
-    ## 22           2                  0       NA        0              0            0
-    ## 23          30                  2       NA       26              0            0
-    ## 24         402                 97       34      374             61           50
-    ## 25         480                 93       77      404             97           71
-    ## 26          18                  0       NA        8              0            0
-    ## 27         533                 83       56      426             59           68
-    ## 28          32                  0       NA       53              0            1
-    ## 29         847                 80      150      741             71           68
-    ## 30          79                  2       NA       63              1            0
-    ## 31         171                  1        4      102              0            0
-    ## 32        1633                 87      404     1157             70           75
-    ## 33        1506                 84      405     1150             76           71
-    ## 34         167                  0        0      137              0            0
-    ## 35         374                 90       26      375             70           74
-    ## 36          40                  2       NA       20              0            0
-    ## 37         971                 95      214      807             69           74
-    ## 38         129                  0       NA       74              1            0
-    ## 39          66                  1       NA       43              0            0
-    ## 40         728                 81      136      634             65           52
-    ## 41         401                 80       46      464             42           73
-    ## 42          50                  0       NA       55              0            0
-    ## 43         750                 93      137      639             69           75
-    ## 44          64                  0       NA       69              0            0
-    ## 45        1010                 75      181      706             76           72
-    ## 46          67                  0       NA       55              0            0
-    ## 47          39                  0       NA       38              0            0
-    ## 48         475                 98       49      433             78           71
-    ## 49         424                 81       60      490             62           73
-    ## 50          49                  2       NA       51              0            1
-    ## 51        1053                 94      213      727             71           69
-    ## 52          84                  0       NA       49              0            0
-    ## 53         297                 57       51      275             49           52
-    ## 54          16                  0       NA       12              0            0
-    ## 55          70                  1       NA       52              0            0
-    ## 56         513                 79       63      481             67           76
-    ## 57         398                 82       15      288             72           71
-    ## 58          13                  3       NA        9              0            0
-    ## 59         356                 70       27      330             70           71
-    ## 60          30                  0       NA       15              0            0
-    ## 61         579                 NA      171      281              0            0
-    ## 62          53                 NA       NA       35              0            0
-    ## 63          28                 NA       NA       14              0            0
-    ## 64         354                 NA       77      197              0            0
-    ## 65         386                 NA       84      199              0            0
-    ## 66          27                 NA       NA        7              0            0
-    ## 67         412                 NA       82      216              0            0
-    ## 68          21                 NA       NA        6              0            0
-    ## 69         166                 NA       39       35              0            0
-    ## 70           1                 NA       NA        0              0            0
-    ## 71          10                 NA        2       12              0            0
-    ## 72         140                 NA       33       98              0            0
-    ## 73          48                 NA        1       14              0            0
-    ## 74          67                 NA       13       26              0            0
-    ## 75           1                 NA        1        1              0            0
-    ## 76          19                 NA        2        1              0            0
-    ## 77          45                 NA       14       29              0            0
-    ## 78           1                 NA        0        0              0            0
-    ## 79           3                 NA        0        0              0            0
-    ## 80          12                 NA        0        0              0            0
-    ## 81         153                 NA       43      115              0            0
-    ## 82           9                 NA        1       11              0            0
-    ## 83         219                 NA       57       92              0            0
-    ## 84           8                 NA        0        2              0            0
-    ## 85          17                 NA        3        4              0            0
-    ## 86          72                 NA       19       22              0            0
-    ## 87           4                 NA       NA        1              0            0
-    ## 88         156                 NA       55      107              0            0
-    ## 89           9                 NA       NA        0              0            0
-    ## 90          66                 NA        7        7              0            0
-    ## 91          53                 NA        8       19              0            0
-    ## 92          31                 NA        6        9              0            0
-    ## 93           1                 NA        0        0              0            0
-    ## 94          17                 NA        1        6              0            0
-    ## 95          10                  0       NA        9              0            0
-    ## 96         156                 42       NA      175             30           36
-    ## 97         142                 30       NA       98             22           26
-    ## 98          56                 11       NA       77              9           11
-    ## 99          15                  2       NA       15              0            0
-    ## 100        183                 NA       21       32              0            0
-    ## 101         17                 NA        0        3              0            0
-    ## 102          1                 NA        0        0              0            0
-    ## 103          2                 NA        1        0              0            0
-    ## 104         74                 NA        5       36              0            0
-    ## 105          4                  0       NA        1              0            0
-    ##     shutouts teamId                teamName ties triCode wins
-    ## 1        196      1       New Jersey Devils  219     NJD 1394
-    ## 2         25      1       New Jersey Devils   NA     NJD  137
-    ## 3        177      2      New York Islanders  347     NYI 1688
-    ## 4         12      2      New York Islanders   NA     NYI  170
-    ## 5        408      3        New York Rangers  808     NYR 2883
-    ## 6         44      3        New York Rangers    8     NYR  244
-    ## 7         33      4     Philadelphia Flyers   NA     PHI  231
-    ## 8        248      4     Philadelphia Flyers  457     PHI 2079
-    ## 9        189      5     Pittsburgh Penguins  383     PIT 1903
-    ## 10        30      5     Pittsburgh Penguins   NA     PIT  209
-    ## 11       506      6           Boston Bruins  791     BOS 3241
-    ## 12        49      6           Boston Bruins    6     BOS  332
-    ## 13       194      7          Buffalo Sabres  409     BUF 1805
-    ## 14        18      7          Buffalo Sabres   NA     BUF  124
-    ## 15        68      8      Montréal Canadiens    8     MTL  444
-    ## 16       543      8      Montréal Canadiens  837     MTL 3473
-    ## 17       137      9         Ottawa Senators  115     OTT  971
-    ## 18        12      9         Ottawa Senators   NA     OTT   72
-    ## 19       422     10     Toronto Maple Leafs  773     TOR 2873
-    ## 20        50     10     Toronto Maple Leafs    3     TOR  259
-    ## 21        41     11       Atlanta Thrashers   45     ATL  342
-    ## 22         0     11       Atlanta Thrashers   NA     ATL    0
-    ## 23        11     12     Carolina Hurricanes   NA     CAR   58
-    ## 24        99     12     Carolina Hurricanes   86     CAR  827
-    ## 25       115     13        Florida Panthers  142     FLA  889
-    ## 26         3     13        Florida Panthers   NA     FLA   21
-    ## 27       124     14     Tampa Bay Lightning  112     TBL  985
-    ## 28        14     14     Tampa Bay Lightning   NA     TBL  101
-    ## 29       178     15     Washington Capitals  303     WSH 1700
-    ## 30        19     15     Washington Capitals   NA     WSH  138
-    ## 31        32     16      Chicago Blackhawks    5     CHI  268
-    ## 32       439     16      Chicago Blackhawks  814     CHI 2812
-    ## 33       423     17       Detroit Red Wings  773     DET 2891
-    ## 34        66     17       Detroit Red Wings    0     DET  325
-    ## 35       134     18     Nashville Predators   60     NSH  852
-    ## 36         6     18     Nashville Predators   NA     NSH   54
-    ## 37       252     19         St. Louis Blues  432     STL 1929
-    ## 38        21     19         St. Louis Blues   NA     STL  182
-    ## 39        14     20          Calgary Flames   NA     CGY  103
-    ## 40       144     20          Calgary Flames  271     CGY 1497
-    ## 41       124     21      Colorado Avalanche  101     COL 1007
-    ## 42        23     21      Colorado Avalanche   NA     COL  124
-    ## 43       122     22         Edmonton Oilers  262     EDM 1469
-    ## 44        14     22         Edmonton Oilers   NA     EDM  160
-    ## 45       169     23       Vancouver Canucks  391     VAN 1649
-    ## 46        14     23       Vancouver Canucks   NA     VAN  111
-    ## 47        16     24           Anaheim Ducks   NA     ANA   89
-    ## 48       137     24           Anaheim Ducks  107     ANA  990
-    ## 49       150     25            Dallas Stars  125     DAL 1084
-    ## 50        15     25            Dallas Stars   NA     DAL  105
-    ## 51       234     26       Los Angeles Kings  424     LAK 1754
-    ## 52        14     26       Los Angeles Kings   NA     LAK  111
-    ## 53       105     27         Phoenix Coyotes   94     PHX  615
-    ## 54         4     27         Phoenix Coyotes   NA     PHX   22
-    ## 55        15     28         San Jose Sharks   NA     SJS  119
-    ## 56       157     28         San Jose Sharks  121     SJS 1070
-    ## 57       105     29   Columbus Blue Jackets   33     CBJ  678
-    ## 58         2     29   Columbus Blue Jackets   NA     CBJ   15
-    ## 59       113     30          Minnesota Wild   55     MIN  759
-    ## 60         7     30          Minnesota Wild   NA     MIN   30
-    ## 61        70     31   Minnesota North Stars  334     MNS  758
-    ## 62         9     31   Minnesota North Stars   NA     MNS   80
-    ## 63         1     32        Quebec Nordiques   NA     QUE   35
-    ## 64        28     32        Quebec Nordiques  160     QUE  497
-    ## 65        37     33    Winnipeg Jets (1979)  172     WIN  506
-    ## 66         0     33    Winnipeg Jets (1979)   NA     WIN   19
-    ## 67        50     34        Hartford Whalers  177     HFD  534
-    ## 68         1     34        Hartford Whalers   NA     HFD   18
-    ## 69         3     35        Colorado Rockies   86     CLR  113
-    ## 70         0     35        Colorado Rockies   NA     CLR    0
-    ## 71         9     36  Ottawa Senators (1917)    6     SEN   18
-    ## 72        91     36  Ottawa Senators (1917)   63     SEN  258
-    ## 73         8     37         Hamilton Tigers    1     HAM   47
-    ## 74        33     38      Pittsburgh Pirates   23     PIR   67
-    ## 75         0     38      Pittsburgh Pirates    1     PIR    1
-    ## 76         1     39    Philadelphia Quakers    4     QUA    4
-    ## 77        29     40         Detroit Cougars   25     DCG   64
-    ## 78         0     40         Detroit Cougars    0     DCG    0
-    ## 79         0     41      Montreal Wanderers    0     MWN    1
-    ## 80         0     42         Quebec Bulldogs    0     QBD    4
-    ## 81        75     43        Montreal Maroons   91     MMR  271
-    ## 82        13     43        Montreal Maroons    9     MMR   20
-    ## 83        84     44      New York Americans  124     NYA  239
-    ## 84         3     44      New York Americans    1     NYA    6
-    ## 85         3     45        St. Louis Eagles    6     SLE   11
-    ## 86        11     46           Oakland Seals   42     OAK   66
-    ## 87         0     46           Oakland Seals   NA     OAK    3
-    ## 88        34     47          Atlanta Flames  108     AFM  268
-    ## 89         0     47          Atlanta Flames   NA     AFM    2
-    ## 90         0     48      Kansas City Scouts   23     KCS   27
-    ## 91         6     49        Cleveland Barons   26     CLE   47
-    ## 92        12     50         Detroit Falcons   17     DFL   34
-    ## 93         0     50         Detroit Falcons    1     DFL    0
-    ## 94         1     51      Brooklyn Americans    3     BRK   16
-    ## 95         3     52           Winnipeg Jets   NA     WPG   16
-    ## 96        46     52           Winnipeg Jets   NA     WPG  382
-    ## 97        28     53         Arizona Coyotes   NA     ARI  214
-    ## 98        27     54    Vegas Golden Knights   NA     VGK  173
-    ## 99        10     54    Vegas Golden Knights   NA     VGK   37
-    ## 100       15     56 California Golden Seals   73     CGS  116
-    ## 101        0     57          Toronto Arenas    0     TAN   18
-    ## 102        0     57          Toronto Arenas    0     TAN    4
-    ## 103        2     58    Toronto St. Patricks    1     TSP    4
-    ## 104        9     58    Toronto St. Patricks   10     TSP  109
-    ## 105        0     53         Arizona Coyotes   NA     ARI    4
-    ## 
-    ## $total
-    ## [1] 105
-
-functio 3
+    ##         Anaheim Ducks       Arizona Coyotes         Boston Bruins 
+    ##                     2                     2                     2 
+    ##        Buffalo Sabres        Calgary Flames   Carolina Hurricanes 
+    ##                     2                     2                     2 
+    ##    Chicago Blackhawks    Colorado Avalanche Columbus Blue Jackets 
+    ##                     2                     2                     2 
+    ##          Dallas Stars     Detroit Red Wings       Edmonton Oilers 
+    ##                     2                     2                     2 
+    ##      Florida Panthers     Los Angeles Kings        Minnesota Wild 
+    ##                     2                     2                     2 
+    ##    Montréal Canadiens   Nashville Predators     New Jersey Devils 
+    ##                     2                     2                     2 
+    ##    New York Islanders      New York Rangers       Ottawa Senators 
+    ##                     2                     2                     2 
+    ##   Philadelphia Flyers   Pittsburgh Penguins       San Jose Sharks 
+    ##                     2                     2                     2 
+    ##       St. Louis Blues   Tampa Bay Lightning   Toronto Maple Leafs 
+    ##                     2                     2                     2 
+    ##     Vancouver Canucks  Vegas Golden Knights   Washington Capitals 
+    ##                     2                     2                     2 
+    ##         Winnipeg Jets 
+    ##                     2
 
 ``` r
-Get_season_records <- function(baseURL,ID){
-  s_URL <-  paste0(baseURL, "/franchise-season-records?cayenneExp=franchiseId=",ID)
-
-return (fromJSON(content(GET(s_URL), "text"),flatten = TRUE))
-  
-}
-
-test2 <- Get_season_records(baseURL,3 )
+table(customData3$homeWinPctgGroup,customData3$gameTypeId)
 ```
 
-    ## No encoding supplied: defaulting to UTF-8.
+    ##     
+    ##       2  3
+    ##   10  0  1
+    ##   15  0  2
+    ##   20  8  4
+    ##   25 21 14
+    ##   30  2 10
+
+### Data Summary
 
 ``` r
-test2
+customData3 %>% group_by(homeWinPctgGroup) %>% summarise(count=n(), Mean_HomeWins = round(mean(homeWins),2))
 ```
 
-    ## $data
-    ##   id fewestGoals fewestGoalsAgainst fewestGoalsAgainstSeasons
-    ## 1 36          NA                 NA                        NA
-    ##   fewestGoalsSeasons fewestLosses fewestLossesSeasons fewestPoints
-    ## 1                 NA           NA                  NA           NA
-    ##   fewestPointsSeasons fewestTies fewestTiesSeasons fewestWins fewestWinsSeasons
-    ## 1                  NA         NA                NA         NA                NA
-    ##   franchiseId    franchiseName homeLossStreak       homeLossStreakDates
-    ## 1           3 St. Louis Eagles              5 Jan 08 1931 - Feb 03 1931
-    ##   homePointStreak      homePointStreakDates homeWinStreak
-    ## 1              12 Dec 20 1922 - Feb 28 1923            10
-    ##                                     homeWinStreakDates homeWinlessStreak
-    ## 1 Dec 30 1922 - Feb 28 1923, Nov 28 1925 - Jan 28 1926                 9
-    ##      homeWinlessStreakDates lossStreak
-    ## 1 Dec 11 1930 - Feb 03 1931          9
-    ##                                        lossStreakDates mostGameGoals
-    ## 1 Dec 06 1930 - Jan 01 1931, Jan 08 1931 - Feb 03 1931            12
-    ##                                           mostGameGoalsDates mostGoals
-    ## 1 Jan 21 1920 - QBD 1 @ SEN 12, Mar 07 1921 - HAM 5 @ SEN 12       138
-    ##   mostGoalsAgainst mostGoalsAgainstSeasons mostGoalsSeasons mostLosses
-    ## 1              144            1934-35 (48)     1929-30 (44)         31
-    ##   mostLossesSeasons mostPenaltyMinutes mostPenaltyMinutesSeasons mostPoints
-    ## 1      1934-35 (48)                619              1926-27 (44)         64
-    ##   mostPointsSeasons mostShutouts        mostShutoutsSeasons mostTies
-    ## 1      1926-27 (44)           15 1925-26 (36), 1927-28 (44)       13
-    ##   mostTiesSeasons mostWins mostWinsSeasons pointStreak
-    ## 1    1928-29 (44)       30    1926-27 (44)          12
-    ##            pointStreakDates roadLossStreak       roadLossStreakDates
-    ## 1 Jan 24 1928 - Feb 25 1928              7 Nov 17 1934 - Dec 09 1934
-    ##   roadPointStreak      roadPointStreakDates roadWinStreak
-    ## 1               8 Nov 18 1926 - Dec 28 1926             5
-    ##          roadWinStreakDates roadWinlessStreak    roadWinlessStreakDates
-    ## 1 Feb 04 1920 - Mar 06 1920                17 Dec 15 1932 - Mar 18 1933
-    ##   winStreak            winStreakDates winlessStreak        winlessStreakDates
-    ## 1         9 Feb 11 1920 - Mar 08 1920            12 Dec 11 1928 - Jan 10 1929
-    ## 
-    ## $total
-    ## [1] 1
+    ## # A tibble: 5 x 3
+    ##   homeWinPctgGroup count Mean_HomeWins
+    ##              <dbl> <int>         <dbl>
+    ## 1               10     1            6 
+    ## 2               15     2           11 
+    ## 3               20    12          477.
+    ## 4               25    35          603.
+    ## 5               30    12          268.
 
-function4
+## Plots
+
+### Box Plot
+
+For boxplot we will use team names and corresponding losses. We have two
+records for each team (one from regular and other from playoffs), we are
+using first 5 teams only.
 
 ``` r
-Get_goalie_records <- function(baseURL,ID){
-  g_URL <-  paste0(baseURL, "/franchise-goalie-records?cayenneExp=franchiseId=",ID)
+# Take first 5 teams
+selectedData <- customData3 %>% filter(franchiseId < 12)
 
-return (fromJSON(content(GET(g_URL), "text"),flatten = TRUE))
-  
-}
-
-test3 <- Get_goalie_records(baseURL,3 )
+# Box plot
+ggplot(selectedData, mapping = aes(x = fullName, y = losses, fill=fullName)) +
+  geom_boxplot(outlier.shape = NA) + 
+  ggtitle("Boxplot for losses") +
+  theme(legend.position="none") +
+    scale_fill_brewer(palette="Dark2")
 ```
 
-    ## No encoding supplied: defaulting to UTF-8.
+![](nhlprogram_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+
+### BarPlot
+
+Below BarPlot uses Home Win Percentage Group
 
 ``` r
-test3
+#Regular game data
+regularGame <- customData3 %>% filter(gameTypeId==3)
+
+g <- ggplot(data = regularGame , aes(x = homeWinPctgGroup))
+g + geom_bar() + labs(x = "Home Win % by range")
 ```
 
-    ## $data
-    ##     id activePlayer firstName franchiseId    franchiseName gameTypeId
-    ## 1 1231        FALSE     Clint           3 St. Louis Eagles          2
-    ## 2  538        FALSE      Bill           3 St. Louis Eagles          2
-    ## 3  248        FALSE      Alec           3 St. Louis Eagles          2
-    ## 4  600        FALSE     Sammy           3 St. Louis Eagles          2
-    ##   gamesPlayed  lastName losses mostGoalsAgainstDates mostGoalsAgainstOneGame
-    ## 1         158  Benedict     58            1917-12-22                      11
-    ## 2          90 Beveridge     56            1934-12-13                      11
-    ## 3         294   Connell    106            1925-02-11                      10
-    ## 4           2    Hebert      1            1924-03-01                       5
-    ##   mostSavesDates mostSavesOneGame mostShotsAgainstDates mostShotsAgainstOneGame
-    ## 1             NA               NA                    NA                      NA
-    ## 2             NA               NA                    NA                      NA
-    ## 3             NA               NA                    NA                      NA
-    ## 4             NA               NA                    NA                      NA
-    ##   mostShutoutsOneSeason mostShutoutsSeasonIds mostWinsOneSeason
-    ## 1                     5              19191920                19
-    ## 2                     5              19321933                13
-    ## 3                    15    19251926, 19271928                30
-    ## 4                     0              19231924                 1
-    ##   mostWinsSeasonIds overtimeLosses playerId positionCode rookieGamesPlayed
-    ## 1          19191920             NA  8449817            G                22
-    ## 2          19331934             NA  8449821            G                NA
-    ## 3          19261927             NA  8449856            G                30
-    ## 4          19231924             NA  8449990            G                NA
-    ##   rookieShutouts rookieWins seasons shutouts ties wins
-    ## 1              1          9       7       19    3   97
-    ## 2             NA         NA       4        8   13   20
-    ## 3              7         17       8       64   47  140
-    ## 4             NA         NA       1        0    0    1
-    ## 
-    ## $total
-    ## [1] 4
+![](nhlprogram_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
 
-function5
+### Histogram
+
+Below histogram shows Overtime Losses and frequency.
 
 ``` r
-Get_skater_records <- function(baseURL,ID){
-s_URL<-paste0(baseURL,"/franchise-skater-records?cayenneExp=franchiseId=",ID)
-
-return (fromJSON(content(GET(s_URL), "text"),flatten = TRUE))
-  
-}
-
-test4 <- Get_skater_records(baseURL,3 )
+ggplot(customData3, aes(x = losses, y = ..density..)) + 
+  geom_histogram(bins = 20, size = 0.2) + 
+  geom_density(color="red",size=2,outline.type="full") +
+   ggtitle("Histogram of Losses")
 ```
 
-    ## No encoding supplied: defaulting to UTF-8.
+![](nhlprogram_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
 
 ``` r
-test4
+ggplot(customData3, aes(x = wins, y = ..density..)) + 
+  geom_histogram(bins = 20, size = 0.2) + 
+  geom_density(color="red",size=2,outline.type="full") +
+   ggtitle("Histogram of Wins")
 ```
 
-    ## $data
-    ##       id activePlayer assists firstName franchiseId    franchiseName gameTypeId
-    ## 1  17769        FALSE       0     Marty           3 St. Louis Eagles          2
-    ## 2  17817        FALSE       0      Bert           3 St. Louis Eagles          2
-    ## 3  17890        FALSE       1      Gene           3 St. Louis Eagles          2
-    ## 4  18027        FALSE       0      Gene           3 St. Louis Eagles          2
-    ## 5  18648        FALSE       0      John           3 St. Louis Eagles          2
-    ## 6  19314        FALSE       2       Irv           3 St. Louis Eagles          2
-    ## 7  19386        FALSE       0     Dutch           3 St. Louis Eagles          2
-    ## 8  19390        FALSE       0     Percy           3 St. Louis Eagles          2
-    ## 9  19521        FALSE       0       Ted           3 St. Louis Eagles          2
-    ## 10 20078        FALSE       1      Bill           3 St. Louis Eagles          2
-    ## 11 20113        FALSE       0      Stan           3 St. Louis Eagles          2
-    ## 12 20245        FALSE       4    Walter           3 St. Louis Eagles          2
-    ## 13 20362        FALSE       0       Ray           3 St. Louis Eagles          2
-    ## 14 20761        FALSE       0     Gerry           3 St. Louis Eagles          2
-    ## 15 21213        FALSE       0    Horace           3 St. Louis Eagles          2
-    ## 16 21235        FALSE       3       Hib           3 St. Louis Eagles          2
-    ## 17 21596        FALSE       0    George           3 St. Louis Eagles          2
-    ## 18 21654        FALSE       0      Eric           3 St. Louis Eagles          2
-    ## 19 22042        FALSE       1    Harvey           3 St. Louis Eagles          2
-    ## 20 22065        FALSE       0     Skene           3 St. Louis Eagles          2
-    ## 21 23481        FALSE       0    Archie           3 St. Louis Eagles          2
-    ## 22 23503        FALSE       0      Burr           3 St. Louis Eagles          2
-    ## 23 17466        FALSE       2     Billy           3 St. Louis Eagles          2
-    ## 24 17549        FALSE       1    Mickey           3 St. Louis Eagles          2
-    ## 25 17626        FALSE       5       Leo           3 St. Louis Eagles          2
-    ## 26 18127        FALSE       2     Harry           3 St. Louis Eagles          2
-    ## 27 18138        FALSE       0       Bud           3 St. Louis Eagles          2
-    ## 28 19085        FALSE       0        Ed           3 St. Louis Eagles          2
-    ## 29 19588        FALSE       0      Milt           3 St. Louis Eagles          2
-    ## 30 19733        FALSE       0     Harry           3 St. Louis Eagles          2
-    ## 31 20574        FALSE       3    Albert           3 St. Louis Eagles          2
-    ## 32 21790        FALSE       2      Fido           3 St. Louis Eagles          2
-    ## 33 21917        FALSE       5       Vic           3 St. Louis Eagles          2
-    ## 34 22548        FALSE       3       Ted           3 St. Louis Eagles          2
-    ## 35 22916        FALSE       1       Rod           3 St. Louis Eagles          2
-    ## 36 17371        FALSE       2      Vern           3 St. Louis Eagles          2
-    ## 37 17631        FALSE       4     Ralph           3 St. Louis Eagles          2
-    ## 38 18433        FALSE       2     Rusty           3 St. Louis Eagles          2
-    ## 39 18878        FALSE       0      Fred           3 St. Louis Eagles          2
-    ## 40 19465        FALSE       1       Sam           3 St. Louis Eagles          2
-    ## 41 19518        FALSE       0      Leth           3 St. Louis Eagles          2
-    ## 42 19908        FALSE      11    Lionel           3 St. Louis Eagles          2
-    ## 43 20760        FALSE       2        Ed           3 St. Louis Eagles          2
-    ## 44 21104        FALSE       2      Bert           3 St. Louis Eagles          2
-    ## 45 21126        FALSE       2      Jack           3 St. Louis Eagles          2
-    ## 46 22875        FALSE       4       Art           3 St. Louis Eagles          2
-    ## 47 23046        FALSE       2    Harold           3 St. Louis Eagles          2
-    ## 48 20276        FALSE      10      Pete           3 St. Louis Eagles          2
-    ## 49 22825        FALSE       8     Hamby           3 St. Louis Eagles          2
-    ## 50 17352        FALSE       7     Ossie           3 St. Louis Eagles          2
-    ## 51 17700        FALSE       2    Morley           3 St. Louis Eagles          2
-    ## 52 19186        FALSE       9       Gus           3 St. Louis Eagles          2
-    ## 53 20159        FALSE       7     Frank           3 St. Louis Eagles          2
-    ## 54 20334        FALSE       7     Wally           3 St. Louis Eagles          2
-    ## 55 21924        FALSE       1      Dave           3 St. Louis Eagles          2
-    ## 56 17209        FALSE       1      Jack           3 St. Louis Eagles          2
-    ## 57 17855        FALSE       1     Harry           3 St. Louis Eagles          2
-    ## 58 17862        FALSE       4      Earl           3 St. Louis Eagles          2
-    ## 59 18390        FALSE       7      Bill           3 St. Louis Eagles          2
-    ## 60 19559        FALSE      11       Len           3 St. Louis Eagles          2
-    ## 61 19920        FALSE       2     Flash           3 St. Louis Eagles          2
-    ## 62 22805        FALSE      16        Al           3 St. Louis Eagles          2
-    ## 63 17612        FALSE       2     Frank           3 St. Louis Eagles          2
-    ## 64 20081        FALSE       1     Harry           3 St. Louis Eagles          2
-    ## 65 18392        FALSE      24     Danny           3 St. Louis Eagles          2
-    ## 66 20250        FALSE      17       Max           3 St. Louis Eagles          2
-    ## 67 22871        FALSE      25      Alex           3 St. Louis Eagles          2
-    ## 68 17737        FALSE      18     Glenn           3 St. Louis Eagles          2
-    ## 69 19488        FALSE       5        Ed           3 St. Louis Eagles          2
-    ## 70 22779        FALSE      17     Gerry           3 St. Louis Eagles          2
-    ## 71 23349        FALSE       7      Nick           3 St. Louis Eagles          2
-    ## 72 19435        FALSE      51     Eddie           3 St. Louis Eagles          2
-    ## 73 21986        FALSE      24      Earl           3 St. Louis Eagles          2
-    ## 74 23274        FALSE      34      Carl           3 St. Louis Eagles          2
-    ## 75 19963        FALSE      33       Syd           3 St. Louis Eagles          2
-    ## 76 22028        FALSE      16       Des           3 St. Louis Eagles          2
-    ## 77 17012        FALSE      75    George           3 St. Louis Eagles          2
-    ## 78 23204        FALSE      36      Bill           3 St. Louis Eagles          2
-    ## 79 17104        FALSE      29    Hooley           3 St. Louis Eagles          2
-    ## 80 18075        FALSE      16   Sprague           3 St. Louis Eagles          2
-    ## 81 23376        FALSE      11    Cooney           3 St. Louis Eagles          2
-    ## 82 17067        FALSE      72      King           3 St. Louis Eagles          2
-    ## 83 19332        FALSE      14       Art           3 St. Louis Eagles          2
-    ## 84 16979        FALSE      67     Frank           3 St. Louis Eagles          2
-    ## 85 18498        FALSE      49      Jack           3 St. Louis Eagles          2
-    ## 86 16907        FALSE     100     Frank           3 St. Louis Eagles          2
-    ## 87 17150        FALSE      46       Joe           3 St. Louis Eagles          2
-    ## 88 17665        FALSE      31     Punch           3 St. Louis Eagles          2
-    ## 89 16985        FALSE      87        Cy           3 St. Louis Eagles          2
-    ## 90 17047        FALSE      57       Hec           3 St. Louis Eagles          2
-    ##    gamesPlayed goals   lastName
-    ## 1           13     0      Burke
-    ## 2            4     0      Burry
-    ## 3            4     0   Carrigan
-    ## 4            8     0  Chouinard
-    ## 5           27     0     Duggan
-    ## 6           48     0       Frew
-    ## 7            2     0     Gainor
-    ## 8            2     0  Galbraith
-    ## 9           12     0     Graham
-    ## 10          14     0     Hutton
-    ## 11           8     0    Jackson
-    ## 12          25     0 Kalbfleish
-    ## 13          14     0   Kinsella
-    ## 14           7     0     Lowrey
-    ## 15           9     0    Merrill
-    ## 16          16     0      Milks
-    ## 17          11     0  Patterson
-    ## 18          13     0  Pettinger
-    ## 19          16     0   Rockburn
-    ## 20          11     0      Ronan
-    ## 21           8     0     Wilcox
-    ## 22           9     0   Williams
-    ## 23          17     1       Bell
-    ## 24           8     1      Blake
-    ## 25          63     1 Bourgeault
-    ## 26          33     1     Connor
-    ## 27          22     1       Cook
-    ## 28          12     1   Finnigan
-    ## 29          67     1   Halliday
-    ## 30          44     1     Helman
-    ## 31          35     1      Leduc
-    ## 32          25     1     Purpur
-    ## 33          31     1     Ripley
-    ## 34          18     1   Saunders
-    ## 35          13     1     Smylie
-    ## 36          47     2      Ayres
-    ## 37          77     2     Bowman
-    ## 38          13     2   Crawford
-    ## 39          43     2    Elliott
-    ## 40          43     2      Godin
-    ## 41          21     2     Graham
-    ## 42          39     2   Hitchman
-    ## 43          22     2     Lowrey
-    ## 44          33     2   McInenly
-    ## 45          45     4    MacKell
-    ## 46          43     2      Smith
-    ## 47          94     4      Starr
-    ## 48          25     3      Kelly
-    ## 49          18     3      Shore
-    ## 50          11     4  Asmundson
-    ## 51          71     8      Bruce
-    ## 52          48     4   Forslund
-    ## 53          16     4      Jerwa
-    ## 54          70     7     Kilrea
-    ## 55          13     4    Ritchie
-    ## 56          40     5      Adams
-    ## 57           7     5    Cameron
-    ## 58          47     5   Campbell
-    ## 59          41     5     Cowley
-    ## 60         134     9  Grosvenor
-    ## 61          28     6    Hollett
-    ## 62         189    17    Shields
-    ## 63          24     8    Boucher
-    ## 64          13     8     Hyland
-    ## 65         145    16        Cox
-    ## 66          49     9   Kaminsky
-    ## 67         286    23      Smith
-    ## 68          48    11    Brydson
-    ## 69          92    14     Gorman
-    ## 70          74    13    Shannon
-    ## 71          50    14     Wasnie
-    ## 72         128    50     Gerard
-    ## 73          84    20      Roche
-    ## 74          88    20       Voss
-    ## 75         138    40       Howe
-    ## 76          69    17      Roche
-    ## 77         330   114    Boucher
-    ## 78         225    58     Touhey
-    ## 79         101    35      Smith
-    ## 80          42    25   Cleghorn
-    ## 81          56    18    Weiland
-    ## 82         306    85     Clancy
-    ## 83          74    25      Gagne
-    ## 84         400   102   Finnigan
-    ## 85         121    68    Darragh
-    ## 86         326   137    Nighbor
-    ## 87         123    51       Lamb
-    ## 88         151    84  Broadbent
-    ## 89         306   246    Denneny
-    ## 90         293   103     Kilrea
-    ##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              mostAssistsGameDates
-    ## 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      1933-02-16, 1933-02-19, 1933-02-23, 1933-02-28, 1933-03-02, 1933-03-05, 1933-03-07, 1933-03-09, 1933-03-11, 1933-03-14, 1933-03-16, 1933-03-18, 1933-03-21
-    ## 2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  1932-11-12, 1932-11-19, 1932-11-24, 1932-11-26, 1932-11-29, 1932-12-01, 1932-12-03, 1932-12-04, 1932-12-06, 1932-12-08, 1932-12-10, 1932-12-13, 1932-12-15, 1932-12-17, 1932-12-20, 1932-12-24, 1932-12-27, 1932-12-29, 1933-01-03, 1933-01-05, 1933-01-07, 1933-01-10, 1933-01-12, 1933-01-14, 1933-01-17, 1933-01-19, 1933-01-22, 1933-01-24, 1933-01-26, 1933-01-28, 1933-01-31, 1933-02-02, 1933-02-04, 1933-02-09, 1933-02-14, 1933-02-16, 1933-02-19, 1933-02-23, 1933-02-28, 1933-03-02, 1933-03-05, 1933-03-07, 1933-03-09, 1933-03-11, 1933-03-14, 1933-03-16, 1933-03-18, 1933-03-21
-    ## 3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      1935-01-24
-    ## 4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  1927-11-15, 1927-11-17, 1927-11-19, 1927-11-22, 1927-11-23, 1927-11-26, 1927-11-29, 1927-12-03, 1927-12-06, 1927-12-10, 1927-12-13, 1927-12-15, 1927-12-17, 1927-12-20, 1927-12-24, 1927-12-27, 1927-12-31, 1928-01-07, 1928-01-10, 1928-01-14, 1928-01-17, 1928-01-19, 1928-01-21, 1928-01-24, 1928-01-26, 1928-01-28, 1928-01-31, 1928-02-02, 1928-02-07, 1928-02-09, 1928-02-16, 1928-02-18, 1928-02-22, 1928-02-23, 1928-02-25, 1928-02-28, 1928-03-03, 1928-03-06, 1928-03-10, 1928-03-13, 1928-03-15, 1928-03-17, 1928-03-22, 1928-03-24
-    ## 5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  1925-11-28, 1925-12-03, 1925-12-05, 1925-12-10, 1925-12-12, 1925-12-15, 1925-12-17, 1925-12-23, 1925-12-26, 1925-12-30, 1926-01-01, 1926-01-05, 1926-01-07, 1926-01-11, 1926-01-13, 1926-01-19, 1926-01-21, 1926-01-26, 1926-01-28, 1926-01-30, 1926-02-02, 1926-02-04, 1926-02-06, 1926-02-11, 1926-02-16, 1926-02-18, 1926-02-20, 1926-02-23, 1926-02-27, 1926-03-02, 1926-03-04, 1926-03-06, 1926-03-08, 1926-03-13, 1926-03-15, 1926-03-17
-    ## 6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          1935-02-21, 1935-03-09
-    ## 7                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  1932-11-12, 1932-11-19, 1932-11-24, 1932-11-26, 1932-11-29, 1932-12-01, 1932-12-03, 1932-12-04, 1932-12-06, 1932-12-08, 1932-12-10, 1932-12-13, 1932-12-15, 1932-12-17, 1932-12-20, 1932-12-24, 1932-12-27, 1932-12-29, 1933-01-03, 1933-01-05, 1933-01-07, 1933-01-10, 1933-01-12, 1933-01-14, 1933-01-17, 1933-01-19, 1933-01-22, 1933-01-24, 1933-01-26, 1933-01-28, 1933-01-31, 1933-02-02, 1933-02-04, 1933-02-09, 1933-02-14, 1933-02-16, 1933-02-19, 1933-02-23, 1933-02-28, 1933-03-02, 1933-03-05, 1933-03-07, 1933-03-09, 1933-03-11, 1933-03-14, 1933-03-16, 1933-03-18, 1933-03-21
-    ## 8                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          1933-11-14, 1933-11-16
-    ## 9                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  1935-02-12, 1935-02-16, 1935-02-19, 1935-02-21, 1935-02-23, 1935-02-26, 1935-02-28, 1935-03-02, 1935-03-07, 1935-03-09, 1935-03-12, 1935-03-19
-    ## 10                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1930-02-13
-    ## 11                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1926-11-18, 1926-11-20, 1926-11-25, 1926-11-27, 1926-11-30, 1926-12-04, 1926-12-07, 1926-12-09, 1926-12-11, 1926-12-14, 1926-12-16, 1926-12-18, 1926-12-23, 1926-12-28, 1927-01-01, 1927-01-04, 1927-01-08, 1927-01-11, 1927-01-13, 1927-01-15, 1927-01-18, 1927-01-22, 1927-01-25, 1927-01-27, 1927-01-29, 1927-02-01, 1927-02-05, 1927-02-09, 1927-02-12, 1927-02-15, 1927-02-17, 1927-02-19, 1927-02-22, 1927-02-24, 1927-02-26, 1927-03-03, 1927-03-05, 1927-03-10, 1927-03-12, 1927-03-15, 1927-03-17, 1927-03-19, 1927-03-24, 1927-03-26
-    ## 12                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1934-02-20
-    ## 13                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1930-11-11, 1930-11-15, 1930-11-18, 1930-11-20, 1930-11-22, 1930-11-25, 1930-11-27, 1930-11-29, 1930-12-04, 1930-12-06, 1930-12-09, 1930-12-11, 1930-12-16, 1930-12-18, 1930-12-25, 1930-12-27, 1930-12-30, 1931-01-01, 1931-01-03, 1931-01-06, 1931-01-08, 1931-01-15, 1931-01-17, 1931-01-20, 1931-01-22, 1931-01-24, 1931-01-29, 1931-02-01, 1931-02-03, 1931-02-05, 1931-02-08, 1931-02-12, 1931-02-17, 1931-02-19, 1931-02-21, 1931-02-26, 1931-03-01, 1931-03-03, 1931-03-07, 1931-03-10, 1931-03-12, 1931-03-14, 1931-03-17, 1931-03-21
-    ## 14                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1932-11-12, 1932-11-19, 1932-11-24, 1932-11-26, 1932-11-29, 1932-12-01, 1932-12-03, 1932-12-04, 1932-12-06, 1932-12-08, 1932-12-10, 1932-12-13, 1932-12-15, 1932-12-17, 1932-12-20, 1932-12-24, 1932-12-27, 1932-12-29, 1933-01-03, 1933-01-05, 1933-01-07, 1933-01-10, 1933-01-12, 1933-01-14, 1933-01-17, 1933-01-19, 1933-01-22, 1933-01-24, 1933-01-26, 1933-01-28, 1933-01-31, 1933-02-02, 1933-02-04, 1933-02-09, 1933-02-14, 1933-02-16, 1933-02-19, 1933-02-23, 1933-02-28, 1933-03-02, 1933-03-05, 1933-03-07, 1933-03-09, 1933-03-11, 1933-03-14, 1933-03-16, 1933-03-18, 1933-03-21
-    ## 15                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1917-12-19, 1917-12-22, 1917-12-26, 1917-12-29, 1918-01-02, 1918-01-05, 1918-01-12, 1918-01-14, 1918-01-16, 1918-01-21, 1918-01-23, 1918-01-26, 1918-01-30, 1918-02-04, 1918-02-06, 1918-02-11, 1918-02-13, 1918-02-16, 1918-02-23, 1918-02-25, 1918-02-27, 1918-03-06, 1919-12-23, 1919-12-27, 1920-01-01, 1920-01-03, 1920-01-07, 1920-01-10, 1920-01-14, 1920-01-17, 1920-01-21, 1920-01-24, 1920-01-28, 1920-01-31, 1920-02-04, 1920-02-07, 1920-02-11, 1920-02-14, 1920-02-18, 1920-02-21, 1920-02-25, 1920-02-28, 1920-03-03, 1920-03-06, 1920-03-08, 1920-03-10
-    ## 16                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             1932-12-01, 1932-12-13, 1932-12-20
-    ## 17                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             1934-12-01, 1934-12-04, 1934-12-08, 1934-12-09, 1934-12-13, 1934-12-15, 1934-12-18, 1934-12-20, 1934-12-22, 1934-12-27, 1934-12-30
-    ## 18                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1930-11-11, 1930-11-15, 1930-11-18, 1930-11-20, 1930-11-22, 1930-11-25, 1930-11-27, 1930-11-29, 1930-12-04, 1930-12-06, 1930-12-09, 1930-12-11, 1930-12-16, 1930-12-18, 1930-12-25, 1930-12-27, 1930-12-30, 1931-01-01, 1931-01-03, 1931-01-06, 1931-01-08, 1931-01-15, 1931-01-17, 1931-01-20, 1931-01-22, 1931-01-24, 1931-01-29, 1931-02-01, 1931-02-03, 1931-02-05, 1931-02-08, 1931-02-12, 1931-02-17, 1931-02-19, 1931-02-21, 1931-02-26, 1931-03-01, 1931-03-03, 1931-03-07, 1931-03-10, 1931-03-12, 1931-03-14, 1931-03-17, 1931-03-21
-    ## 19                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1933-03-02
-    ## 20                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1918-12-21, 1918-12-26, 1918-12-31, 1919-01-02, 1919-01-04, 1919-01-09, 1919-01-14, 1919-01-16, 1919-01-18, 1919-01-23, 1919-01-25, 1919-01-28, 1919-01-30, 1919-02-06, 1919-02-08, 1919-02-13, 1919-02-18, 1919-02-20
-    ## 21                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1934-11-08, 1934-11-10, 1934-11-13, 1934-11-17, 1934-11-18, 1934-11-20, 1934-11-22, 1934-11-24, 1934-11-25, 1934-12-01, 1934-12-04, 1934-12-08, 1934-12-09, 1934-12-13, 1934-12-15, 1934-12-18, 1934-12-20, 1934-12-22, 1934-12-27, 1934-12-30, 1935-01-03, 1935-01-05, 1935-01-10, 1935-01-13, 1935-01-15, 1935-01-17, 1935-01-19, 1935-01-20, 1935-01-22, 1935-01-24, 1935-01-27, 1935-01-29, 1935-02-03, 1935-02-05, 1935-02-07, 1935-02-09, 1935-02-12, 1935-02-16, 1935-02-19, 1935-02-21, 1935-02-23, 1935-02-26, 1935-02-28, 1935-03-02, 1935-03-07, 1935-03-09, 1935-03-12, 1935-03-19
-    ## 22                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1934-11-08, 1934-11-10, 1934-11-13, 1934-11-17, 1934-11-18, 1934-11-20, 1934-11-22, 1934-11-24, 1934-12-01
-    ## 23                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1922-02-04, 1922-02-18
-    ## 24                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1935-01-29
-    ## 25                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1930-12-09, 1931-01-03, 1931-01-17, 1931-03-21, 1933-01-10
-    ## 26                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1929-12-05, 1930-01-21
-    ## 27                                                                                                                                                                                                                                                                                                                                                                                                                                                 1933-11-11, 1933-11-14, 1933-11-16, 1933-11-18, 1933-11-19, 1933-11-21, 1933-11-23, 1933-11-25, 1933-11-28, 1933-11-30, 1933-12-07, 1933-12-10, 1933-12-12, 1933-12-14, 1933-12-16, 1933-12-19, 1933-12-21, 1933-12-25, 1933-12-28, 1934-01-01, 1934-01-04, 1934-01-06, 1934-01-07, 1934-01-11, 1934-01-13, 1934-01-16, 1934-01-20, 1934-01-23, 1934-01-25, 1934-01-30, 1934-02-01, 1934-02-03, 1934-02-06, 1934-02-11, 1934-02-13, 1934-02-15, 1934-02-18, 1934-02-20, 1934-02-22, 1934-02-24, 1934-02-27, 1934-03-04, 1934-03-06, 1934-03-08, 1934-03-10, 1934-03-13, 1934-03-15, 1934-03-17, 1934-11-08, 1934-11-10, 1934-11-13, 1934-11-17, 1934-11-18, 1934-11-20, 1934-11-22, 1934-11-24, 1934-11-25, 1934-12-01, 1934-12-04, 1934-12-08, 1934-12-09, 1934-12-13, 1934-12-15, 1934-12-18, 1934-12-20, 1934-12-22, 1934-12-27, 1934-12-30, 1935-01-03, 1935-01-05, 1935-01-10, 1935-01-13, 1935-01-15, 1935-01-17, 1935-01-19, 1935-01-20, 1935-01-22, 1935-01-24, 1935-01-27, 1935-01-29, 1935-02-03, 1935-02-05, 1935-02-07, 1935-02-09, 1935-02-12, 1935-02-16, 1935-02-19, 1935-02-21, 1935-02-23, 1935-02-26, 1935-02-28, 1935-03-02, 1935-03-07, 1935-03-09, 1935-03-12, 1935-03-19
-    ## 28                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1934-11-08, 1934-11-10, 1934-11-13, 1934-11-17, 1934-11-18, 1934-11-20, 1934-11-22, 1934-11-24, 1934-11-25, 1934-12-01, 1934-12-04, 1934-12-08, 1934-12-09, 1934-12-13, 1934-12-15, 1934-12-18, 1934-12-20, 1934-12-22, 1934-12-27, 1934-12-30, 1935-01-03, 1935-01-05, 1935-01-10, 1935-01-13, 1935-01-15, 1935-01-17, 1935-01-19, 1935-01-20, 1935-01-22, 1935-01-24, 1935-01-27, 1935-01-29, 1935-02-03, 1935-02-05, 1935-02-07, 1935-02-09, 1935-02-12, 1935-02-16, 1935-02-19, 1935-02-21, 1935-02-23, 1935-02-26, 1935-02-28, 1935-03-02, 1935-03-07, 1935-03-09, 1935-03-12, 1935-03-19
-    ## 29 1926-11-18, 1926-11-20, 1926-11-25, 1926-11-27, 1926-11-30, 1926-12-04, 1926-12-07, 1926-12-09, 1926-12-11, 1926-12-14, 1926-12-16, 1926-12-18, 1926-12-23, 1926-12-28, 1927-01-01, 1927-01-04, 1927-01-08, 1927-01-11, 1927-01-13, 1927-01-15, 1927-01-18, 1927-01-22, 1927-01-25, 1927-01-27, 1927-01-29, 1927-02-01, 1927-02-05, 1927-02-09, 1927-02-12, 1927-02-15, 1927-02-17, 1927-02-19, 1927-02-22, 1927-02-24, 1927-02-26, 1927-03-03, 1927-03-05, 1927-03-10, 1927-03-12, 1927-03-15, 1927-03-17, 1927-03-19, 1927-03-24, 1927-03-26, 1927-11-15, 1927-11-17, 1927-11-19, 1927-11-22, 1927-11-23, 1927-11-26, 1927-11-29, 1927-12-03, 1927-12-06, 1927-12-10, 1927-12-13, 1927-12-15, 1927-12-17, 1927-12-20, 1927-12-24, 1927-12-27, 1927-12-31, 1928-01-07, 1928-01-10, 1928-01-14, 1928-01-17, 1928-01-19, 1928-01-21, 1928-01-24, 1928-01-26, 1928-01-28, 1928-01-31, 1928-02-02, 1928-02-07, 1928-02-09, 1928-02-16, 1928-02-18, 1928-02-22, 1928-02-23, 1928-02-25, 1928-02-28, 1928-03-03, 1928-03-06, 1928-03-10, 1928-03-13, 1928-03-15, 1928-03-17, 1928-03-22, 1928-03-24, 1928-11-15, 1928-11-17, 1928-11-20, 1928-11-22, 1928-11-24, 1928-11-27, 1928-12-01, 1928-12-06, 1928-12-08, 1928-12-11, 1928-12-13, 1928-12-15, 1928-12-18, 1928-12-20, 1928-12-22, 1928-12-29, 1929-01-01, 1929-01-03, 1929-01-05, 1929-01-08, 1929-01-10, 1929-01-12, 1929-01-15, 1929-01-19, 1929-01-22, 1929-01-26, 1929-01-29, 1929-02-02, 1929-02-07, 1929-02-09, 1929-02-12, 1929-02-14, 1929-02-16, 1929-02-19, 1929-02-21, 1929-02-23, 1929-02-26, 1929-02-28, 1929-03-02, 1929-03-05, 1929-03-07, 1929-03-09, 1929-03-12, 1929-03-16
-    ## 30                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1922-12-16, 1922-12-20, 1922-12-23, 1922-12-27, 1922-12-30, 1923-01-03, 1923-01-06, 1923-01-10, 1923-01-13, 1923-01-17, 1923-01-20, 1923-01-24, 1923-01-27, 1923-01-31, 1923-02-03, 1923-02-07, 1923-02-10, 1923-02-14, 1923-02-17, 1923-02-21, 1923-02-24, 1923-02-28, 1923-03-03, 1923-03-05, 1923-12-15, 1923-12-19, 1923-12-26, 1923-12-29, 1924-01-02, 1924-01-05, 1924-01-09, 1924-01-12, 1924-01-16, 1924-01-19, 1924-01-21, 1924-01-23, 1924-01-26, 1924-01-30, 1924-02-02, 1924-02-06, 1924-02-09, 1924-02-13, 1924-02-16, 1924-02-21, 1924-02-23, 1924-02-27, 1924-03-01, 1924-03-05, 1924-11-29, 1924-12-03, 1924-12-06, 1924-12-10, 1924-12-15, 1924-12-17, 1924-12-20, 1924-12-23, 1924-12-27, 1925-01-01, 1925-01-03, 1925-01-07, 1925-01-10, 1925-01-14, 1925-01-17, 1925-01-21, 1925-01-24, 1925-01-28, 1925-01-31, 1925-02-03, 1925-02-07, 1925-02-11, 1925-02-14, 1925-02-18, 1925-02-21, 1925-02-25, 1925-02-28, 1925-03-04, 1925-03-07, 1925-03-09
-    ## 31                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             1933-11-25, 1934-01-04, 1934-01-25
-    ## 32                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1935-01-24, 1935-02-12
-    ## 33                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1935-02-16
-    ## 34                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1934-01-20
-    ## 35                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1924-01-05
-    ## 36                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1935-01-27, 1935-01-29
-    ## 37                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1933-11-28, 1934-02-06, 1934-11-08, 1934-11-10
-    ## 38                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1917-12-29, 1918-01-16
-    ## 39                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1928-11-15, 1928-11-17, 1928-11-20, 1928-11-22, 1928-11-24, 1928-11-27, 1928-12-01, 1928-12-06, 1928-12-08, 1928-12-11, 1928-12-13, 1928-12-15, 1928-12-18, 1928-12-20, 1928-12-22, 1928-12-29, 1929-01-01, 1929-01-03, 1929-01-05, 1929-01-08, 1929-01-10, 1929-01-12, 1929-01-15, 1929-01-19, 1929-01-22, 1929-01-26, 1929-01-29, 1929-02-02, 1929-02-07, 1929-02-09, 1929-02-12, 1929-02-14, 1929-02-16, 1929-02-19, 1929-02-21, 1929-02-23, 1929-02-26, 1929-02-28, 1929-03-02, 1929-03-05, 1929-03-07, 1929-03-09, 1929-03-12, 1929-03-16
-    ## 40                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1929-02-07
-    ## 41                                                                                                                                                                                                                                                                                                                                                                         1920-12-22, 1920-12-27, 1920-12-29, 1921-01-03, 1921-01-06, 1921-01-08, 1921-01-12, 1921-01-15, 1921-01-19, 1921-01-22, 1921-01-26, 1921-01-29, 1921-02-02, 1921-02-05, 1921-02-09, 1921-02-12, 1921-02-16, 1921-02-19, 1921-02-23, 1921-02-26, 1921-02-28, 1921-03-02, 1921-03-05, 1921-03-07, 1921-12-17, 1921-12-21, 1921-12-24, 1921-12-28, 1921-12-31, 1922-01-04, 1922-01-07, 1922-01-11, 1922-01-14, 1922-01-18, 1922-01-21, 1922-01-25, 1922-01-28, 1922-02-01, 1922-02-04, 1922-02-08, 1922-02-11, 1922-02-15, 1922-02-18, 1922-02-22, 1922-02-25, 1922-03-01, 1922-03-04, 1922-03-08, 1923-12-15, 1923-12-19, 1923-12-26, 1923-12-29, 1924-01-02, 1924-01-05, 1924-01-09, 1924-01-12, 1924-01-16, 1924-01-19, 1924-01-21, 1924-01-23, 1924-01-26, 1924-01-30, 1924-02-02, 1924-02-06, 1924-02-09, 1924-02-13, 1924-02-16, 1924-02-21, 1924-02-23, 1924-02-27, 1924-03-01, 1924-03-05, 1924-11-29, 1924-12-03, 1924-12-06, 1924-12-10, 1924-12-15, 1924-12-17, 1924-12-20, 1924-12-23, 1924-12-27, 1925-01-01, 1925-01-03, 1925-01-07, 1925-01-10, 1925-01-14, 1925-01-17, 1925-01-21, 1925-01-24, 1925-01-28, 1925-01-31, 1925-02-03, 1925-02-07, 1925-02-11, 1925-02-14, 1925-02-18, 1925-02-21, 1925-02-25, 1925-02-28, 1925-03-04, 1925-03-07, 1925-03-09
-    ## 42                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1924-01-30
-    ## 43                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1918-01-16, 1918-12-31
-    ## 44                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1932-12-08, 1933-03-02
-    ## 45                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1920-03-08, 1921-02-09
-    ## 46                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1931-01-15, 1931-01-29, 1931-02-12, 1931-03-21
-    ## 47                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1930-02-04, 1930-11-27
-    ## 48                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1935-01-13, 1935-01-24, 1935-01-27, 1935-01-29, 1935-02-03, 1935-02-05, 1935-02-09, 1935-02-16, 1935-03-02, 1935-03-07
-    ## 49                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1917-12-19, 1917-12-22
-    ## 50                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1935-03-02, 1935-03-12
-    ## 51                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1921-02-23, 1922-02-25
-    ## 52                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1932-11-24, 1932-12-10, 1932-12-13, 1932-12-17, 1933-01-14, 1933-02-04, 1933-02-14, 1933-03-02, 1933-03-09
-    ## 53                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1935-03-07, 1935-03-12
-    ## 54                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             1929-12-05, 1930-02-04, 1932-11-19, 1932-11-24, 1932-11-26, 1932-12-01, 1933-01-28
-    ## 55                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1918-01-23
-    ## 56                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1926-11-30
-    ## 57                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1919-01-23
-    ## 58                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1924-03-05
-    ## 59                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             1934-12-04, 1935-01-20, 1935-01-29, 1935-02-21, 1935-03-02, 1935-03-07, 1935-03-19
-    ## 60                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1930-12-27
-    ## 61                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1934-01-11, 1934-03-06
-    ## 62                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1934-02-24
-    ## 63                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1922-01-11, 1922-02-25
-    ## 64                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1918-01-21
-    ## 65                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1930-12-11, 1931-02-26, 1931-03-10, 1931-03-14
-    ## 66                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1934-01-04
-    ## 67                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             1928-01-26, 1929-02-21, 1931-02-17
-    ## 68                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1934-12-27, 1934-12-30
-    ## 69                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1925-01-28, 1925-01-31, 1925-02-03, 1925-03-09, 1925-12-17
-    ## 70                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1934-01-16
-    ## 71                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             1933-12-25, 1934-01-01, 1934-01-04, 1934-02-13, 1934-02-24, 1934-03-06, 1934-12-13
-    ## 72                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1922-01-18
-    ## 73                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1933-12-10
-    ## 74                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1935-01-20
-    ## 75                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1933-01-19
-    ## 76                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             1933-03-14, 1933-12-07, 1934-02-24
-    ## 77                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1922-12-20
-    ## 78                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1931-03-21
-    ## 79                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1926-02-18
-    ## 80                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1919-02-20, 1920-12-22
-    ## 81                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1932-11-24, 1932-12-01
-    ## 82                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1928-01-26
-    ## 83                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1930-03-15, 1931-01-29, 1931-02-21, 1931-03-21
-    ## 84                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1930-12-04
-    ## 85                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1920-01-31, 1921-01-03
-    ## 86                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1918-02-25, 1920-01-31
-    ## 87                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1930-02-27, 1930-12-04, 1934-12-18, 1935-03-12
-    ## 88                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1921-12-24
-    ## 89                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1923-02-28
-    ## 90                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1929-12-05, 1930-01-21
-    ##    mostAssistsOneGame mostAssistsOneSeason
-    ## 1                   0                    0
-    ## 2                   0                    0
-    ## 3                   1                    1
-    ## 4                   0                    0
-    ## 5                   0                    0
-    ## 6                   1                    2
-    ## 7                   0                    0
-    ## 8                   0                    0
-    ## 9                   0                    0
-    ## 10                  1                    1
-    ## 11                  0                    0
-    ## 12                  2                    4
-    ## 13                  0                    0
-    ## 14                  0                    0
-    ## 15                  0                    0
-    ## 16                  1                    3
-    ## 17                  0                    0
-    ## 18                  0                    0
-    ## 19                  1                    1
-    ## 20                  0                    0
-    ## 21                  0                    0
-    ## 22                  0                    0
-    ## 23                  1                    2
-    ## 24                  1                    1
-    ## 25                  1                    4
-    ## 26                  1                    2
-    ## 27                  0                    0
-    ## 28                  0                    0
-    ## 29                  0                    0
-    ## 30                  0                    0
-    ## 31                  1                    3
-    ## 32                  1                    2
-    ## 33                  2                    5
-    ## 34                  2                    3
-    ## 35                  1                    1
-    ## 36                  1                    2
-    ## 37                  1                    2
-    ## 38                  1                    2
-    ## 39                  0                    0
-    ## 40                  1                    1
-    ## 41                  0                    0
-    ## 42                  5                   10
-    ## 43                  1                    1
-    ## 44                  1                    2
-    ## 45                  1                    1
-    ## 46                  1                    4
-    ## 47                  1                    1
-    ## 48                  1                   10
-    ## 49                  2                    8
-    ## 50                  2                    7
-    ## 51                  1                    1
-    ## 52                  1                    9
-    ## 53                  2                    7
-    ## 54                  1                    5
-    ## 55                  1                    1
-    ## 56                  1                    1
-    ## 57                  1                    1
-    ## 58                  2                    4
-    ## 59                  1                    7
-    ## 60                  2                    4
-    ## 61                  1                    2
-    ## 62                  3                    7
-    ## 63                  1                    2
-    ## 64                  1                    1
-    ## 65                  2                   12
-    ## 66                  4                   17
-    ## 67                  2                    7
-    ## 68                  2                   18
-    ## 69                  1                    4
-    ## 70                  3                   15
-    ## 71                  1                    6
-    ## 72                  3                   11
-    ## 73                  2                   16
-    ## 74                  3                   18
-    ## 75                  2                   13
-    ## 76                  2                   10
-    ## 77                  3                   12
-    ## 78                  3                   15
-    ## 79                  3                   14
-    ## 80                  2                    8
-    ## 81                  2                   11
-    ## 82                  4                   23
-    ## 83                  2                   11
-    ## 84                  3                   15
-    ## 85                  3                   14
-    ## 86                  4                   16
-    ## 87                  2                   20
-    ## 88                  3                   14
-    ## 89                  3                   14
-    ## 90                  3                   22
-    ##                      mostAssistsSeasonIds
-    ## 1                                19321933
-    ## 2                                19321933
-    ## 3                                19341935
-    ## 4                                19271928
-    ## 5                                19251926
-    ## 6                                19341935
-    ## 7                                19321933
-    ## 8                                19331934
-    ## 9                                19341935
-    ## 10                               19291930
-    ## 11                               19261927
-    ## 12                               19331934
-    ## 13                               19301931
-    ## 14                               19321933
-    ## 15                     19171918, 19191920
-    ## 16                               19321933
-    ## 17                               19341935
-    ## 18                               19301931
-    ## 19                               19321933
-    ## 20                               19181919
-    ## 21                               19341935
-    ## 22                               19341935
-    ## 23                               19211922
-    ## 24                               19341935
-    ## 25                               19301931
-    ## 26                               19291930
-    ## 27                     19331934, 19341935
-    ## 28                               19341935
-    ## 29           19261927, 19271928, 19281929
-    ## 30           19221923, 19231924, 19241925
-    ## 31                               19331934
-    ## 32                               19341935
-    ## 33                               19341935
-    ## 34                               19331934
-    ## 35                               19231924
-    ## 36                               19341935
-    ## 37                     19331934, 19341935
-    ## 38                               19171918
-    ## 39                               19281929
-    ## 40                               19281929
-    ## 41 19201921, 19211922, 19231924, 19241925
-    ## 42                               19231924
-    ## 43                     19171918, 19181919
-    ## 44                               19321933
-    ## 45                     19191920, 19201921
-    ## 46                               19301931
-    ## 47                     19291930, 19301931
-    ## 48                               19341935
-    ## 49                               19171918
-    ## 50                               19341935
-    ## 51                     19201921, 19211922
-    ## 52                               19321933
-    ## 53                               19341935
-    ## 54                               19321933
-    ## 55                               19171918
-    ## 56                               19261927
-    ## 57                               19181919
-    ## 58                               19231924
-    ## 59                               19341935
-    ## 60                               19301931
-    ## 61                               19331934
-    ## 62                               19331934
-    ## 63                               19211922
-    ## 64                               19171918
-    ## 65                               19301931
-    ## 66                               19331934
-    ## 67                     19281929, 19301931
-    ## 68                               19341935
-    ## 69                               19241925
-    ## 70                               19331934
-    ## 71                               19331934
-    ## 72                     19211922, 19221923
-    ## 73                               19331934
-    ## 74                               19341935
-    ## 75                               19341935
-    ## 76                               19331934
-    ## 77                               19211922
-    ## 78                               19301931
-    ## 79                               19241925
-    ## 80                               19181919
-    ## 81                               19321933
-    ## 82                               19291930
-    ## 83                               19301931
-    ## 84                               19291930
-    ## 85                     19191920, 19201921
-    ## 86                               19191920
-    ## 87                               19291930
-    ## 88                               19211922
-    ## 89                               19241925
-    ## 90                               19291930
-    ##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                mostGoalsGameDates
-    ## 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      1933-02-16, 1933-02-19, 1933-02-23, 1933-02-28, 1933-03-02, 1933-03-05, 1933-03-07, 1933-03-09, 1933-03-11, 1933-03-14, 1933-03-16, 1933-03-18, 1933-03-21
-    ## 2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  1932-11-12, 1932-11-19, 1932-11-24, 1932-11-26, 1932-11-29, 1932-12-01, 1932-12-03, 1932-12-04, 1932-12-06, 1932-12-08, 1932-12-10, 1932-12-13, 1932-12-15, 1932-12-17, 1932-12-20, 1932-12-24, 1932-12-27, 1932-12-29, 1933-01-03, 1933-01-05, 1933-01-07, 1933-01-10, 1933-01-12, 1933-01-14, 1933-01-17, 1933-01-19, 1933-01-22, 1933-01-24, 1933-01-26, 1933-01-28, 1933-01-31, 1933-02-02, 1933-02-04, 1933-02-09, 1933-02-14, 1933-02-16, 1933-02-19, 1933-02-23, 1933-02-28, 1933-03-02, 1933-03-05, 1933-03-07, 1933-03-09, 1933-03-11, 1933-03-14, 1933-03-16, 1933-03-18, 1933-03-21
-    ## 3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  1934-11-08, 1934-11-10, 1934-11-13, 1934-11-17, 1934-11-18, 1934-11-20, 1934-11-22, 1934-11-24, 1934-11-25, 1934-12-01, 1934-12-04, 1934-12-08, 1934-12-09, 1934-12-13, 1934-12-15, 1934-12-18, 1934-12-20, 1934-12-22, 1934-12-27, 1934-12-30, 1935-01-03, 1935-01-05, 1935-01-10, 1935-01-13, 1935-01-15, 1935-01-17, 1935-01-19, 1935-01-20, 1935-01-22, 1935-01-24, 1935-01-27, 1935-01-29, 1935-02-03, 1935-02-05, 1935-02-07, 1935-02-09, 1935-02-12, 1935-02-16, 1935-02-19, 1935-02-21, 1935-02-23, 1935-02-26, 1935-02-28, 1935-03-02, 1935-03-07, 1935-03-09, 1935-03-12, 1935-03-19
-    ## 4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  1927-11-15, 1927-11-17, 1927-11-19, 1927-11-22, 1927-11-23, 1927-11-26, 1927-11-29, 1927-12-03, 1927-12-06, 1927-12-10, 1927-12-13, 1927-12-15, 1927-12-17, 1927-12-20, 1927-12-24, 1927-12-27, 1927-12-31, 1928-01-07, 1928-01-10, 1928-01-14, 1928-01-17, 1928-01-19, 1928-01-21, 1928-01-24, 1928-01-26, 1928-01-28, 1928-01-31, 1928-02-02, 1928-02-07, 1928-02-09, 1928-02-16, 1928-02-18, 1928-02-22, 1928-02-23, 1928-02-25, 1928-02-28, 1928-03-03, 1928-03-06, 1928-03-10, 1928-03-13, 1928-03-15, 1928-03-17, 1928-03-22, 1928-03-24
-    ## 5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  1925-11-28, 1925-12-03, 1925-12-05, 1925-12-10, 1925-12-12, 1925-12-15, 1925-12-17, 1925-12-23, 1925-12-26, 1925-12-30, 1926-01-01, 1926-01-05, 1926-01-07, 1926-01-11, 1926-01-13, 1926-01-19, 1926-01-21, 1926-01-26, 1926-01-28, 1926-01-30, 1926-02-02, 1926-02-04, 1926-02-06, 1926-02-11, 1926-02-16, 1926-02-18, 1926-02-20, 1926-02-23, 1926-02-27, 1926-03-02, 1926-03-04, 1926-03-06, 1926-03-08, 1926-03-13, 1926-03-15, 1926-03-17
-    ## 6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  1934-11-08, 1934-11-10, 1934-11-13, 1934-11-17, 1934-11-18, 1934-11-20, 1934-11-22, 1934-11-24, 1934-11-25, 1934-12-01, 1934-12-04, 1934-12-08, 1934-12-09, 1934-12-13, 1934-12-15, 1934-12-18, 1934-12-20, 1934-12-22, 1934-12-27, 1934-12-30, 1935-01-03, 1935-01-05, 1935-01-10, 1935-01-13, 1935-01-15, 1935-01-17, 1935-01-19, 1935-01-20, 1935-01-22, 1935-01-24, 1935-01-27, 1935-01-29, 1935-02-03, 1935-02-05, 1935-02-07, 1935-02-09, 1935-02-12, 1935-02-16, 1935-02-19, 1935-02-21, 1935-02-23, 1935-02-26, 1935-02-28, 1935-03-02, 1935-03-07, 1935-03-09, 1935-03-12, 1935-03-19
-    ## 7                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  1932-11-12, 1932-11-19, 1932-11-24, 1932-11-26, 1932-11-29, 1932-12-01, 1932-12-03, 1932-12-04, 1932-12-06, 1932-12-08, 1932-12-10, 1932-12-13, 1932-12-15, 1932-12-17, 1932-12-20, 1932-12-24, 1932-12-27, 1932-12-29, 1933-01-03, 1933-01-05, 1933-01-07, 1933-01-10, 1933-01-12, 1933-01-14, 1933-01-17, 1933-01-19, 1933-01-22, 1933-01-24, 1933-01-26, 1933-01-28, 1933-01-31, 1933-02-02, 1933-02-04, 1933-02-09, 1933-02-14, 1933-02-16, 1933-02-19, 1933-02-23, 1933-02-28, 1933-03-02, 1933-03-05, 1933-03-07, 1933-03-09, 1933-03-11, 1933-03-14, 1933-03-16, 1933-03-18, 1933-03-21
-    ## 8                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          1933-11-14, 1933-11-16
-    ## 9                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  1935-02-12, 1935-02-16, 1935-02-19, 1935-02-21, 1935-02-23, 1935-02-26, 1935-02-28, 1935-03-02, 1935-03-07, 1935-03-09, 1935-03-12, 1935-03-19
-    ## 10                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1930-02-01, 1930-02-04, 1930-02-08, 1930-02-13, 1930-02-16, 1930-02-18, 1930-02-20, 1930-02-22, 1930-02-25, 1930-03-01, 1930-03-04, 1930-03-11, 1930-03-13, 1930-03-15
-    ## 11                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1926-11-18, 1926-11-20, 1926-11-25, 1926-11-27, 1926-11-30, 1926-12-04, 1926-12-07, 1926-12-09, 1926-12-11, 1926-12-14, 1926-12-16, 1926-12-18, 1926-12-23, 1926-12-28, 1927-01-01, 1927-01-04, 1927-01-08, 1927-01-11, 1927-01-13, 1927-01-15, 1927-01-18, 1927-01-22, 1927-01-25, 1927-01-27, 1927-01-29, 1927-02-01, 1927-02-05, 1927-02-09, 1927-02-12, 1927-02-15, 1927-02-17, 1927-02-19, 1927-02-22, 1927-02-24, 1927-02-26, 1927-03-03, 1927-03-05, 1927-03-10, 1927-03-12, 1927-03-15, 1927-03-17, 1927-03-19, 1927-03-24, 1927-03-26
-    ## 12 1933-11-11, 1933-11-14, 1933-11-16, 1933-11-18, 1933-11-19, 1933-11-21, 1933-11-23, 1933-11-25, 1933-11-28, 1933-11-30, 1933-12-07, 1933-12-10, 1933-12-12, 1933-12-14, 1933-12-16, 1933-12-19, 1933-12-21, 1933-12-25, 1933-12-28, 1934-01-01, 1934-01-04, 1934-01-06, 1934-01-07, 1934-01-11, 1934-01-13, 1934-01-16, 1934-01-20, 1934-01-23, 1934-01-25, 1934-01-30, 1934-02-01, 1934-02-03, 1934-02-06, 1934-02-11, 1934-02-13, 1934-02-15, 1934-02-18, 1934-02-20, 1934-02-22, 1934-02-24, 1934-02-27, 1934-03-04, 1934-03-06, 1934-03-08, 1934-03-10, 1934-03-13, 1934-03-15, 1934-03-17, 1934-11-08, 1934-11-10, 1934-11-13, 1934-11-17, 1934-11-18, 1934-11-20, 1934-11-22, 1934-11-24, 1934-11-25, 1934-12-01, 1934-12-04, 1934-12-08, 1934-12-09, 1934-12-13, 1934-12-15, 1934-12-18, 1934-12-20, 1934-12-22, 1934-12-27, 1934-12-30, 1935-01-03, 1935-01-05, 1935-01-10, 1935-01-13, 1935-01-15, 1935-01-17, 1935-01-19, 1935-01-20, 1935-01-22, 1935-01-24, 1935-01-27, 1935-01-29, 1935-02-03, 1935-02-05, 1935-02-07, 1935-02-09, 1935-02-12, 1935-02-16, 1935-02-19, 1935-02-21, 1935-02-23, 1935-02-26, 1935-02-28, 1935-03-02, 1935-03-07, 1935-03-09, 1935-03-12, 1935-03-19
-    ## 13                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1930-11-11, 1930-11-15, 1930-11-18, 1930-11-20, 1930-11-22, 1930-11-25, 1930-11-27, 1930-11-29, 1930-12-04, 1930-12-06, 1930-12-09, 1930-12-11, 1930-12-16, 1930-12-18, 1930-12-25, 1930-12-27, 1930-12-30, 1931-01-01, 1931-01-03, 1931-01-06, 1931-01-08, 1931-01-15, 1931-01-17, 1931-01-20, 1931-01-22, 1931-01-24, 1931-01-29, 1931-02-01, 1931-02-03, 1931-02-05, 1931-02-08, 1931-02-12, 1931-02-17, 1931-02-19, 1931-02-21, 1931-02-26, 1931-03-01, 1931-03-03, 1931-03-07, 1931-03-10, 1931-03-12, 1931-03-14, 1931-03-17, 1931-03-21
-    ## 14                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1932-11-12, 1932-11-19, 1932-11-24, 1932-11-26, 1932-11-29, 1932-12-01, 1932-12-03, 1932-12-04, 1932-12-06, 1932-12-08, 1932-12-10, 1932-12-13, 1932-12-15, 1932-12-17, 1932-12-20, 1932-12-24, 1932-12-27, 1932-12-29, 1933-01-03, 1933-01-05, 1933-01-07, 1933-01-10, 1933-01-12, 1933-01-14, 1933-01-17, 1933-01-19, 1933-01-22, 1933-01-24, 1933-01-26, 1933-01-28, 1933-01-31, 1933-02-02, 1933-02-04, 1933-02-09, 1933-02-14, 1933-02-16, 1933-02-19, 1933-02-23, 1933-02-28, 1933-03-02, 1933-03-05, 1933-03-07, 1933-03-09, 1933-03-11, 1933-03-14, 1933-03-16, 1933-03-18, 1933-03-21
-    ## 15                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1917-12-19, 1917-12-22, 1917-12-26, 1917-12-29, 1918-01-02, 1918-01-05, 1918-01-12, 1918-01-14, 1918-01-16, 1918-01-21, 1918-01-23, 1918-01-26, 1918-01-30, 1918-02-04, 1918-02-06, 1918-02-11, 1918-02-13, 1918-02-16, 1918-02-23, 1918-02-25, 1918-02-27, 1918-03-06, 1919-12-23, 1919-12-27, 1920-01-01, 1920-01-03, 1920-01-07, 1920-01-10, 1920-01-14, 1920-01-17, 1920-01-21, 1920-01-24, 1920-01-28, 1920-01-31, 1920-02-04, 1920-02-07, 1920-02-11, 1920-02-14, 1920-02-18, 1920-02-21, 1920-02-25, 1920-02-28, 1920-03-03, 1920-03-06, 1920-03-08, 1920-03-10
-    ## 16                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1932-11-12, 1932-11-19, 1932-11-24, 1932-11-26, 1932-11-29, 1932-12-01, 1932-12-03, 1932-12-04, 1932-12-06, 1932-12-08, 1932-12-10, 1932-12-13, 1932-12-15, 1932-12-17, 1932-12-20, 1932-12-24, 1932-12-27, 1932-12-29, 1933-01-03, 1933-01-05, 1933-01-07, 1933-01-10, 1933-01-12, 1933-01-14, 1933-01-17, 1933-01-19, 1933-01-22, 1933-01-24, 1933-01-26, 1933-01-28, 1933-01-31, 1933-02-02, 1933-02-04, 1933-02-09, 1933-02-14, 1933-02-16, 1933-02-19, 1933-02-23, 1933-02-28, 1933-03-02, 1933-03-05, 1933-03-07, 1933-03-09, 1933-03-11, 1933-03-14, 1933-03-16, 1933-03-18, 1933-03-21
-    ## 17                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             1934-12-01, 1934-12-04, 1934-12-08, 1934-12-09, 1934-12-13, 1934-12-15, 1934-12-18, 1934-12-20, 1934-12-22, 1934-12-27, 1934-12-30
-    ## 18                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1930-11-11, 1930-11-15, 1930-11-18, 1930-11-20, 1930-11-22, 1930-11-25, 1930-11-27, 1930-11-29, 1930-12-04, 1930-12-06, 1930-12-09, 1930-12-11, 1930-12-16, 1930-12-18, 1930-12-25, 1930-12-27, 1930-12-30, 1931-01-01, 1931-01-03, 1931-01-06, 1931-01-08, 1931-01-15, 1931-01-17, 1931-01-20, 1931-01-22, 1931-01-24, 1931-01-29, 1931-02-01, 1931-02-03, 1931-02-05, 1931-02-08, 1931-02-12, 1931-02-17, 1931-02-19, 1931-02-21, 1931-02-26, 1931-03-01, 1931-03-03, 1931-03-07, 1931-03-10, 1931-03-12, 1931-03-14, 1931-03-17, 1931-03-21
-    ## 19                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1932-11-12, 1932-11-19, 1932-11-24, 1932-11-26, 1932-11-29, 1932-12-01, 1932-12-03, 1932-12-04, 1932-12-06, 1932-12-08, 1932-12-10, 1932-12-13, 1932-12-15, 1932-12-17, 1932-12-20, 1932-12-24, 1932-12-27, 1932-12-29, 1933-01-03, 1933-01-05, 1933-01-07, 1933-01-10, 1933-01-12, 1933-01-14, 1933-01-17, 1933-01-19, 1933-01-22, 1933-01-24, 1933-01-26, 1933-01-28, 1933-01-31, 1933-02-02, 1933-02-04, 1933-02-09, 1933-02-14, 1933-02-16, 1933-02-19, 1933-02-23, 1933-02-28, 1933-03-02, 1933-03-05, 1933-03-07, 1933-03-09, 1933-03-11, 1933-03-14, 1933-03-16, 1933-03-18, 1933-03-21
-    ## 20                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1918-12-21, 1918-12-26, 1918-12-31, 1919-01-02, 1919-01-04, 1919-01-09, 1919-01-14, 1919-01-16, 1919-01-18, 1919-01-23, 1919-01-25, 1919-01-28, 1919-01-30, 1919-02-06, 1919-02-08, 1919-02-13, 1919-02-18, 1919-02-20
-    ## 21                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1934-11-08, 1934-11-10, 1934-11-13, 1934-11-17, 1934-11-18, 1934-11-20, 1934-11-22, 1934-11-24, 1934-11-25, 1934-12-01, 1934-12-04, 1934-12-08, 1934-12-09, 1934-12-13, 1934-12-15, 1934-12-18, 1934-12-20, 1934-12-22, 1934-12-27, 1934-12-30, 1935-01-03, 1935-01-05, 1935-01-10, 1935-01-13, 1935-01-15, 1935-01-17, 1935-01-19, 1935-01-20, 1935-01-22, 1935-01-24, 1935-01-27, 1935-01-29, 1935-02-03, 1935-02-05, 1935-02-07, 1935-02-09, 1935-02-12, 1935-02-16, 1935-02-19, 1935-02-21, 1935-02-23, 1935-02-26, 1935-02-28, 1935-03-02, 1935-03-07, 1935-03-09, 1935-03-12, 1935-03-19
-    ## 22                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1934-11-08, 1934-11-10, 1934-11-13, 1934-11-17, 1934-11-18, 1934-11-20, 1934-11-22, 1934-11-24, 1934-12-01
-    ## 23                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1922-01-18
-    ## 24                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1935-01-27
-    ## 25                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1932-11-26
-    ## 26                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1930-01-21
-    ## 27                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1933-11-28
-    ## 28                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1935-03-07
-    ## 29                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1927-01-25
-    ## 30                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1924-01-30
-    ## 31                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1934-01-16
-    ## 32                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1935-01-27
-    ## 33                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1935-03-19
-    ## 34                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1933-11-18
-    ## 35                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1924-01-02
-    ## 36                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1935-01-24, 1935-03-02
-    ## 37                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1934-11-13, 1935-02-07
-    ## 38                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1917-12-22, 1917-12-29
-    ## 39                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1928-12-08, 1929-02-23
-    ## 40                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1929-01-10
-    ## 41                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1922-02-04
-    ## 42                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1924-01-23, 1924-02-06
-    ## 43                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1918-01-05, 1918-01-12
-    ## 44                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1932-11-19, 1933-03-14
-    ## 45                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1921-01-03
-    ## 46                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1931-02-05, 1931-03-21
-    ## 47                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1930-03-08, 1930-03-15, 1930-11-18, 1930-12-04
-    ## 48                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             1935-01-29, 1935-02-21, 1935-02-28
-    ## 49                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             1917-12-26, 1918-01-16, 1918-02-11
-    ## 50                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1935-02-09, 1935-03-07, 1935-03-12, 1935-03-19
-    ## 51                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1921-02-05, 1921-12-24
-    ## 52                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1932-12-01, 1932-12-08, 1933-01-05, 1933-01-19
-    ## 53                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1935-01-29, 1935-02-12, 1935-02-28, 1935-03-12
-    ## 54                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1930-02-04
-    ## 55                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1918-01-12, 1918-01-16, 1918-02-06, 1918-02-16
-    ## 56                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1926-11-27, 1926-12-09, 1927-01-27, 1927-02-12, 1927-02-22
-    ## 57                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1919-01-28, 1919-02-08
-    ## 58                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1924-03-05
-    ## 59                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1935-01-05, 1935-01-19, 1935-01-20, 1935-02-03, 1935-02-16
-    ## 60                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1929-01-29, 1931-03-21
-    ## 61                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1934-02-13
-    ## 62                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1929-11-23
-    ## 63                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1922-02-01, 1922-02-04
-    ## 64                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1918-01-23
-    ## 65                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1931-02-17
-    ## 66                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1933-12-10, 1933-12-25, 1933-12-28, 1934-01-04, 1934-01-16, 1934-01-20, 1934-02-20, 1934-03-10, 1934-03-17
-    ## 67                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1928-03-03
-    ## 68                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1935-02-21
-    ## 69                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             1925-01-21, 1925-02-11, 1925-02-21
-    ## 70                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1934-01-04
-    ## 71                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1934-03-06
-    ## 72                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             1918-01-02, 1920-03-08, 1921-12-21
-    ## 73                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1933-11-14
-    ## 74                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1933-12-10
-    ## 75                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             1932-11-24, 1934-01-11, 1934-01-20, 1934-11-10, 1934-12-01, 1934-12-30, 1935-01-20
-    ## 76                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1934-01-23, 1934-02-15
-    ## 77                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1923-02-28, 1925-12-23
-    ## 78                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             1929-12-05, 1930-12-16, 1930-12-27, 1931-02-21, 1933-01-12, 1933-12-25, 1934-03-06
-    ## 79                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1926-01-26, 1926-01-28
-    ## 80                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1920-01-21
-    ## 81                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1933-03-16
-    ## 82                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1924-02-27
-    ## 83                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1931-02-12, 1931-03-10, 1931-03-14, 1931-03-21
-    ## 84                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1928-01-26, 1928-03-15
-    ## 85                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1918-01-14, 1919-01-16, 1920-01-10, 1920-12-22
-    ## 86                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1918-03-06
-    ## 87                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1930-01-21
-    ## 88                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1920-01-07, 1920-01-31, 1922-01-18, 1922-01-21, 1923-01-10
-    ## 89                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1921-03-07
-    ## 90                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1930-03-04
-    ##    mostGoalsOneGame mostGoalsOneSeason mostGoalsSeasonIds
-    ## 1                 0                  0           19321933
-    ## 2                 0                  0           19321933
-    ## 3                 0                  0           19341935
-    ## 4                 0                  0           19271928
-    ## 5                 0                  0           19251926
-    ## 6                 0                  0           19341935
-    ## 7                 0                  0           19321933
-    ## 8                 0                  0           19331934
-    ## 9                 0                  0           19341935
-    ## 10                0                  0           19291930
-    ## 11                0                  0           19261927
-    ## 12                0                  0 19331934, 19341935
-    ## 13                0                  0           19301931
-    ## 14                0                  0           19321933
-    ## 15                0                  0 19171918, 19191920
-    ## 16                0                  0           19321933
-    ## 17                0                  0           19341935
-    ## 18                0                  0           19301931
-    ## 19                0                  0           19321933
-    ## 20                0                  0           19181919
-    ## 21                0                  0           19341935
-    ## 22                0                  0           19341935
-    ## 23                1                  1           19211922
-    ## 24                1                  1           19341935
-    ## 25                1                  1           19321933
-    ## 26                1                  1           19291930
-    ## 27                1                  1           19331934
-    ## 28                1                  1           19341935
-    ## 29                1                  1           19261927
-    ## 30                1                  1           19231924
-    ## 31                1                  1           19331934
-    ## 32                1                  1           19341935
-    ## 33                1                  1           19341935
-    ## 34                1                  1           19331934
-    ## 35                1                  1           19231924
-    ## 36                1                  2           19341935
-    ## 37                1                  2           19341935
-    ## 38                1                  2           19171918
-    ## 39                1                  2           19281929
-    ## 40                2                  2           19281929
-    ## 41                2                  2           19211922
-    ## 42                1                  2           19231924
-    ## 43                1                  2           19171918
-    ## 44                1                  2           19321933
-    ## 45                2                  2 19191920, 19201921
-    ## 46                1                  2           19301931
-    ## 47                1                  2 19291930, 19301931
-    ## 48                1                  3           19341935
-    ## 49                1                  3           19171918
-    ## 50                1                  4           19341935
-    ## 51                2                  4           19211922
-    ## 52                1                  4           19321933
-    ## 53                1                  4           19341935
-    ## 54                3                  4           19291930
-    ## 55                1                  4           19171918
-    ## 56                1                  5           19261927
-    ## 57                2                  5           19181919
-    ## 58                2                  5           19231924
-    ## 59                1                  5           19341935
-    ## 60                2                  5           19301931
-    ## 61                2                  6           19331934
-    ## 62                2                  7           19321933
-    ## 63                2                  8           19211922
-    ## 64                3                  8           19171918
-    ## 65                2                  9           19301931
-    ## 66                1                  9           19331934
-    ## 67                2                  9           19271928
-    ## 68                2                 11           19341935
-    ## 69                2                 11           19241925
-    ## 70                3                 11           19331934
-    ## 71                3                 11           19331934
-    ## 72                3                 13           19171918
-    ## 73                3                 13           19331934
-    ## 74                2                 13           19341935
-    ## 75                2                 14           19341935
-    ## 76                2                 14           19331934
-    ## 77                3                 15 19221923, 19241925
-    ## 78                2                 15           19301931
-    ## 79                3                 16           19251926
-    ## 80                3                 16           19191920
-    ## 81                2                 16           19321933
-    ## 82                3                 17           19291930
-    ## 83                2                 19           19301931
-    ## 84                3                 21           19291930
-    ## 85                3                 23           19191920
-    ## 86                4                 26           19191920
-    ## 87                3                 29           19291930
-    ## 88                3                 31           19211922
-    ## 89                6                 36           19171918
-    ## 90                4                 36           19291930
-    ##    mostPenaltyMinutesOneSeason            mostPenaltyMinutesSeasonIds
-    ## 1                           10                               19321933
-    ## 2                            0                               19321933
-    ## 3                            0                               19341935
-    ## 4                            0                               19271928
-    ## 5                            0                               19251926
-    ## 6                           89                               19341935
-    ## 7                            0                               19321933
-    ## 8                            0                               19331934
-    ## 9                            2                               19341935
-    ## 10                           0                               19291930
-    ## 11                           2                               19261927
-    ## 12                          20                               19331934
-    ## 13                           0                               19301931
-    ## 14                           0                               19321933
-    ## 15                           3                               19171918
-    ## 16                           0                               19321933
-    ## 17                           2                               19341935
-    ## 18                           2                               19301931
-    ## 19                          39                               19321933
-    ## 20                           6                               19181919
-    ## 21                           0                               19341935
-    ## 22                           6                               19341935
-    ## 23                           4                               19211922
-    ## 24                           2                               19341935
-    ## 25                          28                               19301931
-    ## 26                          22                               19291930
-    ## 27                           8                               19331934
-    ## 28                           2                               19341935
-    ## 29                           2                     19261927, 19271928
-    ## 30                           5                               19221923
-    ## 31                          34                               19331934
-    ## 32                           8                               19341935
-    ## 33                           8                               19341935
-    ## 34                           4                               19331934
-    ## 35                           8                               19231924
-    ## 36                          60                               19341935
-    ## 37                          71                               19331934
-    ## 38                          15                               19171918
-    ## 39                           8                               19281929
-    ## 40                          19                               19281929
-    ## 41                           0 19201921, 19211922, 19231924, 19241925
-    ## 42                          32                               19231924
-    ## 43                           3                     19171918, 19181919
-    ## 44                           8                               19321933
-    ## 45                          28                               19191920
-    ## 46                          61                               19301931
-    ## 47                          48                               19301931
-    ## 48                          14                               19341935
-    ## 49                          51                               19171918
-    ## 50                           2                               19341935
-    ## 51                          23                               19201921
-    ## 52                           2                               19321933
-    ## 53                          14                               19341935
-    ## 54                          14                               19321933
-    ## 55                          18                               19171918
-    ## 56                          66                               19261927
-    ## 57                          23                               19181919
-    ## 58                          10                               19231924
-    ## 59                          10                               19341935
-    ## 60                          25                               19301931
-    ## 61                          21                               19331934
-    ## 62                         119                               19321933
-    ## 63                           4                               19211922
-    ## 64                          59                               19171918
-    ## 65                          12                     19291930, 19301931
-    ## 66                          14                               19331934
-    ## 67                          96                               19281929
-    ## 68                          45                               19341935
-    ## 69                          51                               19241925
-    ## 70                          26                               19331934
-    ## 71                          10                               19331934
-    ## 72                          30                               19221923
-    ## 73                          22                               19331934
-    ## 74                          14                               19341935
-    ## 75                          23                               19341935
-    ## 76                          22                               19331934
-    ## 77                         115                               19261927
-    ## 78                          28                               19281929
-    ## 79                         135                               19261927
-    ## 80                          83                               19191920
-    ## 81                           4                     19321933, 19331934
-    ## 82                          95                               19281929
-    ## 83                          50                               19301931
-    ## 84                          73                               19281929
-    ## 85                          30                               19181919
-    ## 86                          48                               19271928
-    ## 87                         119                               19291930
-    ## 88                          62                               19271928
-    ## 89                          80                               19171918
-    ## 90                          70                               19291930
-    ##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               mostPointsGameDates
-    ## 1                                                                                                                                                                                                                                                                                                                                                                                                                                      1933-02-16, 1933-02-19, 1933-02-23, 1933-02-28, 1933-03-02, 1933-03-05, 1933-03-07, 1933-03-09, 1933-03-11, 1933-03-14, 1933-03-16, 1933-03-18, 1933-03-21
-    ## 2  1932-11-12, 1932-11-19, 1932-11-24, 1932-11-26, 1932-11-29, 1932-12-01, 1932-12-03, 1932-12-04, 1932-12-06, 1932-12-08, 1932-12-10, 1932-12-13, 1932-12-15, 1932-12-17, 1932-12-20, 1932-12-24, 1932-12-27, 1932-12-29, 1933-01-03, 1933-01-05, 1933-01-07, 1933-01-10, 1933-01-12, 1933-01-14, 1933-01-17, 1933-01-19, 1933-01-22, 1933-01-24, 1933-01-26, 1933-01-28, 1933-01-31, 1933-02-02, 1933-02-04, 1933-02-09, 1933-02-14, 1933-02-16, 1933-02-19, 1933-02-23, 1933-02-28, 1933-03-02, 1933-03-05, 1933-03-07, 1933-03-09, 1933-03-11, 1933-03-14, 1933-03-16, 1933-03-18, 1933-03-21
-    ## 3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      1935-01-24
-    ## 4                                                  1927-11-15, 1927-11-17, 1927-11-19, 1927-11-22, 1927-11-23, 1927-11-26, 1927-11-29, 1927-12-03, 1927-12-06, 1927-12-10, 1927-12-13, 1927-12-15, 1927-12-17, 1927-12-20, 1927-12-24, 1927-12-27, 1927-12-31, 1928-01-07, 1928-01-10, 1928-01-14, 1928-01-17, 1928-01-19, 1928-01-21, 1928-01-24, 1928-01-26, 1928-01-28, 1928-01-31, 1928-02-02, 1928-02-07, 1928-02-09, 1928-02-16, 1928-02-18, 1928-02-22, 1928-02-23, 1928-02-25, 1928-02-28, 1928-03-03, 1928-03-06, 1928-03-10, 1928-03-13, 1928-03-15, 1928-03-17, 1928-03-22, 1928-03-24
-    ## 5                                                                                                                                                  1925-11-28, 1925-12-03, 1925-12-05, 1925-12-10, 1925-12-12, 1925-12-15, 1925-12-17, 1925-12-23, 1925-12-26, 1925-12-30, 1926-01-01, 1926-01-05, 1926-01-07, 1926-01-11, 1926-01-13, 1926-01-19, 1926-01-21, 1926-01-26, 1926-01-28, 1926-01-30, 1926-02-02, 1926-02-04, 1926-02-06, 1926-02-11, 1926-02-16, 1926-02-18, 1926-02-20, 1926-02-23, 1926-02-27, 1926-03-02, 1926-03-04, 1926-03-06, 1926-03-08, 1926-03-13, 1926-03-15, 1926-03-17
-    ## 6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          1935-02-21, 1935-03-09
-    ## 7  1932-11-12, 1932-11-19, 1932-11-24, 1932-11-26, 1932-11-29, 1932-12-01, 1932-12-03, 1932-12-04, 1932-12-06, 1932-12-08, 1932-12-10, 1932-12-13, 1932-12-15, 1932-12-17, 1932-12-20, 1932-12-24, 1932-12-27, 1932-12-29, 1933-01-03, 1933-01-05, 1933-01-07, 1933-01-10, 1933-01-12, 1933-01-14, 1933-01-17, 1933-01-19, 1933-01-22, 1933-01-24, 1933-01-26, 1933-01-28, 1933-01-31, 1933-02-02, 1933-02-04, 1933-02-09, 1933-02-14, 1933-02-16, 1933-02-19, 1933-02-23, 1933-02-28, 1933-03-02, 1933-03-05, 1933-03-07, 1933-03-09, 1933-03-11, 1933-03-14, 1933-03-16, 1933-03-18, 1933-03-21
-    ## 8                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          1933-11-14, 1933-11-16
-    ## 9                                                                                                                                                                                                                                                                                                                                                                                                                                                  1935-02-12, 1935-02-16, 1935-02-19, 1935-02-21, 1935-02-23, 1935-02-26, 1935-02-28, 1935-03-02, 1935-03-07, 1935-03-09, 1935-03-12, 1935-03-19
-    ## 10                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1930-02-13
-    ## 11                                                 1926-11-18, 1926-11-20, 1926-11-25, 1926-11-27, 1926-11-30, 1926-12-04, 1926-12-07, 1926-12-09, 1926-12-11, 1926-12-14, 1926-12-16, 1926-12-18, 1926-12-23, 1926-12-28, 1927-01-01, 1927-01-04, 1927-01-08, 1927-01-11, 1927-01-13, 1927-01-15, 1927-01-18, 1927-01-22, 1927-01-25, 1927-01-27, 1927-01-29, 1927-02-01, 1927-02-05, 1927-02-09, 1927-02-12, 1927-02-15, 1927-02-17, 1927-02-19, 1927-02-22, 1927-02-24, 1927-02-26, 1927-03-03, 1927-03-05, 1927-03-10, 1927-03-12, 1927-03-15, 1927-03-17, 1927-03-19, 1927-03-24, 1927-03-26
-    ## 12                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1934-02-20
-    ## 13                                                 1930-11-11, 1930-11-15, 1930-11-18, 1930-11-20, 1930-11-22, 1930-11-25, 1930-11-27, 1930-11-29, 1930-12-04, 1930-12-06, 1930-12-09, 1930-12-11, 1930-12-16, 1930-12-18, 1930-12-25, 1930-12-27, 1930-12-30, 1931-01-01, 1931-01-03, 1931-01-06, 1931-01-08, 1931-01-15, 1931-01-17, 1931-01-20, 1931-01-22, 1931-01-24, 1931-01-29, 1931-02-01, 1931-02-03, 1931-02-05, 1931-02-08, 1931-02-12, 1931-02-17, 1931-02-19, 1931-02-21, 1931-02-26, 1931-03-01, 1931-03-03, 1931-03-07, 1931-03-10, 1931-03-12, 1931-03-14, 1931-03-17, 1931-03-21
-    ## 14 1932-11-12, 1932-11-19, 1932-11-24, 1932-11-26, 1932-11-29, 1932-12-01, 1932-12-03, 1932-12-04, 1932-12-06, 1932-12-08, 1932-12-10, 1932-12-13, 1932-12-15, 1932-12-17, 1932-12-20, 1932-12-24, 1932-12-27, 1932-12-29, 1933-01-03, 1933-01-05, 1933-01-07, 1933-01-10, 1933-01-12, 1933-01-14, 1933-01-17, 1933-01-19, 1933-01-22, 1933-01-24, 1933-01-26, 1933-01-28, 1933-01-31, 1933-02-02, 1933-02-04, 1933-02-09, 1933-02-14, 1933-02-16, 1933-02-19, 1933-02-23, 1933-02-28, 1933-03-02, 1933-03-05, 1933-03-07, 1933-03-09, 1933-03-11, 1933-03-14, 1933-03-16, 1933-03-18, 1933-03-21
-    ## 15                         1917-12-19, 1917-12-22, 1917-12-26, 1917-12-29, 1918-01-02, 1918-01-05, 1918-01-12, 1918-01-14, 1918-01-16, 1918-01-21, 1918-01-23, 1918-01-26, 1918-01-30, 1918-02-04, 1918-02-06, 1918-02-11, 1918-02-13, 1918-02-16, 1918-02-23, 1918-02-25, 1918-02-27, 1918-03-06, 1919-12-23, 1919-12-27, 1920-01-01, 1920-01-03, 1920-01-07, 1920-01-10, 1920-01-14, 1920-01-17, 1920-01-21, 1920-01-24, 1920-01-28, 1920-01-31, 1920-02-04, 1920-02-07, 1920-02-11, 1920-02-14, 1920-02-18, 1920-02-21, 1920-02-25, 1920-02-28, 1920-03-03, 1920-03-06, 1920-03-08, 1920-03-10
-    ## 16                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             1932-12-01, 1932-12-13, 1932-12-20
-    ## 17                                                                                                                                                                                                                                                                                                                                                                                                                                                             1934-12-01, 1934-12-04, 1934-12-08, 1934-12-09, 1934-12-13, 1934-12-15, 1934-12-18, 1934-12-20, 1934-12-22, 1934-12-27, 1934-12-30
-    ## 18                                                 1930-11-11, 1930-11-15, 1930-11-18, 1930-11-20, 1930-11-22, 1930-11-25, 1930-11-27, 1930-11-29, 1930-12-04, 1930-12-06, 1930-12-09, 1930-12-11, 1930-12-16, 1930-12-18, 1930-12-25, 1930-12-27, 1930-12-30, 1931-01-01, 1931-01-03, 1931-01-06, 1931-01-08, 1931-01-15, 1931-01-17, 1931-01-20, 1931-01-22, 1931-01-24, 1931-01-29, 1931-02-01, 1931-02-03, 1931-02-05, 1931-02-08, 1931-02-12, 1931-02-17, 1931-02-19, 1931-02-21, 1931-02-26, 1931-03-01, 1931-03-03, 1931-03-07, 1931-03-10, 1931-03-12, 1931-03-14, 1931-03-17, 1931-03-21
-    ## 19                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1933-03-02
-    ## 20                                                                                                                                                                                                                                                                                                                                                                         1918-12-21, 1918-12-26, 1918-12-31, 1919-01-02, 1919-01-04, 1919-01-09, 1919-01-14, 1919-01-16, 1919-01-18, 1919-01-23, 1919-01-25, 1919-01-28, 1919-01-30, 1919-02-06, 1919-02-08, 1919-02-13, 1919-02-18, 1919-02-20
-    ## 21 1934-11-08, 1934-11-10, 1934-11-13, 1934-11-17, 1934-11-18, 1934-11-20, 1934-11-22, 1934-11-24, 1934-11-25, 1934-12-01, 1934-12-04, 1934-12-08, 1934-12-09, 1934-12-13, 1934-12-15, 1934-12-18, 1934-12-20, 1934-12-22, 1934-12-27, 1934-12-30, 1935-01-03, 1935-01-05, 1935-01-10, 1935-01-13, 1935-01-15, 1935-01-17, 1935-01-19, 1935-01-20, 1935-01-22, 1935-01-24, 1935-01-27, 1935-01-29, 1935-02-03, 1935-02-05, 1935-02-07, 1935-02-09, 1935-02-12, 1935-02-16, 1935-02-19, 1935-02-21, 1935-02-23, 1935-02-26, 1935-02-28, 1935-03-02, 1935-03-07, 1935-03-09, 1935-03-12, 1935-03-19
-    ## 22                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1934-11-08, 1934-11-10, 1934-11-13, 1934-11-17, 1934-11-18, 1934-11-20, 1934-11-22, 1934-11-24, 1934-12-01
-    ## 23                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             1922-01-18, 1922-02-04, 1922-02-18
-    ## 24                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1935-01-27, 1935-01-29
-    ## 25                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1930-12-09, 1931-01-03, 1931-01-17, 1931-03-21, 1932-11-26, 1933-01-10
-    ## 26                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1930-01-21
-    ## 27                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1933-11-28
-    ## 28                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1935-03-07
-    ## 29                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1927-01-25
-    ## 30                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1924-01-30
-    ## 31                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1933-11-25, 1934-01-04, 1934-01-16, 1934-01-25
-    ## 32                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             1935-01-24, 1935-01-27, 1935-02-12
-    ## 33                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1935-02-16
-    ## 34                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1934-01-20
-    ## 35                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1924-01-02, 1924-01-05
-    ## 36                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1935-01-24, 1935-01-27, 1935-01-29, 1935-03-02
-    ## 37                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1933-11-28, 1934-02-06, 1934-11-08, 1934-11-10, 1934-11-13, 1935-02-07
-    ## 38                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1917-12-29
-    ## 39                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1928-12-08, 1929-02-23
-    ## 40                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1929-01-10
-    ## 41                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1922-02-04
-    ## 42                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1924-01-30
-    ## 43                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1918-01-05, 1918-01-12, 1918-01-16, 1918-12-31
-    ## 44                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1932-11-19, 1932-12-08, 1933-03-02, 1933-03-14
-    ## 45                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1921-01-03
-    ## 46                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1931-03-21
-    ## 47                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1930-02-04, 1930-03-08, 1930-03-15, 1930-11-18, 1930-11-27, 1930-12-04
-    ## 48                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1935-01-29
-    ## 49                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1917-12-19, 1917-12-22
-    ## 50                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1935-03-12
-    ## 51                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1921-02-05, 1921-12-24
-    ## 52                                                                                                                                                                                                                                                                                                                                                                                                                                     1932-11-24, 1932-12-01, 1932-12-08, 1932-12-10, 1932-12-13, 1932-12-17, 1933-01-05, 1933-01-14, 1933-01-19, 1933-02-04, 1933-02-14, 1933-03-02, 1933-03-09
-    ## 53                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1935-03-12
-    ## 54                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1930-02-04
-    ## 55                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1918-01-12, 1918-01-16, 1918-01-23, 1918-02-06, 1918-02-16
-    ## 56                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1926-11-27, 1926-11-30, 1926-12-09, 1927-01-27, 1927-02-12, 1927-02-22
-    ## 57                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1919-01-28, 1919-02-08
-    ## 58                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1924-03-05
-    ## 59                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1935-01-20
-    ## 60                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1929-01-29
-    ## 61                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1934-02-13
-    ## 62                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1934-02-24
-    ## 63                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1922-02-01, 1922-02-04
-    ## 64                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1918-01-23
-    ## 65                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1931-02-26, 1931-03-10
-    ## 66                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1934-01-04
-    ## 67                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1928-01-26, 1931-02-17
-    ## 68                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1934-12-27, 1934-12-30
-    ## 69                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             1925-01-21, 1925-02-11, 1925-02-21
-    ## 70                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1934-01-04
-    ## 71                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1934-03-06
-    ## 72                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1920-03-08
-    ## 73                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1933-11-14, 1933-12-25
-    ## 74                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             1934-02-24, 1934-03-08, 1935-01-20
-    ## 75                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1934-01-11, 1935-01-20
-    ## 76                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1933-12-07
-    ## 77                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1922-12-20
-    ## 78                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1931-03-21, 1934-03-06
-    ## 79                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1926-01-26
-    ## 80                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1919-02-20, 1920-01-21
-    ## 81                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1932-11-24, 1932-11-29, 1932-12-01, 1933-03-16, 1933-03-21
-    ## 82                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1922-02-04, 1924-02-27, 1924-12-15, 1928-01-26
-    ## 83                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1931-03-21
-    ## 84                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 1928-01-26, 1928-03-15, 1928-03-22, 1928-11-20, 1930-12-04, 1931-01-03, 1933-01-17, 1934-01-04
-    ## 85                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         1918-01-14, 1920-01-31
-    ## 86                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1920-01-31
-    ## 87                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1930-12-04
-    ## 88                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1920-01-07, 1920-01-28, 1921-12-24, 1922-01-14, 1922-01-21
-    ## 89                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1921-03-07
-    ## 90                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     1930-03-04
-    ##    mostPointsOneGame mostPointsOneSeason mostPointsSeasonIds penaltyMinutes
-    ## 1                  0                   0            19321933             10
-    ## 2                  0                   0            19321933              0
-    ## 3                  1                   1            19341935              0
-    ## 4                  0                   0            19271928              0
-    ## 5                  0                   0            19251926              0
-    ## 6                  1                   2            19341935             89
-    ## 7                  0                   0            19321933              0
-    ## 8                  0                   0            19331934              0
-    ## 9                  0                   0            19341935              2
-    ## 10                 1                   1            19291930              0
-    ## 11                 0                   0            19261927              2
-    ## 12                 2                   4            19331934             26
-    ## 13                 0                   0            19301931              0
-    ## 14                 0                   0            19321933              0
-    ## 15                 0                   0  19171918, 19191920              3
-    ## 16                 1                   3            19321933              0
-    ## 17                 0                   0            19341935              2
-    ## 18                 0                   0            19301931              2
-    ## 19                 1                   1            19321933             39
-    ## 20                 0                   0            19181919              6
-    ## 21                 0                   0            19341935              0
-    ## 22                 0                   0            19341935              6
-    ## 23                 1                   3            19211922              4
-    ## 24                 1                   2            19341935              2
-    ## 25                 1                   4            19301931             46
-    ## 26                 2                   3            19291930             24
-    ## 27                 1                   1            19331934              8
-    ## 28                 1                   1            19341935              2
-    ## 29                 1                   1            19261927              4
-    ## 30                 1                   1            19231924              7
-    ## 31                 1                   4            19331934             34
-    ## 32                 1                   3            19341935              8
-    ## 33                 2                   6            19341935              8
-    ## 34                 2                   4            19331934              4
-    ## 35                 1                   2            19231924              8
-    ## 36                 1                   4            19341935             60
-    ## 37                 1                   4            19341935            118
-    ## 38                 2                   4            19171918             15
-    ## 39                 1                   2            19281929              8
-    ## 40                 2                   3            19281929             19
-    ## 41                 2                   2            19211922              0
-    ## 42                 5                  12            19231924             46
-    ## 43                 1                   3            19171918              6
-    ## 44                 1                   4            19321933             10
-    ## 45                 2                   3  19191920, 19201921             54
-    ## 46                 2                   6            19301931             61
-    ## 47                 1                   3  19291930, 19301931             90
-    ## 48                 2                  13            19341935             14
-    ## 49                 2                  11            19171918             51
-    ## 50                 3                  11            19341935              2
-    ## 51                 2                   5            19211922             27
-    ## 52                 1                  13            19321933              2
-    ## 53                 3                  11            19341935             14
-    ## 54                 4                   8            19321933             18
-    ## 55                 1                   5            19171918             18
-    ## 56                 1                   6            19261927             66
-    ## 57                 2                   6            19181919             23
-    ## 58                 4                   9            19231924             10
-    ## 59                 2                  12            19341935             10
-    ## 60                 3                   9            19301931             82
-    ## 61                 2                   8            19331934             21
-    ## 62                 3                  11  19321933, 19331934            214
-    ## 63                 2                  10            19211922              4
-    ## 64                 3                   9            19171918             59
-    ## 65                 3                  21            19301931             32
-    ## 66                 5                  26            19331934             14
-    ## 67                 3                  13            19271928            490
-    ## 68                 3                  29            19341935             45
-    ## 69                 2                  15            19241925             80
-    ## 70                 4                  26            19331934             37
-    ## 71                 4                  17            19331934             12
-    ## 72                 5                  21            19171918            126
-    ## 73                 3                  29            19331934             30
-    ## 74                 3                  31            19341935             24
-    ## 75                 3                  27            19341935             58
-    ## 76                 3                  24            19331934             38
-    ## 77                 4                  25  19211922, 19221923            708
-    ## 78                 4                  30            19301931             76
-    ## 79                 5                  25            19251926            280
-    ## 80                 4                  21            19191920            119
-    ## 81                 2                  27            19321933              8
-    ## 82                 4                  40            19291930            533
-    ## 83                 4                  30            19301931             82
-    ## 84                 3                  36            19291930            352
-    ## 85                 5                  37            19191920            107
-    ## 86                 6                  42            19191920            264
-    ## 87                 4                  49            19291930            237
-    ## 88                 4                  45            19211922            230
-    ## 89                 7                  46            19171918            294
-    ## 90                 5                  58            19291930            320
-    ##    playerId points positionCode rookieGamesPlayed rookiePoints seasons
-    ## 1   8445262      0            D                NA           NA       1
-    ## 2   8445293      0            D                 4            0       1
-    ## 3   8445334      1            C                NA           NA       1
-    ## 4   8445442      0            D                 8            0       1
-    ## 5   8445959      0            L                27            0       1
-    ## 6   8446502      2            D                NA           NA       1
-    ## 7   8446557      0            C                NA           NA       1
-    ## 8   8446558      0            L                NA           NA       1
-    ## 9   8446631      0            D                NA           NA       1
-    ## 10  8447012      1            D                14            1       1
-    ## 11  8447035      0            L                NA           NA       1
-    ## 12  8447130      4            D                22            4       2
-    ## 13  8447198      0            L                14            0       1
-    ## 14  8447523      0            L                NA           NA       1
-    ## 15  8447848      0            D                 4            0       2
-    ## 16  8447859      3            L                NA           NA       1
-    ## 17  8448098      0            L                NA           NA       1
-    ## 18  8448138      0            L                NA           NA       1
-    ## 19  8448428      1            D                NA           NA       1
-    ## 20  8448441      0            D                11            0       1
-    ## 21  8449467      0            R                NA           NA       1
-    ## 22  8449479      0            D                NA           NA       1
-    ## 23  8445044      3            C                NA           NA       1
-    ## 24  8445097      2            L                NA           NA       1
-    ## 25  8445142      6            D                NA           NA       2
-    ## 26  8445525      3            L                NA           NA       2
-    ## 27  8445533      1            C                NA           NA       2
-    ## 28  8446297      1            L                12            1       1
-    ## 29  8446673      1            L                38            1       3
-    ## 30  8446767      1            R                24            0       3
-    ## 31  8447371      4            D                NA           NA       1
-    ## 32  8448231      3            R                25            3       1
-    ## 33  8448334      6            L                NA           NA       1
-    ## 34  8448789      4            R                18            4       1
-    ## 35  8449090      2            L                NA           NA       1
-    ## 36  8444989      4            D                NA           NA       1
-    ## 37  8445146      6            D                46            2       2
-    ## 38  8445802      4            L                13            4       1
-    ## 39  8446144      2            R                43            2       1
-    ## 40  8446600      3            R                20            0       2
-    ## 41  8446629      2            L                 1            2       4
-    ## 42  8446886     13            D                 3            1       3
-    ## 43  8447522      4            C                12            3       2
-    ## 44  8447780      4            L                NA           NA       2
-    ## 45  8447791      6            R                23            3       2
-    ## 46  8449060      6            D                NA           NA       1
-    ## 47  8449160      6            D                28            3       3
-    ## 48  8447148     13            R                25           13       1
-    ## 49  8449025     11            D                18           11       1
-    ## 50  8444982     11            C                NA           NA       1
-    ## 51  8445191     10            D                 7            0       4
-    ## 52  8446411     13            R                48           13       1
-    ## 53  8447055     11            L                NA           NA       1
-    ## 54  8447183     14            R                38            6       2
-    ## 55  8448336      5            D                13            5       1
-    ## 56  8444861      6            C                NA           NA       1
-    ## 57  8445314      6            D                NA           NA       1
-    ## 58  8445319      9            D                18            9       2
-    ## 59  8445754     12            C                41           12       1
-    ## 60  8446652     20            C                44            3       4
-    ## 61  8446895      8            D                28            8       1
-    ## 62  8449019     33            D                 8            1       5
-    ## 63  8445134     10            C                24           10       1
-    ## 64  8447013      9            R                13            9       1
-    ## 65  8445762     40            L                NA           NA       4
-    ## 66  8447132     26            C                38           26       2
-    ## 67  8449059     48            D                 7            0       8
-    ## 68  8445233     29            R                NA           NA       1
-    ## 69  8446616     19            D                28           15       3
-    ## 70  8449001     30            L                48           26       2
-    ## 71  8449366     21            R                NA           NA       2
-    ## 72  8446581    101            L                20           21       6
-    ## 73  8448383     44            L                NA           NA       3
-    ## 74  8449308     54            C                NA           NA       2
-    ## 75  8446924     73            C                12            2       4
-    ## 76  8448421     33            R                NA           NA       3
-    ## 77  8445135    189            D                21           17      12
-    ## 78  8449246     94            L                NA           NA       5
-    ## 79  8449077     64            C                30           24       3
-    ## 80  8445497     41            D                18           15       3
-    ## 81  8449381     29            C                NA           NA       2
-    ## 82  8445471    157            D                24           10       9
-    ## 83  8446514     39            R                NA           NA       2
-    ## 84  8446298    169            R                 3            1      11
-    ## 85  8445844    117            R                18           19       6
-    ## 86  8448011    237            C                10           19      13
-    ## 87  8447306     97            R                NA           NA       4
-    ## 88  8445168    115            R                 8            7       7
-    ## 89  8445874    333            L                21           46      11
-    ## 90  8447181    160            L                35            6       7
-    ## 
-    ## $total
-    ## [1] 90
+![](nhlprogram_files/figure-gfm/unnamed-chunk-23-2.png)<!-- -->
 
-function 6
+### Scattered plot
+
+Below scattered plot displays homewins against home win percentage and
+grouped by homewinsgroup
 
 ``` r
-Get_recent_teamID<- function(baseURL,ID){
-g_URL<-paste0(baseURL,"/franchise-detail?cayenneExp=mostRecentTeamId=",ID)
-
-return (fromJSON(content(GET(g_URL), "text"),flatten = TRUE))
-  
-}
-
-test5 <- Get_recent_teamID(baseURL,3 )
+ggplot(customData3, aes(x=homeWins, y=homeWinPctg, color=homeWins)) + 
+    geom_point() +
+  facet_grid(. ~ homeWinPctgGroup) +
+  labs(x = "Home Win Percentage Range")
 ```
 
-    ## No encoding supplied: defaulting to UTF-8.
-
-``` r
-test5
-```
-
-    ## $data
-    ##   id active
-    ## 1 10   TRUE
-    ##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         captainHistory
-    ## 1 <ul class="striped-list">\r\n\t<li>(No Captain): 2018-19 &ndash;&nbsp;Present</li>\r\n\t<li>Ryan McDonagh and (No Captain): 2017-18</li>\r\n\t<li>Ryan McDonagh: 2014-15 &ndash;&nbsp;2016-17</li>\r\n\t<li>Ryan Callahan and (No Captain): 2013-14</li>\r\n\t<li>Ryan Callahan: 2011-12 &ndash;&nbsp;2012-13</li>\r\n\t<li>Chris Drury: 2008-09 &ndash;&nbsp;2010-11</li>\r\n\t<li>Jaromir Jagr: 2006-07 &ndash;&nbsp;2007-08</li>\r\n\t<li>(No Captain): 2005-06</li>\r\n\t<li>Mark Messier: 2000-01 &ndash;&nbsp;2003-04</li>\r\n\t<li>Brian Leetch: 1997-98 &ndash;&nbsp;1999-00</li>\r\n\t<li>Mark Messier: 1991-92 &ndash;&nbsp;1996-97</li>\r\n\t<li>Kelly Kisio: 1988-89 &ndash;&nbsp;1990-91</li>\r\n\t<li>Ron Greschner and Kelly Kisio: 1987-88</li>\r\n\t<li>Ron Greschner: 1986-87</li>\r\n\t<li>Barry Beck: 1981-82 &ndash;&nbsp;1985-86</li>\r\n\t<li>Dave Maloney, Walt Tkaczuk and Barry Beck: 1980-81</li>\r\n\t<li>Dave Maloney: 1978-79 &ndash;&nbsp;1979-80</li>\r\n\t<li>Phil Esposito: 1976-77 &ndash;&nbsp;1977-78</li>\r\n\t<li>Brad Park and Phil Esposito: 1975-76</li>\r\n\t<li>Brad Park: 1974-75</li>\r\n\t<li>Vic Hadfield: 1971-72 &ndash;&nbsp;1973-74</li>\r\n\t<li>Bob Nevin: 1965-66 &ndash;&nbsp;1970-71</li>\r\n\t<li>Camille Henry and Bob Nevin: 1964-65</li>\r\n\t<li>Andy Bathgate and Camille Henry: 1963-64</li>\r\n\t<li>Andy Bathgate: 1961-62 &ndash;&nbsp;1962-63</li>\r\n\t<li>Red Sullivan: 1957-58 &ndash;&nbsp;1960-61</li>\r\n\t<li>Harry Howell: 1955-56 &ndash;&nbsp;1956-57</li>\r\n\t<li>Don Raleigh: 1954-55</li>\r\n\t<li>Allan Stanley and Don Raleigh: 1953-54</li>\r\n\t<li>Allan Stanley: 1952-53</li>\r\n\t<li>Frank Eddolls and Allan Stanley: 1951-52</li>\r\n\t<li>Frank Eddolls: 1950-51</li>\r\n\t<li>Buddy O&rsquo;Connor: 1949-50</li>\r\n\t<li>Neil Colville: 1945-46 &ndash;&nbsp;1948-49</li>\r\n\t<li>Ott Heller: 1942-43 &ndash;&nbsp;1944-45</li>\r\n\t<li>Art Coulter: 1937-38 &ndash;&nbsp;1941-42</li>\r\n\t<li>Bill Cook: 1926-27 &ndash;&nbsp;1936-37</li>\r\n</ul>\r\n
-    ##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    coachingHistory
-    ## 1 <ul class="striped-list">\r\n\t<li>Gerard Gallant: Present</li>\r\n\t<li>David Quinn: Oct. 4, 2018 &ndash; May 8, 2021</li>\r\n\t<li>Alain Vigneault: Oct. 3, 2013 &ndash; April 7, 2018</li>\r\n\t<li>John Tortorella: Feb. 25, 2009 &ndash; May 25, 2013</li>\r\n\t<li>Tom Renney: Feb. 26, 2004 &ndash; Feb. 22, 2009</li>\r\n\t<li>Glen Sather: Jan. 30, 2003 &ndash; Feb. 23, 2004</li>\r\n\t<li>Bryan Trottier: Oct. 9, 2002 &ndash; Jan. 28, 2003</li>\r\n\t<li>Ron Low: Oct. 7, 2000 &ndash; April 13, 2002</li>\r\n\t<li>John Tortorella: April 1-9, 2000</li>\r\n\t<li>John Muckler: Feb. 26, 1998 &ndash; March 27, 2000</li>\r\n\t<li>Colin Campbell: Jan. 20, 1995 &ndash; Feb. 7, 1998</li>\r\n\t<li>Mike Keenan: Oct. 5, 1993 &ndash; June 14, 1994</li>\r\n\t<li>Ron Smith: Jan. 4&nbsp;&ndash; April 16, 1993</li>\r\n\t<li>Roger Neilson: Oct. 6, 1989 &ndash; Jan. 2, 1993</li>\r\n\t<li>Phil Esposito: April 1-9, 1989</li>\r\n\t<li>Michel Bergeron: Oct. 8, 1987 &ndash; March 29, 1989</li>\r\n\t<li>Phil Esposito: Jan. 26&nbsp;&ndash; April 16, 1987</li>\r\n\t<li>Tom Webster: Jan. 19-23, 1987</li>\r\n\t<li>Phil Esposito: Jan. 14, 1987</li>\r\n\t<li>Tom Webster: Jan. 5-12, 1987</li>\r\n\t<li>Phil Esposito: Dec. 21, 1986 &ndash; Jan. 3, 1987</li>\r\n\t<li>Tom Webster: Nov. 29&nbsp;&ndash; Dec. 20, 1986</li>\r\n\t<li>Phil Esposito: Nov. 21-26, 1986</li>\r\n\t<li>Ted Sator: Oct. 10, 1985 &ndash; Nov. 19, 1986</li>\r\n\t<li>Craig Patrick: Jan. 24&nbsp;&ndash; April 13, 1985</li>\r\n\t<li>Herb Brooks: Oct. 6, 1981 &ndash; Jan. 19, 1985</li>\r\n\t<li>Craig Patrick: Nov. 22, 1980 &ndash; May 5, 1981</li>\r\n\t<li>Fred Shero: Oct. 12, 1978 &ndash; Nov. 19, 1980</li>\r\n\t<li>Jean-Guy Talbot: Oct. 12, 1977 &ndash; April 15, 1978</li>\r\n\t<li>John Ferguson Sr.: Jan. 10, 1976 &ndash; April 3, 1977</li>\r\n\t<li>Ron Stewart: Oct. 8, 1975 &ndash; Jan. 6, 1976</li>\r\n\t<li>Emile Francis: Jan. 12, 1974 &ndash; April 11, 1975</li>\r\n\t<li>Larry Popein: Oct. 10, 1973 &ndash; Jan. 10, 1974</li>\r\n\t<li>Emile Francis: Jan. 18, 1969 &ndash; April 24, 1973</li>\r\n\t<li>Bernie Geoffrion: Oct. 13, 1968 &ndash; Jan. 17, 1969</li>\r\n\t<li>Emile Francis: Dec. 8, 1965 &ndash; April 16, 1968</li>\r\n\t<li>Red Sullivan: Dec. 30, 1962 &ndash; Dec. 5, 1965</li>\r\n\t<li>Muzz Patrick: Oct. 11&nbsp;&ndash; Dec. 27, 1962</li>\r\n\t<li>Doug Harvey: Oct. 11, 1961 &ndash; April 7, 1962</li>\r\n\t<li>Alf Pike: Nov. 18, 1959 &ndash; March 19, 1961</li>\r\n\t<li>Muzz Patrick: Nov. 14-15, 1959</li>\r\n\t<li>Phil Watson: Oct. 7, 1955 &ndash; Nov. 11, 1959</li>\r\n\t<li>Muzz Patrick: Jan. 13, 1954 &ndash; March 20, 1955</li>\r\n\t<li>Frank Boucher: Oct. 8, 1953 &ndash; Jan. 10, 1954</li>\r\n\t<li>Bill Cook: Dec. 9, 1951 &ndash; March 22, 1953</li>\r\n\t<li>Neil Colville: Oct. 11, 1950 &ndash; Dec. 5, 1951</li>\r\n\t<li>Lynn Patrick: Dec. 23, 1948 &ndash; April 23, 1950</li>\r\n\t<li>Frank Boucher: Nov. 5, 1939 &ndash; Dec. 19, 1948</li>\r\n\t<li>Lester Patrick: Nov. 16, 1926 &ndash; April 2, 1939</li>\r\n\t<li>* <em>Date range indicates first and last games coached during tenure (regular season or playoffs)</em></li>\r\n</ul>\r\n
-    ##           dateAwarded                                  directoryUrl
-    ## 1 1926-05-15T00:00:00 https://www.nhl.com/rangers/team/front-office
-    ##   firstSeasonId
-    ## 1      19261927
-    ##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       generalManagerHistory
-    ## 1 <ul class="striped-list">\r\n\t<li>Chris Drury: May 5, 2021 &ndash; Present</li>\r\n\t<li>Jeff Gorton: July 1, 2015 &ndash; May 5, 2021</li>\r\n\t<li>Glen Sather: June 1, 2000 &ndash; July 1, 2015</li>\r\n\t<li>Neil Smith: July 17, 1989 &ndash; March 28, 2000</li>\r\n\t<li>Phil Esposito: July 14, 1986 &ndash; May 24, 1989</li>\r\n\t<li>Craig Patrick: Nov. 21, 1980 &ndash; July 14, 1986</li>\r\n\t<li>Fred Shero: June 2, 1978 &ndash; Nov. 21, 1980</li>\r\n\t<li>John Ferguson Sr.: Jan. 7, 1976 &ndash; June 2, 1978</li>\r\n\t<li>Emile Francis: Oct. 30, 1964 &ndash; Jan. 6, 1976</li>\r\n\t<li>Muzz Patrick: April 22, 1955 &ndash; Oct. 30, 1964</li>\r\n\t<li>Frank Boucher: Feb. 21, 1946 &ndash; April 22, 1955</li>\r\n\t<li>Lester Patrick: Oct. 27, 1926 &ndash; Feb. 21, 1946^</li>\r\n\t<li>* <em>Date range indicates first and last days of tenure</em></li>\r\n\t<li>^ <em>The Rangers hired&nbsp;Conn Smythe as their first GM, but he left the team before the start of their inaugural season</em></li>\r\n</ul>\r\n
-    ##                                                                             heroImageUrl
-    ## 1 https://records.nhl.com/site/asset/public/ext/hero/Team Pages/NYR/PanarinZibanejad.jpg
-    ##   mostRecentTeamId
-    ## 1                3
-    ##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             retiredNumbersSummary
-    ## 1 <ul class="striped-list">\r\n\t<li>1 &ndash;&nbsp;Ed Giacomin (1965-75)</li>\r\n\t<li>2 &ndash;&nbsp;Brian Leetch (1987-04)</li>\r\n\t<li>3 &ndash;&nbsp;Harry Howell (1952-69)</li>\r\n\t<li>7 &ndash;&nbsp;Rod Gilbert (1960-77)</li>\r\n\t<li>9 &ndash;&nbsp;Andy Bathgate (1952-64)</li>\r\n\t<li>9 &ndash;&nbsp;Adam Graves (1991-01)</li>\r\n\t<li>11 &ndash;&nbsp;Vic Hadfield (1961-74)</li>\r\n\t<li>11 &ndash;&nbsp;Mark Messier (1991-97, 2000-04)</li>\r\n\t<li>19 &ndash;&nbsp;Jean Ratelle (1960-76)</li>\r\n\t<li>35 &ndash;&nbsp;Mike Richter (1989-03)</li>\r\n</ul>\r\n
-    ##   teamAbbrev     teamFullName
-    ## 1        NYR New York Rangers
-    ## 
-    ## $total
-    ## [1] 1
-
-function7
-
-``` r
-base1_URL <- "https://statsapi.web.nhl.com/api/v1/teams/"
-
-Get_team_stats<- function(base1_URL,franchiseID=0){
-  
-  if(franchiseID > 0){
-    st_URL<-paste0(base1_URL,franchiseID,"?expand=team.stats") 
-  }
-   else{
-       st_URL<-paste0(base1_URL,"?expand=team.stats")    
-   } 
-
-
-return (fromJSON(content(GET(st_URL), "text"),flatten = TRUE))
-  
-}
-# get team stats
-test5 <- Get_team_stats(base1_URL)
-test5
-```
-
-    ## $copyright
-    ## [1] "NHL and the NHL Shield are registered trademarks of the National Hockey League. NHL and NHL team marks are the property of the NHL and its teams. © NHL 2021. All Rights Reserved."
-    ## 
-    ## $teams
-    ##    id                  name             link abbreviation       teamName
-    ## 1   1     New Jersey Devils  /api/v1/teams/1          NJD         Devils
-    ## 2   2    New York Islanders  /api/v1/teams/2          NYI      Islanders
-    ## 3   3      New York Rangers  /api/v1/teams/3          NYR        Rangers
-    ## 4   4   Philadelphia Flyers  /api/v1/teams/4          PHI         Flyers
-    ## 5   5   Pittsburgh Penguins  /api/v1/teams/5          PIT       Penguins
-    ## 6   6         Boston Bruins  /api/v1/teams/6          BOS         Bruins
-    ## 7   7        Buffalo Sabres  /api/v1/teams/7          BUF         Sabres
-    ## 8   8    Montréal Canadiens  /api/v1/teams/8          MTL      Canadiens
-    ## 9   9       Ottawa Senators  /api/v1/teams/9          OTT       Senators
-    ## 10 10   Toronto Maple Leafs /api/v1/teams/10          TOR    Maple Leafs
-    ## 11 12   Carolina Hurricanes /api/v1/teams/12          CAR     Hurricanes
-    ## 12 13      Florida Panthers /api/v1/teams/13          FLA       Panthers
-    ## 13 14   Tampa Bay Lightning /api/v1/teams/14          TBL      Lightning
-    ## 14 15   Washington Capitals /api/v1/teams/15          WSH       Capitals
-    ## 15 16    Chicago Blackhawks /api/v1/teams/16          CHI     Blackhawks
-    ## 16 17     Detroit Red Wings /api/v1/teams/17          DET      Red Wings
-    ## 17 18   Nashville Predators /api/v1/teams/18          NSH      Predators
-    ## 18 19       St. Louis Blues /api/v1/teams/19          STL          Blues
-    ## 19 20        Calgary Flames /api/v1/teams/20          CGY         Flames
-    ## 20 21    Colorado Avalanche /api/v1/teams/21          COL      Avalanche
-    ## 21 22       Edmonton Oilers /api/v1/teams/22          EDM         Oilers
-    ## 22 23     Vancouver Canucks /api/v1/teams/23          VAN        Canucks
-    ## 23 24         Anaheim Ducks /api/v1/teams/24          ANA          Ducks
-    ## 24 25          Dallas Stars /api/v1/teams/25          DAL          Stars
-    ## 25 26     Los Angeles Kings /api/v1/teams/26          LAK          Kings
-    ## 26 28       San Jose Sharks /api/v1/teams/28          SJS         Sharks
-    ## 27 29 Columbus Blue Jackets /api/v1/teams/29          CBJ   Blue Jackets
-    ## 28 30        Minnesota Wild /api/v1/teams/30          MIN           Wild
-    ## 29 52         Winnipeg Jets /api/v1/teams/52          WPG           Jets
-    ## 30 53       Arizona Coyotes /api/v1/teams/53          ARI        Coyotes
-    ## 31 54  Vegas Golden Knights /api/v1/teams/54          VGK Golden Knights
-    ## 32 55        Seattle Kraken /api/v1/teams/55          SEA         Kraken
-    ##    locationName firstYearOfPlay
-    ## 1    New Jersey            1982
-    ## 2      New York            1972
-    ## 3      New York            1926
-    ## 4  Philadelphia            1967
-    ## 5    Pittsburgh            1967
-    ## 6        Boston            1924
-    ## 7       Buffalo            1970
-    ## 8      Montréal            1909
-    ## 9        Ottawa            1990
-    ## 10      Toronto            1917
-    ## 11     Carolina            1979
-    ## 12      Florida            1993
-    ## 13    Tampa Bay            1991
-    ## 14   Washington            1974
-    ## 15      Chicago            1926
-    ## 16      Detroit            1926
-    ## 17    Nashville            1997
-    ## 18    St. Louis            1967
-    ## 19      Calgary            1980
-    ## 20     Colorado            1979
-    ## 21     Edmonton            1979
-    ## 22    Vancouver            1970
-    ## 23      Anaheim            1993
-    ## 24       Dallas            1967
-    ## 25  Los Angeles            1967
-    ## 26     San Jose            1990
-    ## 27     Columbus            1997
-    ## 28    Minnesota            1997
-    ## 29     Winnipeg            2011
-    ## 30      Arizona            1979
-    ## 31        Vegas            2016
-    ## 32      Seattle            <NA>
-    ##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    teamStats
-    ## 1              56, NA, 19, 28th, 30, 29th, 7, 15th, 45, 29th, 40.2, 29th, 2.589, 26th, 3.375, 28th, 0.8293, 21st, 14.2, 28th, 22, 28th, 43, 30th, 155, 23rd, 71.0, 31st, 28.7857, 24th, 31.0179, 22nd, 0.552, 22nd, 0.111, 31st, 0.737, 19th, 0.733, 28th, 0.211, 31st, 0.417, 31st, 3180, 8th, 1481, 27th, 1699, 30th, 46.6, 27th, 9, NA, 0.891, NA, NA, 6th, NA, 29th, NA, 24th, 1, 1, New Jersey Devils, New Jersey Devils, /api/v1/teams/1, /api/v1/teams/1, statsSingleSeason, R, Regular season, FALSE
-    ## 2                     56, NA, 32, 12th, 17, 11th, 7, 11th, 71, 12th, 63.4, 12th, 2.714, 21st, 2.232, 2nd, 1.2418, 7th, 18.8, 20th, 27, 24th, 22, 2nd, 144, 28th, 83.7, 6th, 28.9821, 22nd, 28.3929, 10th, 0.821, 10th, 0.321, 16th, 0.833, 7th, 0.842, 20th, 0.69, 4th, 0.44, 4th, 2916, 31st, 1498, 25th, 1418, 2nd, 51.4, 9th, 9.4, NA, 0.921, NA, NA, 2nd, NA, 1st, NA, 17th, 2, 2, New York Islanders, New York Islanders, /api/v1/teams/2, /api/v1/teams/2, statsSingleSeason, R, Regular season, FALSE
-    ## 3                 56, NA, 27, 16th, 23, 18th, 6, 17th, 60, 17th, 53.6, 17th, 3.143, 10th, 2.768, 14th, 1.0943, 13th, 20.7, 14th, 37, 10th, 30, 12th, 179, 4th, 82.2, 10th, 28.6964, 25th, 29.7143, 13th, 0.7, 12th, 0.231, 24th, 0.739, 16th, 0.808, 23rd, 0.545, 14th, 0.484, 14th, 3026, 26th, 1346, 31st, 1680, 29th, 44.5, 31st, 11, NA, 0.907, NA, NA, 20th, NA, 12th, NA, 4th, 3, 3, New York Rangers, New York Rangers, /api/v1/teams/3, /api/v1/teams/3, statsSingleSeason, R, Regular season, FALSE
-    ## 4             56, NA, 25, 18th, 23, 19th, 8, 8th, 58, 19th, 51.8, 19th, 2.857, 15th, 3.518, 31st, 0.806, 23rd, 19.2, 18th, 32, 15th, 45, 31st, 167, 12th, 73.0, 30th, 30.2143, 10th, 29.2143, 12th, 0.609, 23rd, 0.333, 11th, 0.769, 10th, 0.833, 21st, 0.441, 22nd, 0.455, 22nd, 3217, 6th, 1738, 3rd, 1479, 8th, 54.0, 2nd, 9.5, NA, 0.88, NA, NA, 17th, NA, 31st, NA, 16th, 4, 4, Philadelphia Flyers, Philadelphia Flyers, /api/v1/teams/4, /api/v1/teams/4, statsSingleSeason, R, Regular season, FALSE
-    ## 5                       56, NA, 37, 4th, 16, 7th, 3, 25th, 77, 7th, 68.8, 7th, 3.446, 2nd, 2.768, 13th, 1.27, 5th, 23.7, 4th, 36, 12th, 35, 22nd, 152, 25th, 77.4, 27th, 30.0714, 12th, 29.9821, 15th, 0.793, 7th, 0.519, 2nd, 0.846, 6th, 0.926, 7th, 0.655, 6th, 0.68, 6th, 3191, 7th, 1573, 11th, 1618, 23rd, 49.3, 21st, 11.5, NA, 0.908, NA, NA, 11th, NA, 10th, NA, 1st, 5, 5, Pittsburgh Penguins, Pittsburgh Penguins, /api/v1/teams/5, /api/v1/teams/5, statsSingleSeason, R, Regular season, FALSE
-    ## 6                               56, NA, 33, 11th, 16, 9th, 7, 10th, 73, 10th, 65.2, 10th, 2.929, 14th, 2.393, 5th, 1.1383, 12th, 21.9, 10th, 35, 14th, 25, 3rd, 160, 16th, 86.0, 2nd, 33.3214, 3rd, 27.0714, 2nd, 0.735, 5th, 0.364, 17th, 0.909, 2nd, 0.885, 11th, 0.615, 10th, 0.467, 10th, 3169, 9th, 1751, 2nd, 1418, 1st, 55.2, 1st, 8.8, NA, 0.912, NA, NA, 28th, NA, 5th, NA, 26th, 6, 6, Boston Bruins, Boston Bruins, /api/v1/teams/6, /api/v1/teams/6, statsSingleSeason, R, Regular season, FALSE
-    ## 7                    56, NA, 15, 31st, 34, 31st, 7, 16th, 37, 31st, 33.0, 31st, 2.393, 29th, 3.5, 30th, 0.635, 31st, 21.0, 12th, 30, 20th, 31, 15th, 143, 29th, 77.7, 26th, 28.4286, 26th, 33.7321, 31st, 0.421, 31st, 0.189, 23rd, 0.364, 31st, 0.667, 30th, 0.357, 27th, 0.244, 27th, 3053, 24th, 1514, 21st, 1539, 13th, 49.6, 19th, 8.4, NA, 0.896, NA, NA, 3rd, NA, 26th, NA, 28th, 7, 7, Buffalo Sabres, Buffalo Sabres, /api/v1/teams/7, /api/v1/teams/7, statsSingleSeason, R, Regular season, FALSE
-    ## 8                   56, NA, 24, 19th, 21, 15th, 11, 3rd, 59, 18th, 52.7, 18th, 2.821, 17th, 2.946, 18th, 1.0291, 17th, 19.2, 17th, 29, 22nd, 37, 26th, 151, 26th, 78.5, 23rd, 31.1786, 7th, 28.1964, 7th, 0.613, 16th, 0.2, 27th, 0.7, 22nd, 0.9, 8th, 0.485, 16th, 0.318, 16th, 3114, 17th, 1507, 23rd, 1607, 22nd, 48.4, 25th, 9, NA, 0.896, NA, NA, 24th, NA, 27th, NA, 23rd, 8, 8, Montréal Canadiens, Montréal Canadiens, /api/v1/teams/8, /api/v1/teams/8, statsSingleSeason, R, Regular season, FALSE
-    ## 9                  56, NA, 23, 23rd, 28, 25th, 5, 22nd, 51, 23rd, 45.5, 23rd, 2.768, 20th, 3.375, 27th, 0.803, 24th, 15.5, 26th, 27, 25th, 36, 24th, 174, 10th, 79.0, 20th, 29.6964, 16th, 32.125, 27th, 0.667, 21st, 0.219, 20th, 0.867, 4th, 0.85, 19th, 0.409, 23rd, 0.452, 23rd, 3100, 21st, 1469, 28th, 1631, 25th, 47.4, 26th, 9.3, NA, 0.895, NA, NA, 22nd, NA, 28th, NA, 18th, 9, 9, Ottawa Senators, Ottawa Senators, /api/v1/teams/9, /api/v1/teams/9, statsSingleSeason, R, Regular season, FALSE
-    ## 10                  56, NA, 35, 8th, 14, 5th, 7, 9th, 77, 5th, 68.8, 5th, 3.321, 6th, 2.643, 7th, 1.375, 3rd, 20.0, 16th, 31, 19th, 31, 13th, 155, 20th, 78.5, 24th, 31.2679, 6th, 27.8214, 5th, 0.735, 4th, 0.455, 13th, 0.692, 24th, 0.8, 24th, 0.559, 13th, 0.75, 13th, 2981, 27th, 1523, 18th, 1458, 3rd, 51.1, 10th, 10.6, NA, 0.905, NA, NA, 5th, NA, 15th, NA, 6th, 10, 10, Toronto Maple Leafs, Toronto Maple Leafs, /api/v1/teams/10, /api/v1/teams/10, statsSingleSeason, R, Regular season, FALSE
-    ## 11                          56, NA, 36, 5th, 12, 1st, 8, 7th, 80, 3rd, 71.4, 3rd, 3.125, 11th, 2.393, 4th, 1.3086, 4th, 25.6, 2nd, 42, 3rd, 26, 4th, 164, 14th, 85.2, 3rd, 32.0357, 5th, 28.2321, 8th, 0.735, 3rd, 0.5, 9th, 0.81, 9th, 0.862, 16th, 0.639, 8th, 0.632, 8th, 3425, 1st, 1845, 1st, 1580, 19th, 53.9, 3rd, 9.8, NA, 0.915, NA, NA, 26th, NA, 3rd, NA, 12th, 12, 12, Carolina Hurricanes, Carolina Hurricanes, /api/v1/teams/12, /api/v1/teams/12, statsSingleSeason, R, Regular season, FALSE
-    ## 12                          56, NA, 37, 3rd, 14, 4th, 5, 19th, 79, 4th, 70.5, 4th, 3.357, 4th, 2.696, 9th, 1.2553, 6th, 20.5, 15th, 39, 5th, 34, 20th, 190, 2nd, 79.8, 18th, 34.8929, 1st, 30.0357, 16th, 0.714, 13th, 0.607, 1st, 0.737, 17th, 0.929, 5th, 0.622, 9th, 0.75, 9th, 3330, 2nd, 1671, 5th, 1659, 26th, 50.2, 15th, 9.6, NA, 0.91, NA, NA, 19th, NA, 8th, NA, 15th, 13, 13, Florida Panthers, Florida Panthers, /api/v1/teams/13, /api/v1/teams/13, statsSingleSeason, R, Regular season, FALSE
-    ## 13                          56, NA, 36, 7th, 17, 10th, 3, 26th, 75, 9th, 67.0, 9th, 3.214, 9th, 2.589, 6th, 1.1443, 10th, 22.2, 9th, 40, 4th, 29, 9th, 180, 3rd, 84.2, 4th, 30.2143, 9th, 28.2679, 9th, 0.786, 11th, 0.5, 3rd, 0.909, 1st, 1, 1st, 0.655, 7th, 0.64, 7th, 3127, 15th, 1567, 12th, 1560, 16th, 50.1, 16th, 10.6, NA, 0.908, NA, NA, 29th, NA, 9th, NA, 7th, 14, 14, Tampa Bay Lightning, Tampa Bay Lightning, /api/v1/teams/14, /api/v1/teams/14, statsSingleSeason, R, Regular season, FALSE
-    ## 14                     56, NA, 36, 6th, 15, 6th, 5, 20th, 77, 6th, 68.8, 6th, 3.357, 5th, 2.875, 17th, 1.2336, 8th, 24.8, 3rd, 38, 6th, 26, 5th, 153, 24th, 84.0, 5th, 29.4107, 18th, 28.7857, 11th, 0.75, 6th, 0.5, 6th, 0.727, 20th, 0.929, 6th, 0.677, 5th, 0.545, 5th, 3134, 14th, 1542, 13th, 1592, 21st, 49.2, 22nd, 11.4, NA, 0.9, NA, NA, 15th, NA, 19th, NA, 2nd, 15, 15, Washington Capitals, Washington Capitals, /api/v1/teams/15, /api/v1/teams/15, statsSingleSeason, R, Regular season, FALSE
-    ## 15           56, NA, 24, 20th, 25, 20th, 7, 12th, 55, 20th, 49.1, 20th, 2.839, 16th, 3.286, 24th, 0.8, 25th, 21.7, 11th, 38, 7th, 35, 23rd, 175, 6th, 76.8, 28th, 29.1964, 19th, 33.7143, 30th, 0.63, 20th, 0.241, 19th, 0.647, 26th, 0.789, 26th, 0.45, 21st, 0.412, 21st, 3105, 19th, 1439, 29th, 1666, 27th, 46.3, 29th, 9.7, NA, 0.903, NA, NA, 8th, NA, 17th, NA, 14th, 16, 16, Chicago Blackhawks, Chicago Blackhawks, /api/v1/teams/16, /api/v1/teams/16, statsSingleSeason, R, Regular season, FALSE
-    ## 16           56, NA, 19, 27th, 27, 24th, 10, 4th, 48, 28th, 42.9, 28th, 2.232, 30th, 3, 20th, 0.7768, 29th, 11.4, 30th, 17, 30th, 33, 18th, 149, 27th, 78.7, 22nd, 27.2857, 30th, 31.8929, 25th, 0.5, 29th, 0.219, 22nd, 0.643, 27th, 0.833, 22nd, 0.318, 28th, 0.353, 28th, 3041, 25th, 1523, 19th, 1518, 10th, 50.1, 17th, 8.2, NA, 0.906, NA, NA, 12th, NA, 14th, NA, 31st, 17, 17, Detroit Red Wings, Detroit Red Wings, /api/v1/teams/17, /api/v1/teams/17, statsSingleSeason, R, Regular season, FALSE
-    ## 17          56, NA, 31, 13th, 23, 16th, 2, 31st, 64, 13th, 57.1, 13th, 2.696, 22nd, 2.75, 12th, 1.1429, 11th, 17.6, 23rd, 28, 23rd, 42, 29th, 159, 17th, 75.6, 29th, 29.9821, 14th, 31.3036, 24th, 0.72, 17th, 0.419, 5th, 0.75, 13th, 0.895, 10th, 0.571, 12th, 0.519, 12th, 3149, 12th, 1628, 9th, 1521, 11th, 51.7, 7th, 9, NA, 0.912, NA, NA, 23rd, NA, 4th, NA, 22nd, 18, 18, Nashville Predators, Nashville Predators, /api/v1/teams/18, /api/v1/teams/18, statsSingleSeason, R, Regular season, FALSE
-    ## 18                     56, NA, 27, 15th, 20, 14th, 9, 5th, 63, 14th, 56.3, 14th, 2.982, 13th, 2.982, 19th, 0.9273, 19th, 23.2, 6th, 36, 13th, 38, 28th, 155, 21st, 77.8, 25th, 28.9643, 23rd, 29.8214, 14th, 0.565, 26th, 0.424, 4th, 0.696, 23rd, 0.8, 25th, 0.5, 15th, 0.467, 15th, 3145, 13th, 1677, 4th, 1468, 5th, 53.3, 4th, 10.3, NA, 0.9, NA, NA, 21st, NA, 20th, NA, 9th, 19, 19, St. Louis Blues, St. Louis Blues, /api/v1/teams/19, /api/v1/teams/19, statsSingleSeason, R, Regular season, FALSE
-    ## 19              56, NA, 26, 17th, 27, 23rd, 3, 28th, 55, 21st, 49.1, 21st, 2.768, 19th, 2.857, 16th, 1.0667, 16th, 18.3, 21st, 32, 16th, 34, 21st, 175, 7th, 80.2, 15th, 30.1607, 11th, 28.1607, 6th, 0.741, 14th, 0.207, 26th, 0.737, 18th, 0.957, 2nd, 0.471, 19th, 0.429, 19th, 3085, 22nd, 1541, 14th, 1544, 14th, 50.0, 18th, 9.2, NA, 0.899, NA, NA, 25th, NA, 23rd, NA, 20th, 20, 20, Calgary Flames, Calgary Flames, /api/v1/teams/20, /api/v1/teams/20, statsSingleSeason, R, Regular season, FALSE
-    ## 20                          56, NA, 39, 2nd, 13, 2nd, 4, 23rd, 82, 1st, 73.2, 1st, 3.518, 1st, 2.357, 3rd, 1.4886, 1st, 22.7, 8th, 47, 2nd, 30, 11th, 207, 1st, 83.0, 8th, 34.5893, 2nd, 25.4107, 1st, 0.806, 2nd, 0.5, 12th, 0.87, 3rd, 0.939, 3rd, 0.733, 2nd, 0.545, 2nd, 3235, 4th, 1670, 6th, 1565, 17th, 51.6, 8th, 10.2, NA, 0.907, NA, NA, 27th, NA, 11th, NA, 10th, 21, 21, Colorado Avalanche, Colorado Avalanche, /api/v1/teams/21, /api/v1/teams/21, statsSingleSeason, R, Regular season, FALSE
-    ## 21                       56, NA, 35, 10th, 19, 12th, 2, 30th, 72, 11th, 64.3, 11th, 3.268, 7th, 2.75, 11th, 0.9914, 18th, 27.6, 1st, 48, 1st, 27, 7th, 174, 9th, 82.5, 9th, 29.8929, 15th, 30.6607, 21st, 0.852, 9th, 0.414, 8th, 0.826, 8th, 0.897, 9th, 0.583, 11th, 0.633, 11th, 2977, 29th, 1501, 24th, 1476, 7th, 50.4, 14th, 10.9, NA, 0.91, NA, NA, 10th, NA, 7th, NA, 5th, 22, 22, Edmonton Oilers, Edmonton Oilers, /api/v1/teams/22, /api/v1/teams/22, statsSingleSeason, R, Regular season, FALSE
-    ## 22           56, NA, 23, 24th, 29, 28th, 4, 24th, 50, 24th, 44.6, 24th, 2.643, 24th, 3.339, 26th, 0.7939, 27th, 17.4, 25th, 27, 26th, 37, 27th, 155, 22nd, 79.8, 17th, 29.0893, 20th, 33.3929, 29th, 0.72, 18th, 0.161, 28th, 0.706, 21st, 0.882, 12th, 0.357, 26th, 0.429, 26th, 3162, 10th, 1655, 8th, 1507, 9th, 52.3, 5th, 9.1, NA, 0.9, NA, NA, 30th, NA, 21st, NA, 21st, 23, 23, Vancouver Canucks, Vancouver Canucks, /api/v1/teams/23, /api/v1/teams/23, statsSingleSeason, R, Regular season, FALSE
-    ## 23               56, NA, 17, 30th, 30, 30th, 9, 6th, 43, 30th, 38.4, 30th, 2.214, 31st, 3.161, 23rd, 0.8197, 22nd, 8.9, 31st, 11, 31st, 33, 19th, 123, 30th, 79.9, 16th, 26.7857, 31st, 30.5714, 19th, 0.444, 30th, 0.172, 30th, 0.529, 29th, 0.643, 31st, 0.316, 29th, 0.306, 29th, 3118, 16th, 1591, 10th, 1527, 12th, 51.0, 11th, 8.3, NA, 0.897, NA, NA, 16th, NA, 25th, NA, 29th, 24, 24, Anaheim Ducks, Anaheim Ducks, /api/v1/teams/24, /api/v1/teams/24, statsSingleSeason, R, Regular season, FALSE
-    ## 24                            56, NA, 23, 22nd, 19, 13th, 14, 1st, 60, 16th, 53.6, 16th, 2.786, 18th, 2.643, 8th, 1.086, 14th, 23.6, 5th, 37, 9th, 32, 16th, 157, 18th, 79.1, 19th, 30.3393, 8th, 27.1071, 3rd, 0.654, 19th, 0.2, 25th, 0.75, 14th, 0.857, 17th, 0.457, 20th, 0.333, 20th, 3218, 5th, 1668, 7th, 1550, 15th, 51.8, 6th, 9.2, NA, 0.903, NA, NA, 9th, NA, 18th, NA, 19th, 25, 25, Dallas Stars, Dallas Stars, /api/v1/teams/25, /api/v1/teams/25, statsSingleSeason, R, Regular season, FALSE
-    ## 25          56, NA, 21, 25th, 28, 26th, 7, 13th, 49, 25th, 43.8, 25th, 2.536, 27th, 3.018, 21st, 0.7983, 26th, 18.9, 19th, 32, 17th, 26, 6th, 169, 11th, 83.7, 7th, 28.3393, 27th, 31.1786, 23rd, 0.667, 25th, 0.2, 21st, 0.769, 11th, 0.875, 14th, 0.375, 25th, 0.333, 25th, 2981, 28th, 1509, 22nd, 1472, 6th, 50.6, 12th, 8.9, NA, 0.903, NA, NA, 13th, NA, 16th, NA, 25th, 26, 26, Los Angeles Kings, Los Angeles Kings, /api/v1/teams/26, /api/v1/teams/26, statsSingleSeason, R, Regular season, FALSE
-    ## 26           56, NA, 21, 26th, 28, 27th, 7, 14th, 49, 26th, 43.8, 26th, 2.607, 25th, 3.5, 29th, 0.7836, 28th, 14.1, 29th, 22, 27th, 36, 25th, 156, 19th, 80.4, 14th, 30.0357, 13th, 31.9821, 26th, 0.464, 27th, 0.286, 18th, 0.688, 25th, 0.688, 29th, 0.478, 18th, 0.333, 18th, 3156, 11th, 1528, 16th, 1628, 24th, 48.4, 24th, 8.7, NA, 0.891, NA, NA, 31st, NA, 30th, NA, 27th, 28, 28, San Jose Sharks, San Jose Sharks, /api/v1/teams/28, /api/v1/teams/28, statsSingleSeason, R, Regular season, FALSE
-    ## 27 56, NA, 18, 29th, 26, 22nd, 12, 2nd, 48, 27th, 42.9, 27th, 2.393, 28th, 3.286, 25th, 0.7405, 30th, 15.4, 27th, 18, 29th, 28, 8th, 117, 31st, 79.0, 21st, 29.0179, 21st, 32.4107, 28th, 0.406, 28th, 0.208, 29th, 0.45, 30th, 0.75, 27th, 0.273, 30th, 0.357, 30th, 3061, 23rd, 1387, 30th, 1674, 28th, 45.3, 30th, 8.2, NA, 0.899, NA, NA, 1st, NA, 22nd, NA, 30th, 29, 29, Columbus Blue Jackets, Columbus Blue Jackets, /api/v1/teams/29, /api/v1/teams/29, statsSingleSeason, R, Regular season, FALSE
-    ## 28                      56, NA, 35, 9th, 16, 8th, 5, 21st, 75, 8th, 67.0, 8th, 3.214, 8th, 2.839, 15th, 1.1667, 9th, 17.6, 24th, 29, 21st, 31, 14th, 165, 13th, 80.8, 12th, 28.3036, 28th, 30.4464, 17th, 0.767, 8th, 0.462, 7th, 0.739, 15th, 0.875, 13th, 0.714, 3rd, 0.517, 3rd, 3261, 3rd, 1517, 20th, 1744, 31st, 46.5, 28th, 11.4, NA, 0.907, NA, NA, 14th, NA, 13th, NA, 3rd, 30, 30, Minnesota Wild, Minnesota Wild, /api/v1/teams/30, /api/v1/teams/30, statsSingleSeason, R, Regular season, FALSE
-    ## 29                 56, NA, 30, 14th, 23, 17th, 3, 27th, 63, 15th, 56.3, 15th, 3.036, 12th, 2.714, 10th, 1.0784, 15th, 23.0, 7th, 37, 8th, 29, 10th, 161, 15th, 80.5, 13th, 29.6607, 17th, 30.5893, 20th, 0.679, 15th, 0.393, 10th, 0.762, 12th, 0.864, 15th, 0.483, 17th, 0.625, 17th, 2957, 30th, 1492, 26th, 1465, 4th, 50.5, 13th, 10.2, NA, 0.911, NA, NA, 7th, NA, 6th, NA, 11th, 52, 52, Winnipeg Jets, Winnipeg Jets, /api/v1/teams/52, /api/v1/teams/52, statsSingleSeason, R, Regular season, FALSE
-    ## 30            56, NA, 24, 21st, 26, 21st, 6, 18th, 54, 22nd, 48.2, 22nd, 2.679, 23rd, 3.107, 22nd, 0.8696, 20th, 20.8, 13th, 37, 11th, 32, 17th, 178, 5th, 80.8, 11th, 27.4643, 29th, 30.4643, 18th, 0.609, 24th, 0.303, 14th, 0.615, 28th, 0.857, 18th, 0.4, 24th, 0.441, 24th, 3108, 18th, 1525, 17th, 1583, 20th, 49.1, 23rd, 9.8, NA, 0.898, NA, NA, 18th, NA, 24th, NA, 13th, 53, 53, Arizona Coyotes, Arizona Coyotes, /api/v1/teams/53, /api/v1/teams/53, statsSingleSeason, R, Regular season, FALSE
-    ## 31                    56, NA, 40, 1st, 14, 3rd, 2, 29th, 82, 2nd, 73.2, 2nd, 3.393, 3rd, 2.179, 1st, 1.3776, 2nd, 17.8, 22nd, 31, 18th, 19, 1st, 174, 8th, 86.8, 1st, 32.6607, 4th, 27.2679, 4th, 0.861, 1st, 0.45, 15th, 0.846, 5th, 0.931, 4th, 0.769, 1st, 0.667, 1st, 3102, 20th, 1536, 15th, 1566, 18th, 49.5, 20th, 10.4, NA, 0.92, NA, NA, 4th, NA, 2nd, NA, 8th, 54, 54, Vegas Golden Knights, Vegas Golden Knights, /api/v1/teams/54, /api/v1/teams/54, statsSingleSeason, R, Regular season, FALSE
-    ## 32                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      NULL
-    ##       shortName                    officialSiteUrl franchiseId active
-    ## 1    New Jersey    http://www.newjerseydevils.com/          23   TRUE
-    ## 2  NY Islanders   http://www.newyorkislanders.com/          22   TRUE
-    ## 3    NY Rangers     http://www.newyorkrangers.com/          10   TRUE
-    ## 4  Philadelphia http://www.philadelphiaflyers.com/          16   TRUE
-    ## 5    Pittsburgh     http://pittsburghpenguins.com/          17   TRUE
-    ## 6        Boston       http://www.bostonbruins.com/           6   TRUE
-    ## 7       Buffalo             http://www.sabres.com/          19   TRUE
-    ## 8      Montréal          http://www.canadiens.com/           1   TRUE
-    ## 9        Ottawa     http://www.ottawasenators.com/          30   TRUE
-    ## 10      Toronto         http://www.mapleleafs.com/           5   TRUE
-    ## 11     Carolina http://www.carolinahurricanes.com/          26   TRUE
-    ## 12      Florida    http://www.floridapanthers.com/          33   TRUE
-    ## 13    Tampa Bay  http://www.tampabaylightning.com/          31   TRUE
-    ## 14   Washington http://www.washingtoncapitals.com/          24   TRUE
-    ## 15      Chicago  http://www.chicagoblackhawks.com/          11   TRUE
-    ## 16      Detroit    http://www.detroitredwings.com/          12   TRUE
-    ## 17    Nashville http://www.nashvillepredators.com/          34   TRUE
-    ## 18     St Louis       http://www.stlouisblues.com/          18   TRUE
-    ## 19      Calgary      http://www.calgaryflames.com/          21   TRUE
-    ## 20     Colorado  http://www.coloradoavalanche.com/          27   TRUE
-    ## 21     Edmonton     http://www.edmontonoilers.com/          25   TRUE
-    ## 22    Vancouver            http://www.canucks.com/          20   TRUE
-    ## 23      Anaheim       http://www.anaheimducks.com/          32   TRUE
-    ## 24       Dallas        http://www.dallasstars.com/          15   TRUE
-    ## 25  Los Angeles            http://www.lakings.com/          14   TRUE
-    ## 26     San Jose           http://www.sjsharks.com/          29   TRUE
-    ## 27     Columbus        http://www.bluejackets.com/          36   TRUE
-    ## 28    Minnesota               http://www.wild.com/          37   TRUE
-    ## 29     Winnipeg           http://winnipegjets.com/          35   TRUE
-    ## 30      Arizona     http://www.arizonacoyotes.com/          28   TRUE
-    ## 31        Vegas http://www.vegasgoldenknights.com/          38   TRUE
-    ## 32         <NA>        https://www.nhl.com/seattle          39  FALSE
-    ##                           venue.name          venue.link   venue.city venue.id
-    ## 1                  Prudential Center /api/v1/venues/null       Newark       NA
-    ## 2  Nassau Veterans Memorial Coliseum /api/v1/venues/null    Uniondale       NA
-    ## 3              Madison Square Garden /api/v1/venues/5054     New York     5054
-    ## 4                 Wells Fargo Center /api/v1/venues/5096 Philadelphia     5096
-    ## 5                   PPG Paints Arena /api/v1/venues/5034   Pittsburgh     5034
-    ## 6                          TD Garden /api/v1/venues/5085       Boston     5085
-    ## 7                     KeyBank Center /api/v1/venues/5039      Buffalo     5039
-    ## 8                        Bell Centre /api/v1/venues/5028     Montréal     5028
-    ## 9               Canadian Tire Centre /api/v1/venues/5031       Ottawa     5031
-    ## 10                  Scotiabank Arena /api/v1/venues/null      Toronto       NA
-    ## 11                         PNC Arena /api/v1/venues/5066      Raleigh     5066
-    ## 12                       BB&T Center /api/v1/venues/5027      Sunrise     5027
-    ## 13                      AMALIE Arena /api/v1/venues/null        Tampa       NA
-    ## 14                 Capital One Arena /api/v1/venues/5094   Washington     5094
-    ## 15                     United Center /api/v1/venues/5092      Chicago     5092
-    ## 16              Little Caesars Arena /api/v1/venues/5145      Detroit     5145
-    ## 17                 Bridgestone Arena /api/v1/venues/5030    Nashville     5030
-    ## 18                 Enterprise Center /api/v1/venues/5076    St. Louis     5076
-    ## 19             Scotiabank Saddledome /api/v1/venues/5075      Calgary     5075
-    ## 20                        Ball Arena /api/v1/venues/5064       Denver     5064
-    ## 21                      Rogers Place /api/v1/venues/5100     Edmonton     5100
-    ## 22                      Rogers Arena /api/v1/venues/5073    Vancouver     5073
-    ## 23                      Honda Center /api/v1/venues/5046      Anaheim     5046
-    ## 24          American Airlines Center /api/v1/venues/5019       Dallas     5019
-    ## 25                    STAPLES Center /api/v1/venues/5081  Los Angeles     5081
-    ## 26            SAP Center at San Jose /api/v1/venues/null     San Jose       NA
-    ## 27                  Nationwide Arena /api/v1/venues/5059     Columbus     5059
-    ## 28                Xcel Energy Center /api/v1/venues/5098     St. Paul     5098
-    ## 29                    Bell MTS Place /api/v1/venues/5058     Winnipeg     5058
-    ## 30                  Gila River Arena /api/v1/venues/5043     Glendale     5043
-    ## 31                    T-Mobile Arena /api/v1/venues/5178    Las Vegas     5178
-    ## 32                              <NA>                <NA>         <NA>       NA
-    ##      venue.timeZone.id venue.timeZone.offset venue.timeZone.tz division.id
-    ## 1     America/New_York                    -4               EDT          25
-    ## 2     America/New_York                    -4               EDT          25
-    ## 3     America/New_York                    -4               EDT          25
-    ## 4     America/New_York                    -4               EDT          25
-    ## 5     America/New_York                    -4               EDT          25
-    ## 6     America/New_York                    -4               EDT          25
-    ## 7     America/New_York                    -4               EDT          25
-    ## 8     America/Montreal                    -4               EDT          28
-    ## 9     America/New_York                    -4               EDT          28
-    ## 10     America/Toronto                    -4               EDT          28
-    ## 11    America/New_York                    -4               EDT          26
-    ## 12    America/New_York                    -4               EDT          26
-    ## 13    America/New_York                    -4               EDT          26
-    ## 14    America/New_York                    -4               EDT          25
-    ## 15     America/Chicago                    -5               CDT          26
-    ## 16     America/Detroit                    -4               EDT          26
-    ## 17     America/Chicago                    -5               CDT          26
-    ## 18     America/Chicago                    -5               CDT          27
-    ## 19      America/Denver                    -6               MDT          28
-    ## 20      America/Denver                    -6               MDT          27
-    ## 21    America/Edmonton                    -6               MDT          28
-    ## 22   America/Vancouver                    -7               PDT          28
-    ## 23 America/Los_Angeles                    -7               PDT          27
-    ## 24     America/Chicago                    -5               CDT          26
-    ## 25 America/Los_Angeles                    -7               PDT          27
-    ## 26 America/Los_Angeles                    -7               PDT          27
-    ## 27    America/New_York                    -4               EDT          26
-    ## 28     America/Chicago                    -5               CDT          27
-    ## 29    America/Winnipeg                    -5               CDT          28
-    ## 30     America/Phoenix                    -7               MST          27
-    ## 31 America/Los_Angeles                    -7               PDT          27
-    ## 32                <NA>                    NA              <NA>          NA
-    ##       division.name          division.link conference.id conference.name
-    ## 1   MassMutual East   /api/v1/divisions/25             6         Eastern
-    ## 2   MassMutual East   /api/v1/divisions/25             6         Eastern
-    ## 3   MassMutual East   /api/v1/divisions/25             6         Eastern
-    ## 4   MassMutual East   /api/v1/divisions/25             6         Eastern
-    ## 5   MassMutual East   /api/v1/divisions/25             6         Eastern
-    ## 6   MassMutual East   /api/v1/divisions/25             6         Eastern
-    ## 7   MassMutual East   /api/v1/divisions/25             6         Eastern
-    ## 8      Scotia North   /api/v1/divisions/28             6         Eastern
-    ## 9      Scotia North   /api/v1/divisions/28             6         Eastern
-    ## 10     Scotia North   /api/v1/divisions/28             6         Eastern
-    ## 11 Discover Central   /api/v1/divisions/26             6         Eastern
-    ## 12 Discover Central   /api/v1/divisions/26             6         Eastern
-    ## 13 Discover Central   /api/v1/divisions/26             6         Eastern
-    ## 14  MassMutual East   /api/v1/divisions/25             6         Eastern
-    ## 15 Discover Central   /api/v1/divisions/26             5         Western
-    ## 16 Discover Central   /api/v1/divisions/26             6         Eastern
-    ## 17 Discover Central   /api/v1/divisions/26             5         Western
-    ## 18       Honda West   /api/v1/divisions/27             5         Western
-    ## 19     Scotia North   /api/v1/divisions/28             5         Western
-    ## 20       Honda West   /api/v1/divisions/27             5         Western
-    ## 21     Scotia North   /api/v1/divisions/28             5         Western
-    ## 22     Scotia North   /api/v1/divisions/28             5         Western
-    ## 23       Honda West   /api/v1/divisions/27             5         Western
-    ## 24 Discover Central   /api/v1/divisions/26             5         Western
-    ## 25       Honda West   /api/v1/divisions/27             5         Western
-    ## 26       Honda West   /api/v1/divisions/27             5         Western
-    ## 27 Discover Central   /api/v1/divisions/26             6         Eastern
-    ## 28       Honda West   /api/v1/divisions/27             5         Western
-    ## 29     Scotia North   /api/v1/divisions/28             5         Western
-    ## 30       Honda West   /api/v1/divisions/27             5         Western
-    ## 31       Honda West   /api/v1/divisions/27             5         Western
-    ## 32             <NA> /api/v1/divisions/null            NA            <NA>
-    ##             conference.link franchise.franchiseId franchise.teamName
-    ## 1     /api/v1/conferences/6                    23             Devils
-    ## 2     /api/v1/conferences/6                    22          Islanders
-    ## 3     /api/v1/conferences/6                    10            Rangers
-    ## 4     /api/v1/conferences/6                    16             Flyers
-    ## 5     /api/v1/conferences/6                    17           Penguins
-    ## 6     /api/v1/conferences/6                     6             Bruins
-    ## 7     /api/v1/conferences/6                    19             Sabres
-    ## 8     /api/v1/conferences/6                     1          Canadiens
-    ## 9     /api/v1/conferences/6                    30           Senators
-    ## 10    /api/v1/conferences/6                     5        Maple Leafs
-    ## 11    /api/v1/conferences/6                    26         Hurricanes
-    ## 12    /api/v1/conferences/6                    33           Panthers
-    ## 13    /api/v1/conferences/6                    31          Lightning
-    ## 14    /api/v1/conferences/6                    24           Capitals
-    ## 15    /api/v1/conferences/5                    11         Blackhawks
-    ## 16    /api/v1/conferences/6                    12          Red Wings
-    ## 17    /api/v1/conferences/5                    34          Predators
-    ## 18    /api/v1/conferences/5                    18              Blues
-    ## 19    /api/v1/conferences/5                    21             Flames
-    ## 20    /api/v1/conferences/5                    27          Avalanche
-    ## 21    /api/v1/conferences/5                    25             Oilers
-    ## 22    /api/v1/conferences/5                    20            Canucks
-    ## 23    /api/v1/conferences/5                    32              Ducks
-    ## 24    /api/v1/conferences/5                    15              Stars
-    ## 25    /api/v1/conferences/5                    14              Kings
-    ## 26    /api/v1/conferences/5                    29             Sharks
-    ## 27    /api/v1/conferences/6                    36       Blue Jackets
-    ## 28    /api/v1/conferences/5                    37               Wild
-    ## 29    /api/v1/conferences/5                    35               Jets
-    ## 30    /api/v1/conferences/5                    28            Coyotes
-    ## 31    /api/v1/conferences/5                    38     Golden Knights
-    ## 32 /api/v1/conferences/null                    39             Kraken
-    ##           franchise.link
-    ## 1  /api/v1/franchises/23
-    ## 2  /api/v1/franchises/22
-    ## 3  /api/v1/franchises/10
-    ## 4  /api/v1/franchises/16
-    ## 5  /api/v1/franchises/17
-    ## 6   /api/v1/franchises/6
-    ## 7  /api/v1/franchises/19
-    ## 8   /api/v1/franchises/1
-    ## 9  /api/v1/franchises/30
-    ## 10  /api/v1/franchises/5
-    ## 11 /api/v1/franchises/26
-    ## 12 /api/v1/franchises/33
-    ## 13 /api/v1/franchises/31
-    ## 14 /api/v1/franchises/24
-    ## 15 /api/v1/franchises/11
-    ## 16 /api/v1/franchises/12
-    ## 17 /api/v1/franchises/34
-    ## 18 /api/v1/franchises/18
-    ## 19 /api/v1/franchises/21
-    ## 20 /api/v1/franchises/27
-    ## 21 /api/v1/franchises/25
-    ## 22 /api/v1/franchises/20
-    ## 23 /api/v1/franchises/32
-    ## 24 /api/v1/franchises/15
-    ## 25 /api/v1/franchises/14
-    ## 26 /api/v1/franchises/29
-    ## 27 /api/v1/franchises/36
-    ## 28 /api/v1/franchises/37
-    ## 29 /api/v1/franchises/35
-    ## 30 /api/v1/franchises/28
-    ## 31 /api/v1/franchises/38
-    ## 32 /api/v1/franchises/39
-
-``` r
-# get team stats
-test6 <- Get_team_stats(base1_URL,4)
-test6
-```
-
-    ## $copyright
-    ## [1] "NHL and the NHL Shield are registered trademarks of the National Hockey League. NHL and NHL team marks are the property of the NHL and its teams. © NHL 2021. All Rights Reserved."
-    ## 
-    ## $teams
-    ##   id                name            link abbreviation teamName locationName
-    ## 1  4 Philadelphia Flyers /api/v1/teams/4          PHI   Flyers Philadelphia
-    ##   firstYearOfPlay
-    ## 1            1967
-    ##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        teamStats
-    ## 1 56, NA, 25, 18th, 23, 19th, 8, 8th, 58, 19th, 51.8, 19th, 2.857, 15th, 3.518, 31st, 0.806, 23rd, 19.2, 18th, 32, 15th, 45, 31st, 167, 12th, 73.0, 30th, 30.2143, 10th, 29.2143, 12th, 0.609, 23rd, 0.333, 11th, 0.769, 10th, 0.833, 21st, 0.441, 22nd, 0.455, 22nd, 3217, 6th, 1738, 3rd, 1479, 8th, 54.0, 2nd, 9.5, NA, 0.88, NA, NA, 17th, NA, 31st, NA, 16th, 4, 4, Philadelphia Flyers, Philadelphia Flyers, /api/v1/teams/4, /api/v1/teams/4, statsSingleSeason, R, Regular season, FALSE
-    ##      shortName                    officialSiteUrl franchiseId active venue.id
-    ## 1 Philadelphia http://www.philadelphiaflyers.com/          16   TRUE     5096
-    ##           venue.name          venue.link   venue.city venue.timeZone.id
-    ## 1 Wells Fargo Center /api/v1/venues/5096 Philadelphia  America/New_York
-    ##   venue.timeZone.offset venue.timeZone.tz division.id   division.name
-    ## 1                    -4               EDT          25 MassMutual East
-    ##          division.link conference.id conference.name       conference.link
-    ## 1 /api/v1/divisions/25             6         Eastern /api/v1/conferences/6
-    ##   franchise.franchiseId franchise.teamName        franchise.link
-    ## 1                    16             Flyers /api/v1/franchises/16
-
-``` r
-wrapper_URL <- "https://statsapi.web.nhl.com/api/v1/teams/3/?expand=team.stats"
-#wrapper_URL <- "https://records.nhl.com/site/api/franchise"
-
-
-Get_w_data<- function(w_URL){
-  
-return (fromJSON(content(GET(w_URL), "text"),flatten = TRUE))
-  
-}
-
-wdata <- Get_w_data(wrapper_URL)
-
-wdata
-```
-
-    ## $copyright
-    ## [1] "NHL and the NHL Shield are registered trademarks of the National Hockey League. NHL and NHL team marks are the property of the NHL and its teams. © NHL 2021. All Rights Reserved."
-    ## 
-    ## $teams
-    ##   id             name            link abbreviation teamName locationName
-    ## 1  3 New York Rangers /api/v1/teams/3          NYR  Rangers     New York
-    ##   firstYearOfPlay
-    ## 1            1926
-    ##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    teamStats
-    ## 1 56, NA, 27, 16th, 23, 18th, 6, 17th, 60, 17th, 53.6, 17th, 3.143, 10th, 2.768, 14th, 1.0943, 13th, 20.7, 14th, 37, 10th, 30, 12th, 179, 4th, 82.2, 10th, 28.6964, 25th, 29.7143, 13th, 0.7, 12th, 0.231, 24th, 0.739, 16th, 0.808, 23rd, 0.545, 14th, 0.484, 14th, 3026, 26th, 1346, 31st, 1680, 29th, 44.5, 31st, 11, NA, 0.907, NA, NA, 20th, NA, 12th, NA, 4th, 3, 3, New York Rangers, New York Rangers, /api/v1/teams/3, /api/v1/teams/3, statsSingleSeason, R, Regular season, FALSE
-    ##    shortName                officialSiteUrl franchiseId active venue.id
-    ## 1 NY Rangers http://www.newyorkrangers.com/          10   TRUE     5054
-    ##              venue.name          venue.link venue.city venue.timeZone.id
-    ## 1 Madison Square Garden /api/v1/venues/5054   New York  America/New_York
-    ##   venue.timeZone.offset venue.timeZone.tz division.id   division.name
-    ## 1                    -4               EDT          25 MassMutual East
-    ##          division.link conference.id conference.name       conference.link
-    ## 1 /api/v1/divisions/25             6         Eastern /api/v1/conferences/6
-    ##   franchise.franchiseId franchise.teamName        franchise.link
-    ## 1                    10            Rangers /api/v1/franchises/10
+![](nhlprogram_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->

@@ -1,17 +1,33 @@
 ---
 title: "Project 1"
+
 output:
-  github_document    
-    
+  github_document 
+      
 ---
+
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(httr)
 library(jsonlite)
 library(bigrquery)
 library(tidyverse)
+library(ggplot2)
 
+```
 
+# NHL Data statistics
+
+## Functions
+
+This program provides functions to access NHL records and stats data
+
+### get_franchise()
+
+this function returns id, firstSeasonId and lastSeasonId and name of every team in the history of the NHL 
+
+```{r echo=FALSE, warning=FALSE}
 # Franchise Function (get_franchise)
 get_franchise <- function(){
   baseURL <- "https://records.nhl.com/site/api"
@@ -27,12 +43,37 @@ get_franchise_id <- function(name){
   id <- filter(frachiseData, fullName==name)$id
 }
 
+
+```
+
+```{r results='hide', warning=FALSE, message=FALSE}
+#Usage
+franchiseData <- get_franchise()
+
+```
+
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+
 # Team Totals function
 get_team_totals <- function(){
   baseURL <- "https://records.nhl.com/site/api"
   teamURL <-  paste0(baseURL, "/franchise-team-totals")
   return (fromJSON(content(GET(teamURL), "text"),flatten = TRUE)$data)
 }
+
+```
+### get_team_totals()
+
+This function returns Total stats for every franchise (ex roadTies, roadWins, etc)
+
+```{r results='hide', warning=FALSE, message=FALSE}
+#Usage
+teamTotals <- get_team_totals()
+```
+
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
 
 # Season Records
 get_season_records <- function(ID=0, name=NULL){
@@ -51,6 +92,21 @@ get_season_records <- function(ID=0, name=NULL){
   
 }
 
+```
+### get_season_records(ID,name)
+
+This function drill-down into season records for a specific franchise. Caller can provide team ID or name.
+
+```{r results='hide', warning=FALSE, message=FALSE}
+
+#Usage
+seasonRecords <- get_season_records(ID=1)
+seasonRecords <- get_season_records(name="team name")
+
+```
+
+```{r echo=FALSE,  warning=FALSE, message=FALSE}
+
 # Goalie records
 get_goalie_records <- function(ID=0,name=NULL){
   
@@ -67,6 +123,22 @@ get_goalie_records <- function(ID=0,name=NULL){
   return (fromJSON(content(GET(goalieURL), "text"),flatten = TRUE)$data)
 }
 
+```
+### get_goalie_records(ID,name)
+
+This function drill-down into goalie records for a specific franchise. Caller can provide team ID or name.
+
+```{r results='hide', warning=FALSE, message=FALSE}
+
+#Usage
+goalieRecords <- get_goalie_records(ID=1)
+goalieRecords <- get_goalie_records(name="team name")
+
+```
+
+
+```{r echo=FALSE,  warning=FALSE, message=FALSE}
+
 #Skater records
 get_skater_records <- function(ID=0, name=NULL){
   if(ID ==0 && is.null(name))
@@ -82,6 +154,21 @@ get_skater_records <- function(ID=0, name=NULL){
   return (fromJSON(content(GET(skaterURL), "text"),flatten = TRUE)$data)
 }
 
+```
+### get_skater_records(ID,name)
+
+This function drill-down into skater records for a specific franchise. Caller can provide team ID or name.
+
+```{r results='hide', warning=FALSE, message=FALSE}
+
+#Usage
+skaterRecords <- get_skater_records(ID=1)
+skaterRecords <- get_skater_records(name="team name")
+
+```
+
+```{r echo=FALSE,  warning=FALSE, message=FALSE}
+
 #Get mos recent Team ID
 get_franchise_details<- function(ID=0){
 
@@ -90,14 +177,24 @@ get_franchise_details<- function(ID=0){
   
   baseURL <- "https://records.nhl.com/site/api"
   
-  if(ID == 0 && !is.null(name)){
-    ID = get_franchise_id(name)
-  }
- 
   mrtURL<-paste0(baseURL,"/franchise-detail?cayenneExp=mostRecentTeamId=",ID)
   return (fromJSON(content(GET(mrtURL), "text"),flatten = TRUE)$data)
   
 }
+
+```
+### get_franchise_details(ID)
+
+This function drill-down into franchise details by records for a specific franchise. Caller can provide most recent Team ID
+
+```{r results='hide', warning=FALSE, message=FALSE}
+
+#Usage
+franchiseDetails <- get_franchise_details(ID=1)
+
+```
+
+```{r echo=FALSE,  warning=FALSE, message=FALSE}
 
 #Get Team statistics
 get_team_stats<- function(teamID=0){
@@ -109,52 +206,188 @@ get_team_stats<- function(teamID=0){
   }
   return (fromJSON(content(GET(statsURL), "text"),flatten = TRUE))
 }
+```
+### get_team_stats(teamID)
 
+This function provides team stats. If ID is provided, it will return the data for specific team, otherwise it will send for all the teams.
+
+```{r results='hide', warning=FALSE, message=FALSE}
+#Usage
+teamStats <- get_team_stats(teamID=1)
+```
+
+
+```{r echo=FALSE,  warning=FALSE, message=FALSE}
 
 # Warapper function 
-get_nhl_data<- function(functionName,id=0,name=NULL){
-  if(functionName =="Franchise")
+get_nhl_data<- function(endpoint,id=0,name=NULL){
+  if(endpoint =="Franchise")
     return (get_franchise())
   
-  if(functionName =="TeamTotal")
+  if(endpoint =="TeamTotal")
     return (get_team_totals())
   
-  if(functionName =="SeasonRecords")
+  if(endpoint =="SeasonRecords")
     return (get_season_records(id,name))
   
-  if(functionName =="GoalieRecords")
+  if(endpoint =="GoalieRecords")
     return (get_goalie_records(id,name))
   
-  if(functionName =="SkaterRecords")
+  if(endpoint =="SkaterRecords")
     return (get_skater_records(id,name))
   
-  if(functionName =="FranchiseDetails")
+  if(endpoint =="FranchiseDetails")
     return (get_franchise_details(id))
 
-  if(functionName=="TeamStats")
+  if(endpoint=="TeamStats")
     return(get_team_stats(id))
 }
 
-teamstats <- get_nhl_data("TeamTotal")
-teamstats
+```
+### get_nhl_data(endpoint, id,name)
+
+Caller can use this wrapper function to get corresponding data.This is one-stop-shop function for caller to use
+
+```{r results='hide', warning=FALSE, message=FALSE}
+
+#Usage
+franchiseData <- get_nhl_data("Franchise")
+skaterRecords <- get_nhl_data("SkaterRecords", id= 2, name="team name")
+
 ```
 
-```{r}
+## Using Functions
+
+We will use above functions to create some data tables and plots
+
+### Combining two tables
+
+Below code uses two functions to get the data and combines them into one data table
+
+```{r  warning=FALSE, message=FALSE}
 
 franchiseData <- get_franchise() %>% rename (franchiseId = id )
 combinedFranchiseData <- left_join(franchiseData, get_team_totals(), by=c("franchiseId","lastSeasonId"))
-combinedFranchiseData
+
+knitr::kable(head(combinedFranchiseData%>% 
+          select(franchiseId,fullName,gamesPlayed,gameTypeId, wins,losses,ties,overtimeLosses)))
 
 ```
+
+
+### Adding variables
+
+We will add two new columns to the data that we have combined as WinLossRatio and Home Win percentage
+
+```{r  warning=FALSE, message=FALSE}
+
+# select few columns rather than using all 37 columns
+filteredData <- combinedFranchiseData %>% filter(activeFranchise ==1, !is.null(lastSeasonId)) %>% select(franchiseId,fullName,gamesPlayed,gameTypeId, wins,losses,ties,overtimeLosses, homeWins,homeLosses, homeTies,homeOvertimeLosses) 
+
+# add two new columns WinLoss ratio and Home Win Percentage
+customData2 <- filteredData %>% mutate(winLossRatio = wins/losses, homeWinPctg = (homeWins/gamesPlayed)*100)
+
+#Adding one more column to create some groups
+customData3 <- customData2 %>% mutate(homeWinPctgGroup = case_when(
+    homeWinPctg > 50 ~ 50,
+    homeWinPctg > 40 ~ 40,
+    homeWinPctg > 35 ~ 35,
+    homeWinPctg > 30 ~ 30,
+    homeWinPctg > 25 ~ 25,
+    homeWinPctg > 20 ~ 20,
+    homeWinPctg > 15 ~ 15,
+    homeWinPctg > 10 ~ 10,
+    homeWinPctg < 10 ~ 5,
+    ))
+knitr::kable(head(customData3%>% 
+          select(franchiseId,fullName,gamesPlayed,winLossRatio,homeWinPctg,homeWinPctgGroup ),10))
+      
+
+```
+### Contigency table
+
+Create contingency table using the data that we have just prepared.
+* First one prepares the data for team names
+* Second table is for Home Wins Group with corresponding game types (regular or playoff)
+
+```{r warning=FALSE, message=FALSE}
+
+table(customData3$fullName)
+
+table(customData3$homeWinPctgGroup,customData3$gameTypeId)
+```
+
+
+### Data Summary
+
+
+```{r}
+customData3 %>% group_by(homeWinPctgGroup) %>% summarise(count=n(), Mean_HomeWins = round(mean(homeWins),2))
+  
+```
+
+## Plots
+
+### Box Plot
+
+For boxplot we will use team names and corresponding losses. We have two records for each team (one from regular and other from playoffs), we are using first 5 teams only.
+
+```{r}
+# Take first 5 teams
+selectedData <- customData3 %>% filter(franchiseId < 12)
+
+# Box plot
+ggplot(selectedData, mapping = aes(x = fullName, y = losses, fill=fullName)) +
+  geom_boxplot(outlier.shape = NA) + 
+  ggtitle("Boxplot for losses") +
+  theme(legend.position="none") +
+    scale_fill_brewer(palette="Dark2")
+
+```
+
+### BarPlot
+
+Below BarPlot uses Home Win Percentage Group
 
 ```{r}
 
-filteredData <- combinedFranchiseData %>% filter(activeFranchise ==1, !is.null(lastSeasonId)) %>% select(franchiseId,fullName,gamesPlayed,gameTypeId, wins,losses,ties,overtimeLosses, homeWins,homeLosses, homeTies,homeOvertimeLosses) 
+#Regular game data
+regularGame <- customData3 %>% filter(gameTypeId==3)
 
-
-customData <- filteredData %>% mutate(winLossRatio = wins/losses, homeWinPctg = (homeWins/gamesPlayed)*100)
-customData
+g <- ggplot(data = regularGame , aes(x = homeWinPctgGroup))
+g + geom_bar() + labs(x = "Home Win % by range")
 
 ```
 
+### Histogram
+
+Below histogram shows Overtime Losses and frequency.
+
+```{r}
+
+ggplot(customData3, aes(x = losses, y = ..density..)) + 
+  geom_histogram(bins = 20, size = 0.2) + 
+  geom_density(color="red",size=2,outline.type="full") +
+   ggtitle("Histogram of Losses")
+
+
+ggplot(customData3, aes(x = wins, y = ..density..)) + 
+  geom_histogram(bins = 20, size = 0.2) + 
+  geom_density(color="red",size=2,outline.type="full") +
+   ggtitle("Histogram of Wins")
+
+```
+
+### Scattered plot
+
+Below scattered plot displays homewins against home win percentage and grouped by homewinsgroup 
+
+```{r}
+
+ggplot(customData3, aes(x=homeWins, y=homeWinPctg, color=homeWins)) + 
+    geom_point() +
+  facet_grid(. ~ homeWinPctgGroup) +
+  labs(x = "Home Win Percentage Range")
+
+```
 
