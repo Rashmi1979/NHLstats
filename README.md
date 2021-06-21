@@ -383,7 +383,7 @@ ggplot(selectedData, mapping = aes(x = fullName, y = losses, fill=fullName)) +
     scale_fill_brewer(palette="Dark2")
 ```
 
-![](/Users/Rashmi/MS%20Work/ST558/Homeworks/NHLstats/README_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
 ### BarPlot
 
@@ -397,7 +397,7 @@ g <- ggplot(data = regularGame , aes(x = homeWinPctgGroup))
 g + geom_bar() + labs(x = "Home Win % by range")
 ```
 
-![](/Users/Rashmi/MS%20Work/ST558/Homeworks/NHLstats/README_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
 
 ### Histogram
 
@@ -410,7 +410,7 @@ ggplot(customData3, aes(x = losses, y = ..density..)) +
    ggtitle("Histogram of Losses")
 ```
 
-![](/Users/Rashmi/MS%20Work/ST558/Homeworks/NHLstats/README_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
 
 ``` r
 ggplot(customData3, aes(x = wins, y = ..density..)) + 
@@ -419,7 +419,7 @@ ggplot(customData3, aes(x = wins, y = ..density..)) +
    ggtitle("Histogram of Wins")
 ```
 
-![](/Users/Rashmi/MS%20Work/ST558/Homeworks/NHLstats/README_files/figure-gfm/unnamed-chunk-23-2.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-23-2.png)<!-- -->
 
 ### Scattered plot
 
@@ -433,4 +433,4 @@ ggplot(customData3, aes(x=homeWins, y=homeWinPctg, color=homeWins)) +
   labs(x = "Home Win Percentage Range")
 ```
 
-![](/Users/Rashmi/MS%20Work/ST558/Homeworks/NHLstats/README_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
