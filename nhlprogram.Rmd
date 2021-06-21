@@ -29,7 +29,7 @@ This program provides functions to access NHL records and stats data
 
 this function returns id, firstSeasonId and lastSeasonId and name of every team in the history of the NHL 
 
-```{r echo=FALSE, warning=FALSE}
+```{r warning=FALSE}
 # Franchise Function (get_franchise)
 get_franchise <- function(){
   baseURL <- "https://records.nhl.com/site/api"
@@ -55,7 +55,12 @@ franchiseData <- get_franchise()
 ```
 
 
-```{r echo=FALSE, warning=FALSE, message=FALSE}
+
+### get_team_totals()
+
+This function returns Total stats for every franchise (ex roadTies, roadWins, etc)
+
+```{r warning=FALSE, message=FALSE}
 
 # Team Totals function
 get_team_totals <- function(){
@@ -65,9 +70,6 @@ get_team_totals <- function(){
 }
 
 ```
-### get_team_totals()
-
-This function returns Total stats for every franchise (ex roadTies, roadWins, etc)
 
 ```{r results='hide', warning=FALSE, message=FALSE}
 #Usage
@@ -75,7 +77,12 @@ teamTotals <- get_team_totals()
 ```
 
 
-```{r echo=FALSE, warning=FALSE, message=FALSE}
+
+### get_season_records(ID,name)
+
+This function drill-down into season records for a specific franchise. Caller can provide team ID or name.
+
+```{r  warning=FALSE, message=FALSE}
 
 # Season Records
 get_season_records <- function(ID=0, name=NULL){
@@ -95,9 +102,6 @@ get_season_records <- function(ID=0, name=NULL){
 }
 
 ```
-### get_season_records(ID,name)
-
-This function drill-down into season records for a specific franchise. Caller can provide team ID or name.
 
 ```{r results='hide', warning=FALSE, message=FALSE}
 
@@ -107,7 +111,12 @@ seasonRecords <- get_season_records(name="team name")
 
 ```
 
-```{r echo=FALSE,  warning=FALSE, message=FALSE}
+
+### get_goalie_records(ID,name)
+
+This function drill-down into goalie records for a specific franchise. Caller can provide team ID or name.
+
+```{r  warning=FALSE, message=FALSE}
 
 # Goalie records
 get_goalie_records <- function(ID=0,name=NULL){
@@ -126,9 +135,6 @@ get_goalie_records <- function(ID=0,name=NULL){
 }
 
 ```
-### get_goalie_records(ID,name)
-
-This function drill-down into goalie records for a specific franchise. Caller can provide team ID or name.
 
 ```{r results='hide', warning=FALSE, message=FALSE}
 
@@ -139,7 +145,11 @@ goalieRecords <- get_goalie_records(name="team name")
 ```
 
 
-```{r echo=FALSE,  warning=FALSE, message=FALSE}
+### get_skater_records(ID,name)
+
+This function drill-down into skater records for a specific franchise. Caller can provide team ID or name.
+
+```{r  warning=FALSE, message=FALSE}
 
 #Skater records
 get_skater_records <- function(ID=0, name=NULL){
@@ -157,9 +167,7 @@ get_skater_records <- function(ID=0, name=NULL){
 }
 
 ```
-### get_skater_records(ID,name)
 
-This function drill-down into skater records for a specific franchise. Caller can provide team ID or name.
 
 ```{r results='hide', warning=FALSE, message=FALSE}
 
@@ -169,7 +177,12 @@ skaterRecords <- get_skater_records(name="team name")
 
 ```
 
-```{r echo=FALSE,  warning=FALSE, message=FALSE}
+
+### get_franchise_details(ID)
+
+This function drill-down into franchise details by records for a specific franchise. Caller can provide most recent Team ID
+
+```{r  warning=FALSE, message=FALSE}
 
 #Get mos recent Team ID
 get_franchise_details<- function(ID=0){
@@ -185,9 +198,6 @@ get_franchise_details<- function(ID=0){
 }
 
 ```
-### get_franchise_details(ID)
-
-This function drill-down into franchise details by records for a specific franchise. Caller can provide most recent Team ID
 
 ```{r results='hide', warning=FALSE, message=FALSE}
 
@@ -196,7 +206,12 @@ franchiseDetails <- get_franchise_details(ID=1)
 
 ```
 
-```{r echo=FALSE,  warning=FALSE, message=FALSE}
+
+### get_team_stats(teamID)
+
+This function provides team stats. If ID is provided, it will return the data for specific team, otherwise it will send for all the teams.
+
+```{r  warning=FALSE, message=FALSE}
 
 #Get Team statistics
 get_team_stats<- function(teamID=0){
@@ -209,9 +224,6 @@ get_team_stats<- function(teamID=0){
   return (fromJSON(content(GET(statsURL), "text"),flatten = TRUE))
 }
 ```
-### get_team_stats(teamID)
-
-This function provides team stats. If ID is provided, it will return the data for specific team, otherwise it will send for all the teams.
 
 ```{r results='hide', warning=FALSE, message=FALSE}
 #Usage
@@ -219,7 +231,12 @@ teamStats <- get_team_stats(teamID=1)
 ```
 
 
-```{r echo=FALSE,  warning=FALSE, message=FALSE}
+
+### get_nhl_data(endpoint, id,name)
+
+Caller can use this wrapper function to get corresponding data.This is one-stop-shop function for caller to use
+
+```{r  warning=FALSE, message=FALSE}
 
 # Warapper function 
 get_nhl_data<- function(endpoint,id=0,name=NULL){
@@ -246,9 +263,6 @@ get_nhl_data<- function(endpoint,id=0,name=NULL){
 }
 
 ```
-### get_nhl_data(endpoint, id,name)
-
-Caller can use this wrapper function to get corresponding data.This is one-stop-shop function for caller to use
 
 ```{r results='hide', warning=FALSE, message=FALSE}
 
@@ -261,6 +275,8 @@ skaterRecords <- get_nhl_data("SkaterRecords", id= 2, name="team name")
 ## Using Functions
 
 We will use above functions to create some data tables and plots
+
+
 
 ### Combining two tables
 

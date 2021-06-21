@@ -23,6 +23,23 @@ this function returns id, firstSeasonId and lastSeasonId and name of
 every team in the history of the NHL
 
 ``` r
+# Franchise Function (get_franchise)
+get_franchise <- function(){
+  baseURL <- "https://records.nhl.com/site/api"
+  franchiseURL <-  paste0(baseURL, "/franchise")
+  return (fromJSON(content(GET(franchiseURL), "text"),flatten = TRUE)$data)
+}
+
+#Helper function to get ID from Name
+get_franchise_id <- function(name){
+  baseURL <- "https://records.nhl.com/site/api"
+  franchiseURL <-  paste0(baseURL, "/franchise")
+  frachiseData <- fromJSON(content(GET(franchiseURL), "text"),flatten = TRUE)$data
+  id <- filter(frachiseData, fullName==name)$id
+}
+```
+
+``` r
 #Usage
 franchiseData <- get_franchise()
 ```
@@ -33,6 +50,15 @@ This function returns Total stats for every franchise (ex roadTies,
 roadWins, etc)
 
 ``` r
+# Team Totals function
+get_team_totals <- function(){
+  baseURL <- "https://records.nhl.com/site/api"
+  teamURL <-  paste0(baseURL, "/franchise-team-totals")
+  return (fromJSON(content(GET(teamURL), "text"),flatten = TRUE)$data)
+}
+```
+
+``` r
 #Usage
 teamTotals <- get_team_totals()
 ```
@@ -41,6 +67,25 @@ teamTotals <- get_team_totals()
 
 This function drill-down into season records for a specific franchise.
 Caller can provide team ID or name.
+
+``` r
+# Season Records
+get_season_records <- function(ID=0, name=NULL){
+  
+  if(ID ==0 && is.null(name))
+    return("Please provide valid ID or name")
+  
+  baseURL <- "https://records.nhl.com/site/api"
+  
+  if(ID == 0 && !is.null(name)){
+    ID = get_franchise_id(name)
+  }
+    
+  seasonURL <-  paste0(baseURL, "/franchise-season-records?cayenneExp=franchiseId=",ID)
+  return (fromJSON(content(GET(seasonURL), "text"),flatten = TRUE)$data)
+  
+}
+```
 
 ``` r
 #Usage
@@ -54,6 +99,24 @@ This function drill-down into goalie records for a specific franchise.
 Caller can provide team ID or name.
 
 ``` r
+# Goalie records
+get_goalie_records <- function(ID=0,name=NULL){
+  
+  if(ID ==0 && is.null(name))
+    return("Please provide valid ID or name")
+  
+  baseURL <- "https://records.nhl.com/site/api"
+  
+  if(ID == 0 && !is.null(name)){
+    ID = get_franchise_id(name)
+  }
+ 
+  goalieURL <-  paste0(baseURL, "/franchise-goalie-records?cayenneExp=franchiseId=",ID)
+  return (fromJSON(content(GET(goalieURL), "text"),flatten = TRUE)$data)
+}
+```
+
+``` r
 #Usage
 goalieRecords <- get_goalie_records(ID=1)
 goalieRecords <- get_goalie_records(name="team name")
@@ -63,6 +126,23 @@ goalieRecords <- get_goalie_records(name="team name")
 
 This function drill-down into skater records for a specific franchise.
 Caller can provide team ID or name.
+
+``` r
+#Skater records
+get_skater_records <- function(ID=0, name=NULL){
+  if(ID ==0 && is.null(name))
+    return("Please provide valid ID or name")
+  
+  baseURL <- "https://records.nhl.com/site/api"
+  
+  if(ID == 0 && !is.null(name)){
+    ID = get_franchise_id(name)
+  }
+ 
+  skaterURL<-paste0(baseURL,"/franchise-skater-records?cayenneExp=franchiseId=",ID)
+  return (fromJSON(content(GET(skaterURL), "text"),flatten = TRUE)$data)
+}
+```
 
 ``` r
 #Usage
@@ -76,6 +156,21 @@ This function drill-down into franchise details by records for a
 specific franchise. Caller can provide most recent Team ID
 
 ``` r
+#Get mos recent Team ID
+get_franchise_details<- function(ID=0){
+
+  if(ID ==0)
+    return("Please provide valid most recent team id")
+  
+  baseURL <- "https://records.nhl.com/site/api"
+  
+  mrtURL<-paste0(baseURL,"/franchise-detail?cayenneExp=mostRecentTeamId=",ID)
+  return (fromJSON(content(GET(mrtURL), "text"),flatten = TRUE)$data)
+  
+}
+```
+
+``` r
 #Usage
 franchiseDetails <- get_franchise_details(ID=1)
 ```
@@ -86,6 +181,19 @@ This function provides team stats. If ID is provided, it will return the
 data for specific team, otherwise it will send for all the teams.
 
 ``` r
+#Get Team statistics
+get_team_stats<- function(teamID=0){
+  baseURL <- "https://statsapi.web.nhl.com/api/v1/teams"
+  statsURL<-paste0(baseURL,"?expand=team.stats")    
+  
+  if(teamID > 0){
+    statsURL <-paste0(baseURL,"/",teamID,"?expand=team.stats") 
+  }
+  return (fromJSON(content(GET(statsURL), "text"),flatten = TRUE))
+}
+```
+
+``` r
 #Usage
 teamStats <- get_team_stats(teamID=1)
 ```
@@ -94,6 +202,32 @@ teamStats <- get_team_stats(teamID=1)
 
 Caller can use this wrapper function to get corresponding data.This is
 one-stop-shop function for caller to use
+
+``` r
+# Warapper function 
+get_nhl_data<- function(endpoint,id=0,name=NULL){
+  if(endpoint =="Franchise")
+    return (get_franchise())
+  
+  if(endpoint =="TeamTotal")
+    return (get_team_totals())
+  
+  if(endpoint =="SeasonRecords")
+    return (get_season_records(id,name))
+  
+  if(endpoint =="GoalieRecords")
+    return (get_goalie_records(id,name))
+  
+  if(endpoint =="SkaterRecords")
+    return (get_skater_records(id,name))
+  
+  if(endpoint =="FranchiseDetails")
+    return (get_franchise_details(id))
+
+  if(endpoint=="TeamStats")
+    return(get_team_stats(id))
+}
+```
 
 ``` r
 #Usage
