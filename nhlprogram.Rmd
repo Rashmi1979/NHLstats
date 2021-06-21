@@ -1,9 +1,10 @@
 ---
 title: "Project 1"
-
+knit: (function(inputFile, encoding) { 
+      rmarkdown::render(inputFile, encoding = encoding, output_file = paste0(dirname(inputFile),'/README.md')) })
 output:
-  github_document 
-      
+  github_document
+    
 ---
 
 
