@@ -1,5 +1,6 @@
 ---
 title: "Project 1"
+author: "Rashmi Kadam" 
 knit: (function(inputFile, encoding) { 
       rmarkdown::render(inputFile, encoding = encoding, output_file = paste0(dirname(inputFile),'/README.md')) })
 output:
@@ -8,7 +9,7 @@ output:
 ---
 
 
-```{r setup, include=FALSE}
+```{r setup,  warning=FALSE, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(httr)
 library(jsonlite)

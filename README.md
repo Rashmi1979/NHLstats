@@ -1,5 +1,15 @@
 Project 1
 ================
+Rashmi Kadam
+
+``` r
+knitr::opts_chunk$set(echo = TRUE)
+library(httr)
+library(jsonlite)
+library(bigrquery)
+library(tidyverse)
+library(ggplot2)
+```
 
 # NHL Data statistics
 
