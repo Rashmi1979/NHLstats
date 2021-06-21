@@ -8,4 +8,4 @@ Creating 6 basic functions were easy to write since those were covered in the cl
 
 Asking as many as question up front is good idea, rather than starting late and struggling to find the answers. More practice on the plots is required.
 
-You can access my code [here](https://github.com/Rashmi1979/NHLstats/README.md)
+You can access my code [here](https://github.com/Rashmi1979/NHLstats/blob/main/README.md)
